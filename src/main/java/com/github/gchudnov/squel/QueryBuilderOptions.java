@@ -42,14 +42,6 @@ public class QueryBuilderOptions {
     public String separator = " ";
 
 
-    /* TABLE-RELATED */
-
-    // only allow one table to be specified  (default: false)
-    //public boolean singleTable = false;
-
-    // allow nested query to be specified as a table    (default: false)
-    //public boolean allowNested = false;
-
     /* FIELD-RELATED */
 
     // whether to ignore period (.) when automatically quoting the field name
