@@ -17,13 +17,13 @@ public class QueryBuilderOptions {
     public boolean autoQuoteAliasNames = true;
 
     // The quote character used for when quoting table and field names
-    public char nameQuoteCharacter = '`';
+    public String nameQuoteCharacter = "`";
 
     // The quote character used for when quoting table alias names
-    public char tableAliasQuoteCharacter = '`';
+    public String tableAliasQuoteCharacter = "`";
 
     // The quote character used for when quoting table alias names
-    public char fieldAliasQuoteCharacter = '"';
+    public String fieldAliasQuoteCharacter = "\"";
 
     // Custom value handlers where key is the value type and the value is the handler function
     // valueHandlers: []

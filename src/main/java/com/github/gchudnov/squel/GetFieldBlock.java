@@ -49,16 +49,17 @@ public class GetFieldBlock extends Block {
     //
     // options.ignorePeriodsForFieldNameQuotes - whether to ignore period (.) when automatically quoting the field name
     public void field(String field, String alias) {
-        //field = @_sanitizeField(field, options)
-        //alias = @_sanitizeFieldAlias(alias) if alias
+        String fieldValue = _sanitizeField(field);
+        String aliasValue = alias != null ? _sanitizeFieldAlias(alias) : null;
 
-        if (mFieldAliases.containsKey(field) && mFieldAliases.get(field).equals(alias)) {
-            return;
-        }
+        doField(fieldValue, aliasValue);
+    }
 
-        mFieldAliases.put(field, alias);
+    public void field(QueryBuilder field, String alias) {
+        String fieldName = _sanitizeField(field);
+        String aliasValue = alias != null ? _sanitizeFieldAlias(alias) : null;
 
-        mFields.add(new FieldNode(field, alias));
+        doField(fieldName, aliasValue);
     }
 
     @Override
@@ -77,5 +78,15 @@ public class GetFieldBlock extends Block {
         }
 
         return (Util.isEmpty(fields) ? "*" : fields);
+    }
+
+    private void doField(String field, String alias) {
+        if (mFieldAliases.containsKey(field) && mFieldAliases.get(field).equals(alias)) {
+            return;
+        }
+
+        mFieldAliases.put(field, alias);
+
+        mFields.add(new FieldNode(field, alias));
     }
 }

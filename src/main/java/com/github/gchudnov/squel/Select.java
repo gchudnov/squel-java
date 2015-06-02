@@ -48,6 +48,12 @@ public class Select extends QueryBuilder {
         return this;
     }
 
+    public QueryBuilder field(QueryBuilder field, String alias) {
+        GetFieldBlock block = (GetFieldBlock) mBlocks.get(2);
+        block.field(field, alias);
+        return this;
+    }
+
     public QueryBuilder group(String field) {
         GroupByBlock block = (GroupByBlock) mBlocks.get(6);
         block.group(field);

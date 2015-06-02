@@ -1,5 +1,6 @@
 package com.github.gchudnov.squel;
 
+import javax.management.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,10 @@ public abstract class QueryBuilder extends BaseBuilder {
     }
 
     public QueryBuilder field(String field, String alias) {
+        throw new UnsupportedOperationException("`field` not implemented");
+    }
+
+    public QueryBuilder field(QueryBuilder field, String alias) {
         throw new UnsupportedOperationException("`field` not implemented");
     }
 
