@@ -55,11 +55,15 @@ public class BaseBuilder {
         return value;
     }
 
+    protected String _sanitizeTable(QueryBuilder name) {
+        return ("(" + name.toString() + ")");
+    }
+
     protected String _sanitizeTable(String name) {
         return (mOptions.autoQuoteTableNames ? mOptions.nameQuoteCharacter + name + mOptions.nameQuoteCharacter : name);
     }
 
     protected String _sanitizeTableAlias(String value) {
-        return (mOptions.autoQuoteAliasNames ? mOptions.tableAliasQuoteCharacter + value + mOptions.tableAliasQuoteCharacter : value);
+        return (value != null ? (mOptions.autoQuoteAliasNames ? mOptions.tableAliasQuoteCharacter + value + mOptions.tableAliasQuoteCharacter : value) : null);
     };
 }

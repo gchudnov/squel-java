@@ -96,6 +96,14 @@ public abstract class QueryBuilder extends BaseBuilder {
         return join(table, alias, condition, null);
     }
 
+    public QueryBuilder join(QueryBuilder table, String alias, String condition) {
+        return join(table, alias, condition, null);
+    }
+
+    public QueryBuilder join(QueryBuilder table, String alias, String condition, String type) {
+        throw new UnsupportedOperationException("`join` not implemented");
+    }
+
     public QueryBuilder join(String table, String alias, String condition, String type) {
         throw new UnsupportedOperationException("`join` not implemented");
     }

@@ -19,7 +19,7 @@ public class FromTableBlock extends AbstractTableBlock {
 
     @Override
     public String buildStr(QueryBuilder queryBuilder) {
-        // if 0 >= @tables.length then throw new Error "from() needs to be called"
+        assert !mTables.isEmpty();
         String tables = super.buildStr(queryBuilder);
         return "FROM " + tables;
     }

@@ -91,6 +91,32 @@ public class SelectTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void deepNestedQuery() {
+        QueryBuilder inner1 = Squel.select().from("students");
+        QueryBuilder inner2 = Squel.select().from(inner1);
+
+        String actual = Squel.select()
+                .from(inner2)
+                .toString();
+
+        String expected = "SELECT * FROM (SELECT * FROM (SELECT * FROM students))";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void nestingInJoinsQuery() {
+        QueryBuilder inner1 = Squel.select().from("students");
+        QueryBuilder inner2 = Squel.select().from(inner1);
+
+        String actual = Squel.select()
+                .from("schools")
+                .join(inner2, "meh", "meh.ID = ID")
+                .toString();
+
+        String expected = "SELECT * FROM schools INNER JOIN (SELECT * FROM (SELECT * FROM students)) `meh` ON (meh.ID = ID)";
+        assertEquals(expected, actual);
+    }
 
 
     /*

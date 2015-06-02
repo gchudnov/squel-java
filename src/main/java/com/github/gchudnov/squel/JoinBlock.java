@@ -39,47 +39,50 @@ public class JoinBlock extends Block {
     //
     // 'type' must be either one of INNER, OUTER, LEFT or RIGHT. Default is 'INNER'.
     //
-    public JoinBlock join(String table, String alias, String condition, String type) {
-        if (Util.isEmpty(type)) {
-            type = "INNER";
-        }
-
-//        table = @_sanitizeTable(table, true)
-//        alias = @_sanitizeTableAlias(alias) if alias
+    public void join(String table, String alias, String condition, String type) {
+        table = _sanitizeTable(table);
+        alias = _sanitizeTableAlias(alias);
 //        condition = @_sanitizeCondition(condition) if condition
 
-        mJoins.add(new JoinNode(type, table, alias, condition));
-        return this;
+        doJoin(table, alias, condition, type);
+    }
+
+    public void join(QueryBuilder table, String alias, String condition, String type) {
+        String tableName = _sanitizeTable(table);
+        alias = _sanitizeTableAlias(alias);
+//        condition = @_sanitizeCondition(condition) if condition
+
+        doJoin(tableName, alias, condition, type);
     }
 
     // Add a LEFT JOIN with the given table.
-    public JoinBlock left_join(String table, String alias, String condition) {
-        return this.join(table, alias, condition, "LEFT");
+    public void left_join(String table, String alias, String condition) {
+        this.join(table, alias, condition, "LEFT");
     }
 
     // Add a RIGHT JOIN with the given table.
-    public JoinBlock right_join(String table, String alias, String condition) {
-        return this.join(table, alias, condition, "RIGHT");
+    public void right_join(String table, String alias, String condition) {
+        this.join(table, alias, condition, "RIGHT");
     }
 
     // Add a OUTER JOIN with the given table.
-    public JoinBlock outer_join(String table, String alias, String condition) {
-        return this.join(table, alias, condition, "OUTER");
+    public void outer_join(String table, String alias, String condition) {
+        this.join(table, alias, condition, "OUTER");
     }
 
     // Add a LEFT JOIN with the given table.
-    public JoinBlock left_outer_join(String table, String alias, String condition) {
-        return this.join(table, alias, condition, "LEFT OUTER");
+    public void left_outer_join(String table, String alias, String condition) {
+        this.join(table, alias, condition, "LEFT OUTER");
     }
 
     // Add an FULL JOIN with the given table.
-    public JoinBlock full_join(String table, String alias, String condition) {
-        return this.join(table, alias, condition, "FULL");
+    public void full_join(String table, String alias, String condition) {
+        this.join(table, alias, condition, "FULL");
     }
 
     // Add an CROSS JOIN with the given table.
-    public JoinBlock cross_join(String table, String alias, String condition) {
-        return this.join(table, alias, condition, "CROSS");
+    public void cross_join(String table, String alias, String condition) {
+        this.join(table, alias, condition, "CROSS");
     }
 
     @Override
@@ -105,5 +108,13 @@ public class JoinBlock extends Block {
         }
 
         return joins;
+    }
+
+    private void doJoin(String table, String alias, String condition, String type) {
+        if (Util.isEmpty(type)) {
+            type = "INNER";
+        }
+
+        mJoins.add(new JoinNode(type, table, alias, condition));
     }
 }

@@ -87,6 +87,12 @@ public class Select extends QueryBuilder {
         return this;
     }
 
+    public QueryBuilder join(QueryBuilder table, String alias, String condition, String type) {
+        JoinBlock block = (JoinBlock) mBlocks.get(4);
+        block.join(table, alias, condition, type);
+        return this;
+    }
+
     @Override
     public QueryBuilder where(String condition) {
         WhereBlock block = (WhereBlock) mBlocks.get(5);
