@@ -10,7 +10,7 @@ public class Select extends QueryBuilder {
     public Select(QueryBuilderOptions options) {
         super(options, Arrays.asList(
                 new StringBlock(options, "SELECT"),
-                new DistinctBlock(options),
+                new DistinctBlock(options),  // 1
                 new GetFieldBlock(options),  // 2
                 new FromTableBlock(options), // 3
                 new JoinBlock(options),      // 4
@@ -26,6 +26,13 @@ public class Select extends QueryBuilder {
     @Override
     public boolean isNestable() {
         return true;
+    }
+
+    @Override
+    public QueryBuilder distinct() {
+        DistinctBlock block = (DistinctBlock) mBlocks.get(1);
+        block.distinct();
+        return this;
     }
 
     public QueryBuilder from(String table) {

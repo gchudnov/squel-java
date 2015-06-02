@@ -36,6 +36,13 @@ public abstract class QueryBuilder extends BaseBuilder {
     }
 
     //
+    // DISTINCT
+    //
+    public QueryBuilder distinct() {
+        throw new UnsupportedOperationException("`distinct` not implemented");
+    }
+
+    //
     // FROM
     //
 

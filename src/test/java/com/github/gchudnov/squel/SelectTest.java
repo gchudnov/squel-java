@@ -39,20 +39,30 @@ public class SelectTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void fieldSelectQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1").field("field2")
+                .toString();
+        String expected = "SELECT field1 AS \"fa1\", field2 FROM table, table2 `alias2`";
+        assertEquals(expected, actual);
+    }
 
-
+    @Test
+    public void distinctQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1").field("field2")
+                .distinct()
+                .toString();
+        String expected = "SELECT DISTINCT field1 AS \"fa1\", field2 FROM table, table2 `alias2`";
+        assertEquals(expected, actual);
+    }
 
     /*
-      '>> field(squel.select().field("MAX(score)").FROM("scores"), fa1)':
-        beforeEach: -> @inst.field(squel.select().field("MAX(score)").from("scores"), 'fa1')
-        toString: ->
-          assert.same @inst.toString(), 'SELECT (SELECT MAX(score) FROM scores) AS "fa1" FROM table, table2 `alias2`'
-
-      '>> field(field1, fa1) >> field(field2)':
-        beforeEach: -> @inst.field('field1', 'fa1').field('field2')
-        toString: ->
-          assert.same @inst.toString(), 'SELECT field1 AS "fa1", field2 FROM table, table2 `alias2`'
-
 
      */
 
