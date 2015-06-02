@@ -13,8 +13,8 @@ public class FromTableBlock extends AbstractTableBlock {
         super._table(table, alias);
     }
 
-    public void from(String table) {
-        super._table(table, null);
+    public void from(QueryBuilder table, String alias) {
+        super._table(table, alias);
     }
 
     @Override

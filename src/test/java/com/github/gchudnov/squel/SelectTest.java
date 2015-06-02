@@ -62,6 +62,37 @@ public class SelectTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void groupQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1").field("field2")
+                .distinct()
+                .group("field").group("field2")
+                .toString();
+        String expected = "SELECT DISTINCT field1 AS \"fa1\", field2 FROM table, table2 `alias2` GROUP BY field, field2";
+        assertEquals(expected, actual);
+    }
+
+    /// TODO: ADD WHERE-TESTS
+
+    @Test
+    public void nestedQuery() {
+        QueryBuilder inner1 = Squel.select().from("students");
+        QueryBuilder inner2 = Squel.select().from("scores");
+
+        String actual = Squel.select()
+                .from(inner1)
+                .from(inner2, "scores")
+                .toString();
+
+        String expected = "SELECT * FROM (SELECT * FROM students), (SELECT * FROM scores) `scores`";
+        assertEquals(expected, actual);
+    }
+
+
+
     /*
 
      */

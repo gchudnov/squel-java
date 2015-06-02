@@ -37,18 +37,19 @@ public class AbstractTableBlock extends Block {
         if(alias != null) {
             alias = _sanitizeTableAlias(alias);
         }
-        //table = @_sanitizeTable(table, @options.allowNested or false)
-
-        if (mOptions.singleTable) {
-            mTables = new ArrayList<>();
-        }
+        table = _sanitizeTable(table);
 
         mTables.add(new TableNode(table, alias));
     }
 
+    protected void _table(QueryBuilder table, String alias) {
+        String tableName = "(" + table.toString() + ")";
+        _table(tableName, alias);
+    }
+
     @Override
     public String buildStr(QueryBuilder queryBuilder) {
-        /// if 0 >= mTables.length then throw new Error "_table() needs to be called"
+        assert !mTables.isEmpty();
 
         String tables = "";
         for (TableNode table : mTables) {

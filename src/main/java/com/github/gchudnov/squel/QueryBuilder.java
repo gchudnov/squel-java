@@ -30,11 +30,6 @@ public abstract class QueryBuilder extends BaseBuilder {
         return Util.joinNonEmpty(mOptions.separator, results.toArray(new String[results.size()]));
     }
 
-    // Get whether queries built with this builder can be nested within other queries
-    public boolean isNestable() {
-        return false;
-    }
-
     //
     // DISTINCT
     //
@@ -50,7 +45,15 @@ public abstract class QueryBuilder extends BaseBuilder {
         throw new UnsupportedOperationException("`from` not implemented");
     }
 
+    public QueryBuilder from(QueryBuilder table) {
+        throw new UnsupportedOperationException("`from` not implemented");
+    }
+
     public QueryBuilder from(String table, String alias) {
+        throw new UnsupportedOperationException("`from` not implemented");
+    }
+
+    public QueryBuilder from(QueryBuilder table, String alias) {
         throw new UnsupportedOperationException("`from` not implemented");
     }
 
