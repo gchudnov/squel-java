@@ -58,8 +58,6 @@ public class AbstractTableBlock extends Block {
             }
             tables += table.table;
 
-            // building a nested query -- TODO
-
             if (table.alias != null) {
                 tables += " " + table.alias;
             }
