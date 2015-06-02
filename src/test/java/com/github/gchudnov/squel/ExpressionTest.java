@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Expression Test.
+ * Expression Tests.
  */
 public class ExpressionTest {
 
@@ -26,6 +26,27 @@ public class ExpressionTest {
                 .toString();
 
         String expected = "bla";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void simpleAndTest() {
+        String actual = Squel.expr()
+                .and("test = 3")
+                .toString();
+
+        String expected = "test = 3";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void twoAndTest() {
+        String actual = Squel.expr()
+                .and("test = 3")
+                .and("flight = '4'")
+                .toString();
+
+        String expected = "test = 3 AND flight = '4'";
         assertEquals(expected, actual);
     }
 
