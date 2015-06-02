@@ -19,4 +19,7 @@ public class BaseBuilder {
         this.mOptions = options;
     }
 
+    protected String _sanitizeTableAlias(String value) {
+        return (mOptions.autoQuoteAliasNames ? mOptions.tableAliasQuoteCharacter + value + mOptions.tableAliasQuoteCharacter : value);
+    };
 }

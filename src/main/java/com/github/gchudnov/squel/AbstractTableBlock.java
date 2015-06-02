@@ -34,7 +34,9 @@ public class AbstractTableBlock extends Block {
     //
     // Concrete subclasses should provide a method which calls this
     protected void _table(String table, String alias) {
-        //alias = @_sanitizeTableAlias(alias) if alias
+        if(alias != null) {
+            alias = _sanitizeTableAlias(alias);
+        }
         //table = @_sanitizeTable(table, @options.allowNested or false)
 
         if (mOptions.singleTable) {
