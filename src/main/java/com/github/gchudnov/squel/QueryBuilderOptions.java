@@ -49,4 +49,9 @@ public class QueryBuilderOptions {
 
     // allow nested query to be specified as a table    (default: false)
     public boolean allowNested = false;
+
+    /* FIELD-RELATED */
+
+    // whether to ignore period (.) when automatically quoting the field name
+    public boolean ignorePeriodsForFieldNameQuotes = false;
 }
