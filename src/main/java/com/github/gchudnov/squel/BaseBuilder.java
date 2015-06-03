@@ -66,4 +66,67 @@ public class BaseBuilder {
     protected String _sanitizeTableAlias(String value) {
         return (value != null ? (mOptions.autoQuoteAliasNames ? mOptions.tableAliasQuoteCharacter + value + mOptions.tableAliasQuoteCharacter : value) : null);
     };
+
+    // Escape a string value, e.g. escape quotes and other characters within it.
+    private String _escapeValue(String value) {
+        return (mOptions.replaceSingleQuotes ? value.replaceAll("'", mOptions.singleQuoteReplacement) : value);
+    }
+
+    private String _formatNull() {
+        return "NULL";
+    }
+
+    private String _formatBoolean(boolean value) {
+        return (value ? "TRUE" : "FALSE");
+    }
+
+    private String _formatNumber(int value) {
+        return String.valueOf(value);
+    }
+
+    private String _formatString(String value) {
+        if(!mOptions.dontQuote) {
+            return "'" + this._escapeValue(value) + "'";
+        }
+
+        return value;
+    }
+
+    private String _formatQueryBuilder(QueryBuilder value) {
+        return "(" + value.toString() + ")";
+    }
+
+    private String _formatExpression(Expression value) {
+        return "(" + value.toString() + ")";
+    }
+
+    protected String _formatArray(Object[] values) {
+        List<String> results = new ArrayList<>();
+        for(Object value: values) {
+            results.add(_formatValue(value));
+        }
+        return "(" + Util.join(", ", results.toArray(new String[results.size()])) + ")";
+    }
+
+    protected String _formatValue(Object value) {
+        if(value == null) {
+            return _formatNull();
+        } else {
+            if(value instanceof Integer) {
+                return _formatNumber((int)value);
+            } else if(value instanceof String) {
+                return _formatString((String)value);
+            } else if(value instanceof Boolean) {
+                return _formatBoolean((boolean)value);
+            } else if(value instanceof QueryBuilder) {
+                return _formatQueryBuilder((QueryBuilder)value);
+            } else if(value instanceof Expression) {
+                return _formatExpression((Expression)value);
+            } else if(value instanceof Object[]) {
+                return _formatArray((Object[])value);
+            }
+        }
+
+        return value.toString();
+    }
 }

@@ -63,6 +63,47 @@ public class ExpressionTest {
     }
 
     @Test
+    public void andParameter() {
+        String actual = Squel.expr()
+                .and("test = ?", 3)
+                .toString();
+
+        String expected = "test = 3";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void andNull() {
+        String actual = Squel.expr()
+                .and("test = ?", null)
+                .toString();
+
+        String expected = "test = NULL";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void andParameters() {
+        String actual = Squel.expr()
+                .and("test = ?", 3)
+                .and("flight = ?", "4")
+                .toString();
+
+        String expected = "test = 3 AND flight = '4'";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void andArrayParameters() {
+        String actual = Squel.expr()
+                .and("dummy IN ?", new Object[]{ false, 2, null, "str" })
+                .toString();
+
+        String expected = "dummy IN (FALSE, 2, NULL, 'str')";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void composite() {
         String actual = Squel.expr()
                 .and("test = 4")
@@ -75,7 +116,7 @@ public class ExpressionTest {
                     .and("inner = 4")
                     .or_begin()
                         .or("inner = 5")
-                .end()
+                    .end()
                 .end()
                 .toString();
 

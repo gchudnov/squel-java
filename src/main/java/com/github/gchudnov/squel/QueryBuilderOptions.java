@@ -46,4 +46,9 @@ public class QueryBuilderOptions {
 
     // whether to ignore period (.) when automatically quoting the field name
     public boolean ignorePeriodsForFieldNameQuotes = false;
+
+    /* FORMATTING-VALUE */
+
+    // whether quote string values while formatting
+    public boolean dontQuote = false;
 }

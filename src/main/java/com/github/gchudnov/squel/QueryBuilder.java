@@ -1,6 +1,5 @@
 package com.github.gchudnov.squel;
 
-import javax.management.Query;
 import java.util.ArrayList;
 import java.util.List;
 
