@@ -104,18 +104,49 @@ public class ExpressionTest {
     }
 
     @Test
+    public void orParameter() {
+        String actual = Squel.expr()
+                .or("test = ?", 3)
+                .toString();
+
+        String expected = "test = 3";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void orParameters() {
+        String actual = Squel.expr()
+                .or("test = ?", 3)
+                .or("flight = ?", "4")
+                .toString();
+
+        String expected = "test = 3 OR flight = '4'";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void orArrayParameters() {
+        String actual = Squel.expr()
+                .or("dummy IN ?", new Object[]{ false, 2, null, "str" })
+                .toString();
+
+        String expected = "dummy IN (FALSE, 2, NULL, 'str')";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void composite() {
         String actual = Squel.expr()
-                .and("test = 4")
+                .and("test = ?", 4)
                 .and_begin()
-                    .or("inner = 1")
-                    .or("inner = 2")
+                    .or("inner = ?", 1)
+                    .or("inner = ?", 2)
                 .end()
                 .or_begin()
-                    .and("inner = 3")
-                    .and("inner = 4")
+                    .and("inner = ?", 3)
+                    .and("inner = ?", 4)
                     .or_begin()
-                        .or("inner = 5")
+                        .or("inner = ?", 5)
                     .end()
                 .end()
                 .toString();

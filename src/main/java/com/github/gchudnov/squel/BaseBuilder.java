@@ -80,7 +80,7 @@ public class BaseBuilder {
         return (value ? "TRUE" : "FALSE");
     }
 
-    private String _formatNumber(int value) {
+    private String _formatNumber(Number value) {
         return String.valueOf(value);
     }
 
@@ -112,8 +112,8 @@ public class BaseBuilder {
         if(value == null) {
             return _formatNull();
         } else {
-            if(value instanceof Integer) {
-                return _formatNumber((int)value);
+            if(value instanceof Number) {
+                return _formatNumber((Number)value);
             } else if(value instanceof String) {
                 return _formatString((String)value);
             } else if(value instanceof Boolean) {
