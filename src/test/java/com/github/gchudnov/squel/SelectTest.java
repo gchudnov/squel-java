@@ -75,6 +75,36 @@ public class SelectTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void limitQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .limit(10)
+                .toString();
+        String expected = "SELECT * FROM table LIMIT 10";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void orderByAscQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .order("id")
+                .toString();
+        String expected = "SELECT * FROM table ORDER BY id ASC";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void orderByDescQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .order("id", OrderDirection.DESC)
+                .toString();
+        String expected = "SELECT * FROM table ORDER BY id DESC";
+        assertEquals(expected, actual);
+    }
+
     /// TODO: ADD WHERE-TESTS
 
     @Test

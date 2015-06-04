@@ -16,8 +16,8 @@ public class Select extends QueryBuilder {
                 new JoinBlock(options),      // 4
                 new WhereBlock(options),     // 5
                 new GroupByBlock(options),   // 6
-                new OrderByBlock(options),
-                new LimitBlock(options),
+                new OrderByBlock(options),   // 7
+                new LimitBlock(options),     // 8
                 new OffsetBlock(options),
                 new UnionBlock(options)
         ));
@@ -104,6 +104,20 @@ public class Select extends QueryBuilder {
     public QueryBuilder where(Expression condition) {
         WhereBlock block = (WhereBlock) mBlocks.get(5);
         block.where(condition);
+        return this;
+    }
+
+    @Override
+    public QueryBuilder limit(int value) {
+        LimitBlock block = (LimitBlock)mBlocks.get(8);
+        block.setLimit(value);
+        return this;
+    }
+
+    @Override
+    public QueryBuilder order(String field, OrderDirection dir) {
+        OrderByBlock block = (OrderByBlock)mBlocks.get(7);
+        block.setOrder(field, dir);
         return this;
     }
 }

@@ -83,6 +83,7 @@ public abstract class QueryBuilder extends BaseBuilder {
     //
     // JOIN
     //
+
     public QueryBuilder join(String table) {
         return join(table, null, null, null);
     }
@@ -141,5 +142,25 @@ public abstract class QueryBuilder extends BaseBuilder {
 
     public QueryBuilder where(Expression condition) {
         throw new UnsupportedOperationException("`where` not implemented");
+    }
+
+    //
+    // LIMIT
+    //
+
+    public QueryBuilder limit(int value) {
+        throw new UnsupportedOperationException("`limit` not implemented");
+    }
+
+    //
+    // ORDER BY
+    //
+
+    public QueryBuilder order(String field, OrderDirection dir) {
+        throw new UnsupportedOperationException("`order` not implemented");
+    }
+
+    public QueryBuilder order(String field) {
+        return order(field, OrderDirection.ASC);
     }
 }
