@@ -94,16 +94,16 @@ public class Select extends QueryBuilder {
     }
 
     @Override
-    public QueryBuilder where(String condition) {
+    public <P> QueryBuilder where(String condition, P param) {
         WhereBlock block = (WhereBlock) mBlocks.get(5);
-        block.where(condition);
+        block.where(condition, param);
         return this;
     }
 
     @Override
-    public QueryBuilder where(Expression condition) {
+    public <P> QueryBuilder where(Expression condition, P param) {
         WhereBlock block = (WhereBlock) mBlocks.get(5);
-        block.where(condition);
+        block.where(condition, param);
         return this;
     }
 

@@ -117,7 +117,97 @@ public class SelectTest {
         assertEquals(expected, actual);
     }
 
-    /// TODO: ADD WHERE-TESTS
+    @Test
+    public void whereQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .where("a = 1")
+                .toString();
+        String expected = "SELECT * FROM table WHERE (a = 1)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void whereParameterQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .where("a = ?", 1)
+                .toString();
+        String expected = "SELECT * FROM table WHERE (a = 1)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void whereExpressionParameterQuery() {
+        QueryBuilder q = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1").field("field2")
+                .distinct()
+                .group("field").group("field2");
+        QueryBuilder cond = Squel.select().field("MAX(score)").from("scores");
+        QueryBuilder sql = q.where("a = ?", cond);
+
+        String actual = sql.toString();
+        String expected = "SELECT DISTINCT field1 AS \"fa1\", field2 FROM table, table2 `alias2` WHERE (a = (SELECT MAX(score) FROM scores)) GROUP BY field, field2";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void whereExpressionQuery() {
+        QueryBuilder q = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1").field("field2")
+                .distinct()
+                .group("field").group("field2");
+        Expression expr = Squel.expr()
+                .and("a = ?", 1)
+                .and_begin()
+                    .or("b = ?", 2)
+                    .or("c = ?", 3)
+                .end();
+        QueryBuilder sql = q.where(expr);
+
+        String actual = sql.toString();
+        String expected = "SELECT DISTINCT field1 AS \"fa1\", field2 FROM table, table2 `alias2` WHERE (a = 1 AND (b = 2 OR c = 3)) GROUP BY field, field2";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void whereExpressionSubQuery() {
+        QueryBuilder q = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1").field("field2")
+                .distinct()
+                .group("field").group("field2");
+        QueryBuilder subQuery = Squel.select().field("field1").from("table1").where("field2 = ?", 10);
+        Expression exp = Squel.expr()
+                .and("a = ?", subQuery)
+                .and_begin()
+                    .or("b = ?", 2)
+                    .or("c = ?", 3)
+                .end();
+        QueryBuilder sql = q.where(exp);
+        String actual = sql.toString();
+        String expected = "SELECT DISTINCT field1 AS \"fa1\", field2 FROM table, table2 `alias2` WHERE (a = (SELECT field1 FROM table1 WHERE (field2 = 10)) AND (b = 2 OR c = 3)) GROUP BY field, field2";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void whereNullQuery() {
+        QueryBuilder sql = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1").field("field2")
+                .distinct()
+                .group("field").group("field2")
+                .where("a = ?", null);
+        String actual = sql.toString();
+        String expected = "SELECT DISTINCT field1 AS \"fa1\", field2 FROM table, table2 `alias2` WHERE (a = NULL) GROUP BY field, field2";
+        assertEquals(expected, actual);
+    }
 
     @Test
     public void nestedQuery() {
@@ -159,6 +249,21 @@ public class SelectTest {
         String expected = "SELECT * FROM schools INNER JOIN (SELECT * FROM (SELECT * FROM students)) `meh` ON (meh.ID = ID)";
         assertEquals(expected, actual);
     }
+
+/*
+             '>> join(other_table, condition = expr())':
+                beforeEach: ->
+                  subQuery = squel.select().field('abc').from('table1').where('adf = ?', 'today1')
+                  subQuery2 = squel.select().field('xyz').from('table2').where('adf = ?', 'today2')
+                  expr = squel.expr().and('field1 = ?', subQuery)
+                  @inst.join('other_table', null, expr)
+                  @inst.where('def IN ?', subQuery2)
+                toString: ->
+                  assert.same @inst.toString(), "SELECT DISTINCT field1 AS \"fa1\", field2 FROM table, table2 `alias2` INNER JOIN other_table ON (field1 = (SELECT abc FROM table1 WHERE (adf = 'today1'))) WHERE (a = 1) AND (def IN (SELECT xyz FROM table2 WHERE (adf = 'today2'))) GROUP BY field, field2"
+                toParam: ->
+                  assert.same @inst.toParam(), { text: 'SELECT DISTINCT field1 AS "fa1", field2 FROM table, table2 `alias2` INNER JOIN other_table ON (field1 = (SELECT abc FROM table1 WHERE (adf = ?))) WHERE (a = ?) AND (def IN (SELECT xyz FROM table2 WHERE (adf = ?))) GROUP BY field, field2', values: ["today1",1,"today2"] }
+
+     */
 
     // TODO: 'nesting in JOINs with params'
 

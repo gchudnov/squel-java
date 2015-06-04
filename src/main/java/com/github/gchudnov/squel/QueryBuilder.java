@@ -137,12 +137,20 @@ public abstract class QueryBuilder extends BaseBuilder {
     // WHERE
     //
 
+    public <P> QueryBuilder where(String condition, P param) {
+        throw new UnsupportedOperationException("`where` not implemented");
+    }
+
     public QueryBuilder where(String condition) {
+        return where(condition, null);
+    }
+
+    public <P> QueryBuilder where (Expression condition, P param) {
         throw new UnsupportedOperationException("`where` not implemented");
     }
 
     public QueryBuilder where(Expression condition) {
-        throw new UnsupportedOperationException("`where` not implemented");
+        return where(condition, null);
     }
 
     //
