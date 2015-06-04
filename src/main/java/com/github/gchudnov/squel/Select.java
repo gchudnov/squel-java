@@ -19,7 +19,7 @@ public class Select extends QueryBuilder {
                 new OrderByBlock(options),   // 7
                 new LimitBlock(options),     // 8
                 new OffsetBlock(options),    // 9
-                new UnionBlock(options)
+                new UnionBlock(options)      // 10
         ));
     }
 
@@ -125,6 +125,19 @@ public class Select extends QueryBuilder {
     public QueryBuilder offset(int value) {
         OffsetBlock block = (OffsetBlock)mBlocks.get(9);
         block.setOffset(value);
+        return this;
+    }
+
+    @Override
+    public QueryBuilder union(String table, UnionType unionType) {
+        UnionBlock block = (UnionBlock)mBlocks.get(10);
+        block.setUnion(table, unionType);
+        return this;
+    }
+
+    public QueryBuilder union(QueryBuilder table, UnionType unionType) {
+        UnionBlock block = (UnionBlock)mBlocks.get(10);
+        block.setUnion(table, unionType);
         return this;
     }
 }

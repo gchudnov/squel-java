@@ -2,6 +2,8 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
+import java.util.AbstractQueue;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -159,4 +161,25 @@ public class SelectTest {
     }
 
     // TODO: 'nesting in JOINs with params'
+
+    @Test
+    public void unionTwoQueries() {
+        QueryBuilder q1 = Squel.select().field("name").from("students").where("age > 15");
+        QueryBuilder q2 = Squel.select().field("name").from("students").where("age < 6");
+
+        String actual = q1.union(q2).toString();
+        String expected = "SELECT name FROM students WHERE (age > 15) UNION (SELECT name FROM students WHERE (age < 6))";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unionThreeQueries() {
+        QueryBuilder q1 = Squel.select().field("name").from("students").where("age > 15");
+        QueryBuilder q2 = Squel.select().field("name").from("students").where("age < 6");
+        QueryBuilder q3 = Squel.select().field("name").from("students").where("age = 8");
+
+        String actual = q1.union(q2).union(q3).toString();
+        String expected = "SELECT name FROM students WHERE (age > 15) UNION (SELECT name FROM students WHERE (age < 6)) UNION (SELECT name FROM students WHERE (age = 8))";
+        assertEquals(expected, actual);
+    }
 }

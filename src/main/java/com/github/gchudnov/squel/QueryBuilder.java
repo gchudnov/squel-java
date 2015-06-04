@@ -168,7 +168,32 @@ public abstract class QueryBuilder extends BaseBuilder {
     //
     // OFFSET
     //
+
     public QueryBuilder offset(int value) {
         throw new UnsupportedOperationException("`offset` not implemented");
+    }
+
+    //
+    // UNION
+    //
+
+    public QueryBuilder union(String table, UnionType unionType) {
+        throw new UnsupportedOperationException("`union` not implemented");
+    }
+
+    public QueryBuilder union(QueryBuilder table, UnionType unionType) {
+        throw new UnsupportedOperationException("`union` not implemented");
+    }
+
+    public QueryBuilder union(String table) {
+        return union(table, UnionType.UNION);
+    }
+
+    public QueryBuilder union(QueryBuilder table) {
+        return union(table, UnionType.UNION);
+    }
+
+    public QueryBuilder union_all(String table) {
+        return union(table, UnionType.UNION_ALL);
     }
 }
