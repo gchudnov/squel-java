@@ -18,7 +18,7 @@ public class Select extends QueryBuilder {
                 new GroupByBlock(options),   // 6
                 new OrderByBlock(options),   // 7
                 new LimitBlock(options),     // 8
-                new OffsetBlock(options),
+                new OffsetBlock(options),    // 9
                 new UnionBlock(options)
         ));
     }
@@ -118,6 +118,13 @@ public class Select extends QueryBuilder {
     public QueryBuilder order(String field, OrderDirection dir) {
         OrderByBlock block = (OrderByBlock)mBlocks.get(7);
         block.setOrder(field, dir);
+        return this;
+    }
+
+    @Override
+    public QueryBuilder offset(int value) {
+        OffsetBlock block = (OffsetBlock)mBlocks.get(9);
+        block.setOffset(value);
         return this;
     }
 }

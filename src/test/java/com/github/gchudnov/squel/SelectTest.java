@@ -86,6 +86,16 @@ public class SelectTest {
     }
 
     @Test
+    public void offsetQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .offset(5)
+                .toString();
+        String expected = "SELECT * FROM table OFFSET 5";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void orderByAscQuery() {
         String actual = Squel.select()
                 .from("table")

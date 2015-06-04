@@ -1,5 +1,6 @@
 package com.github.gchudnov.squel;
 
+import javax.management.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,5 +163,12 @@ public abstract class QueryBuilder extends BaseBuilder {
 
     public QueryBuilder order(String field) {
         return order(field, OrderDirection.ASC);
+    }
+
+    //
+    // OFFSET
+    //
+    public QueryBuilder offset(int value) {
+        throw new UnsupportedOperationException("`offset` not implemented");
     }
 }
