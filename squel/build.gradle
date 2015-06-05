@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+project.group = GROUP
+version = VERSION_NAME
+
+
+dependencies {
+    testCompile "junit:junit:${JUNIT_VERSION}"
+}
+

@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * UPDATE query builder.
  */
-public final class Update extends QueryBuilder {
+final class Update extends QueryBuilder {
 
     Update(QueryBuilderOptions options) {
         super(options, Arrays.asList(

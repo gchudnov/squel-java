@@ -6,7 +6,11 @@ package com.github.gchudnov.squel;
 public final class Squel {
 
     public static Expression expr() {
-        return new Expression();
+        return expr(null);
+    }
+
+    public static Expression expr(QueryBuilderOptions options) {
+        return new Expression(options);
     }
 
     public static QueryBuilder select() {
