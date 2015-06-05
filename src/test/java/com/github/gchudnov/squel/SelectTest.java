@@ -161,7 +161,7 @@ public class SelectTest {
                 .group("field").group("field2");
         Expression expr = Squel.expr()
                 .and("a = ?", 1)
-                .and_begin()
+                .andBegin()
                     .or("b = ?", 2)
                     .or("c = ?", 3)
                 .end();
@@ -183,7 +183,7 @@ public class SelectTest {
         QueryBuilder subQuery = Squel.select().field("field1").from("table1").where("field2 = ?", 10);
         Expression exp = Squel.expr()
                 .and("a = ?", subQuery)
-                .and_begin()
+                .andBegin()
                     .or("b = ?", 2)
                     .or("c = ?", 3)
                 .end();

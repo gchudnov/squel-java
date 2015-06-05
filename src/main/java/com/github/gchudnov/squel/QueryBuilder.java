@@ -129,28 +129,28 @@ public abstract class QueryBuilder {
     }
 
 
-    public QueryBuilder left_join(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`left_join` not implemented");
+    public QueryBuilder leftJoin(String table, String alias, String condition) {
+        throw new UnsupportedOperationException("`leftJoin` not implemented");
     }
 
-    public QueryBuilder right_join(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`right_join` not implemented");
+    public QueryBuilder rightJoin(String table, String alias, String condition) {
+        throw new UnsupportedOperationException("`rightJoin` not implemented");
     }
 
-    public QueryBuilder outer_join(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`outer_join` not implemented");
+    public QueryBuilder outerJoin(String table, String alias, String condition) {
+        throw new UnsupportedOperationException("`outerJoin` not implemented");
     }
 
-    public QueryBuilder left_outer_join(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`left_outer_join` not implemented");
+    public QueryBuilder leftOuterJoin(String table, String alias, String condition) {
+        throw new UnsupportedOperationException("`leftOuterJoin` not implemented");
     }
 
-    public QueryBuilder full_join(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`full_join` not implemented");
+    public QueryBuilder fullJoin(String table, String alias, String condition) {
+        throw new UnsupportedOperationException("`fullJoin` not implemented");
     }
 
-    public QueryBuilder cross_join(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`cross_join` not implemented");
+    public QueryBuilder crossJoin(String table, String alias, String condition) {
+        throw new UnsupportedOperationException("`crossJoin` not implemented");
     }
 
     //
@@ -221,7 +221,7 @@ public abstract class QueryBuilder {
         return union(table, UnionType.UNION);
     }
 
-    public QueryBuilder union_all(String table) {
+    public QueryBuilder unionAll(String table) {
         return union(table, UnionType.UNION_ALL);
     }
 

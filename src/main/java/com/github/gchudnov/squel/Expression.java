@@ -34,7 +34,7 @@ public final class Expression extends BaseBlock {
      * Begin AND nested expression
      * @return Expression
      */
-    public Expression and_begin() {
+    public Expression andBegin() {
         return this.doBegin("AND");
     }
 
@@ -42,7 +42,7 @@ public final class Expression extends BaseBlock {
      * Begin OR nested expression
      * @return Expression
      */
-    public Expression or_begin() {
+    public Expression orBegin() {
         return this.doBegin("OR");
     }
 

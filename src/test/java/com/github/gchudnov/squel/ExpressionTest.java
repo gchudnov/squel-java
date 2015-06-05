@@ -108,7 +108,7 @@ public class ExpressionTest {
     @Test
     public void andIterableParameters() {
         String actual = Squel.expr()
-                .and("dummy IN ?", Arrays.asList(false, 2, null, "str" ))
+                .and("dummy IN ?", Arrays.asList(false, 2, null, "str"))
                 .toString();
 
         String expected = "dummy IN (FALSE, 2, NULL, 'str')";
@@ -150,14 +150,14 @@ public class ExpressionTest {
     public void composite() {
         String actual = Squel.expr()
                 .and("test = ?", 4)
-                .and_begin()
+                .andBegin()
                     .or("inner = ?", 1)
                     .or("inner = ?", 2)
                 .end()
-                .or_begin()
+                .orBegin()
                     .and("inner = ?", 3)
                     .and("inner = ?", 4)
-                    .or_begin()
+                    .orBegin()
                         .or("inner = ?", 5)
                     .end()
                 .end()
