@@ -9,8 +9,8 @@ import java.util.List;
 class UnionBlock extends Block {
 
     private class UnionNode {
-        Object table; // String or QueryBuilder
-        UnionType unionType;
+        final Object table; // String or QueryBuilder
+        final UnionType unionType;
 
         public UnionNode(String table, UnionType unionType) {
             this.table = table;
@@ -23,7 +23,7 @@ class UnionBlock extends Block {
         }
     }
 
-    List<UnionNode> mUnions = new ArrayList<>();
+    private List<UnionNode> mUnions;
 
     UnionBlock(QueryBuilderOptions options) {
         super(options);
@@ -36,10 +36,12 @@ class UnionBlock extends Block {
      */
     void setUnion(String table, UnionType unionType) {
         table = Validator.sanitizeTable(table, mOptions);
+        ensureUnionsList();
         mUnions.add(new UnionNode(table, unionType));
     }
 
     void setUnion(QueryBuilder table, UnionType unionType) {
+        ensureUnionsList();
         mUnions.add(new UnionNode(table, unionType));
     }
 
@@ -67,5 +69,11 @@ class UnionBlock extends Block {
         }
 
         return sb.toString();
+    }
+
+    private void ensureUnionsList() {
+        if(mUnions == null) {
+            mUnions = new ArrayList<>();
+        }
     }
 }

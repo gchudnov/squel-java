@@ -9,8 +9,8 @@ import java.util.List;
 class WhereBlock extends Block {
 
     private class WhereNode {
-        String text;
-        Object param;
+        final String text;
+        final Object param;
 
         public WhereNode(String text, Object param) {
             this.text = text;
@@ -18,7 +18,7 @@ class WhereBlock extends Block {
         }
     }
 
-    private List<WhereNode> mWheres = new ArrayList<>();
+    private List<WhereNode> mWheres;
 
     WhereBlock(QueryBuilderOptions options) {
         super(options);
@@ -32,12 +32,12 @@ class WhereBlock extends Block {
      */
     <P> void setWhere(String condition, P param) {
         assert condition != null;
-        mWheres.add(new WhereNode(condition, param));
+        doSetWhere(condition, param);
     }
 
     <P> void setWhere(Expression condition, P param) {
         assert condition != null;
-        mWheres.add(new WhereNode(condition.toString(), param));
+        doSetWhere(condition.toString(), param);
     }
 
     @Override
@@ -55,5 +55,12 @@ class WhereBlock extends Block {
         }
 
         return "WHERE (" + sb.toString() + ")";
+    }
+
+    private <P> void doSetWhere(String condition, P param) {
+        if(mWheres == null) {
+            mWheres = new ArrayList<>();
+        }
+        mWheres.add(new WhereNode(condition, param));
     }
 }

@@ -8,9 +8,9 @@ import java.util.List;
  */
 abstract class SetFieldBlockBase extends Block {
 
-    protected class SetNode {
-        String field;
-        Object value;
+    class SetNode {
+        final String field;
+        final Object value;
 
         SetNode(String field, Object value) {
             this.field = field;
@@ -18,14 +18,23 @@ abstract class SetFieldBlockBase extends Block {
         }
     }
 
-    protected List<SetNode> mFields = new ArrayList<>();
+    List<SetNode> mFields;
 
     SetFieldBlockBase(QueryBuilderOptions options) {
         super(options);
     }
 
-    // Update the given setField with the given value.
+    /**
+     * Update the given field with the given value.
+     * @param field Field to set value for.
+     * @param value Value to set.
+     * @param <T> Type of the Value.
+     */
     <T> void setFieldValue(String field, T value) {
+        if(mFields == null) {
+            mFields = new ArrayList<>();
+        }
+
         field = Validator.sanitizeField(field, mOptions);
         mFields.add(new SetNode(field, value));
     }

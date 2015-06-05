@@ -52,22 +52,6 @@ class Validator {
 
     static String sanitizeTableAlias(String value, QueryBuilderOptions options) {
         return (value != null ? (options.autoQuoteAliasNames ? options.tableAliasQuoteCharacter + value + options.tableAliasQuoteCharacter : value) : null);
-    };
-
-    static String escapeValue(String value, QueryBuilderOptions options) {
-        return (options.replaceSingleQuotes ? value.replaceAll("'", options.singleQuoteReplacement) : value);
-    }
-
-    static String formatIterable(Iterable<?> values, QueryBuilderOptions options) {
-        List<String> results = new ArrayList<>();
-        for(Object value: values) {
-            results.add(formatValue(value, options));
-        }
-        return "(" + Util.join(", ", results) + ")";
-    }
-
-    static String formatArray(Object[] values, QueryBuilderOptions options) {
-        return formatIterable(Arrays.asList(values), options);
     }
 
     static String formatValue(Object value, QueryBuilderOptions options) {
@@ -92,6 +76,10 @@ class Validator {
         }
 
         return value.toString();
+    }
+
+    private static String escapeValue(String value, QueryBuilderOptions options) {
+        return (options.replaceSingleQuotes ? value.replaceAll("'", options.singleQuoteReplacement) : value);
     }
 
     private static String formatNull() {
@@ -120,5 +108,17 @@ class Validator {
 
     private static String formatExpression(Expression value) {
         return "(" + value.toString() + ")";
+    }
+
+    private static String formatIterable(Iterable<?> values, QueryBuilderOptions options) {
+        List<String> results = new ArrayList<>();
+        for(Object value: values) {
+            results.add(formatValue(value, options));
+        }
+        return "(" + Util.join(", ", results) + ")";
+    }
+
+    private static String formatArray(Object[] values, QueryBuilderOptions options) {
+        return formatIterable(Arrays.asList(values), options);
     }
 }

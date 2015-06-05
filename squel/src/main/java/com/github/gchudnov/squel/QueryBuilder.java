@@ -9,8 +9,8 @@ import java.util.List;
  */
 public abstract class QueryBuilder {
 
-    QueryBuilderOptions mOptions;
-    List<Block> mBlocks;
+    private final QueryBuilderOptions mOptions;
+    final List<Block> mBlocks;
 
     QueryBuilder(QueryBuilderOptions options, List<Block> blocks) {
         mOptions = (options != null ? options : new QueryBuilderOptions());

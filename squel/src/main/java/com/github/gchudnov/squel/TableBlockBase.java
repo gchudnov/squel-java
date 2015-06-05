@@ -9,8 +9,8 @@ import java.util.List;
 abstract class TableBlockBase extends Block {
 
     private class TableNode {
-        String table;
-        String alias;
+        final String table;
+        final String alias;
 
         public TableNode(String table, String alias) {
             this.table = table;
@@ -18,22 +18,22 @@ abstract class TableBlockBase extends Block {
         }
     }
 
-    protected List<TableNode> mTables = new ArrayList<>();
+    List<TableNode> mTables;
 
     TableBlockBase(QueryBuilderOptions options) {
         super(options);
     }
 
-    protected void setTable(String table, String alias) {
+    void setTable(String table, String alias) {
         table = Validator.sanitizeTable(table, mOptions);
         alias = Validator.sanitizeTableAlias(alias, mOptions);
-        doTable(table, alias);
+        doSetTable(table, alias);
     }
 
-    protected void setTable(QueryBuilder table, String alias) {
+    void setTable(QueryBuilder table, String alias) {
         String tableName = Validator.sanitizeTable(table);
         alias = Validator.sanitizeTableAlias(alias, mOptions);
-        doTable(tableName, alias);
+        doSetTable(tableName, alias);
     }
 
     @Override
@@ -56,7 +56,11 @@ abstract class TableBlockBase extends Block {
         return sb.toString();
     }
 
-    private void doTable(String table, String alias) {
+    private void doSetTable(String table, String alias) {
+        if(mTables == null) {
+            mTables = new ArrayList<>();
+        }
+
         mTables.add(new TableNode(table, alias));
     }
 }

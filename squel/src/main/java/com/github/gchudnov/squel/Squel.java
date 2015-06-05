@@ -9,7 +9,7 @@ public final class Squel {
     }
 
     /**
-     * Start a new expression.
+     * Starts a new expression.
      * @return Expression
      */
     public static Expression expr() {
@@ -17,7 +17,7 @@ public final class Squel {
     }
 
     /**
-     * Start a new expression with the provided options.
+     * Starts a new expression with the provided options.
      * @param options Options to use for expression generation.
      * @return Expression
      */
@@ -26,7 +26,7 @@ public final class Squel {
     }
 
     /**
-     * Start the SELECT-query chain.
+     * Starts the SELECT-query chain.
      * @return QueryBuilder
      */
     public static QueryBuilder select() {
@@ -34,7 +34,7 @@ public final class Squel {
     }
 
     /**
-     * Start the SELECT-query chain with the provided options
+     * Starts the SELECT-query chain with the provided options
      * @param options Options to use for query generation.
      * @return QueryBuilder
      */
@@ -51,7 +51,7 @@ public final class Squel {
     }
 
     /**
-     * Start the UPDATE-query.
+     * Starts the UPDATE-query.
      * @param options Options to use for query generation.
      * @return QueryBuilder
      */
@@ -60,7 +60,7 @@ public final class Squel {
     }
 
     /**
-     * Start the INSERT-query.
+     * Starts the INSERT-query.
      * @return QueryBuilder
      */
     public static QueryBuilder insert() {
@@ -68,7 +68,7 @@ public final class Squel {
     }
 
     /**
-     * Start the INSERT-query with the provided options.
+     * Starts the INSERT-query with the provided options.
      * @param options Options to use for query generation.
      * @return QueryBuilder
      */
@@ -77,7 +77,7 @@ public final class Squel {
     }
 
     /**
-     * Start the DELETE-query.
+     * Starts the DELETE-query.
      * @return QueryBuilder
      */
     public static QueryBuilder delete() {
@@ -85,7 +85,7 @@ public final class Squel {
     }
 
     /**
-     * Start the DELETE-query with the provided options.
+     * Starts the DELETE-query with the provided options.
      * @param options Options to use for query generation.
      * @return QueryBuilder
      */

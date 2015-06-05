@@ -9,10 +9,10 @@ import java.util.List;
 class JoinBlock extends Block {
 
     private class JoinNode {
-        JoinType type;
-        Object table; // String or QueryBuilder
-        String alias;
-        Object condition; // String or Expression
+        final JoinType type;
+        final Object table; // String or QueryBuilder
+        final String alias;
+        final Object condition; // String or Expression
 
         JoinNode(Object table, String alias, Object condition, JoinType type) {
             this.table = table;
@@ -22,7 +22,7 @@ class JoinBlock extends Block {
         }
     }
 
-    private List<JoinNode> mJoins = new ArrayList<>();
+    private List<JoinNode> mJoins;
 
     JoinBlock(QueryBuilderOptions options) {
         super(options);
@@ -90,7 +90,7 @@ class JoinBlock extends Block {
             if(j.condition instanceof String) {
                 conditionStr = (String)j.condition;
             } else {
-                conditionStr = ((Expression)j.condition).toString();
+                conditionStr = j.condition.toString();
             }
 
             if (!Util.isEmpty(conditionStr)) {
@@ -104,6 +104,10 @@ class JoinBlock extends Block {
     }
 
     private void doJoin(Object table, String alias, Object condition, JoinType type) {
+        if(mJoins == null) {
+            mJoins = new ArrayList<>();
+        }
+
         if (type == null) {
             type = JoinType.INNER;
         }

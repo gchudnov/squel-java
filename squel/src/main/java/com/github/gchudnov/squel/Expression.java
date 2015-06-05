@@ -1,6 +1,7 @@
 package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SQL expression builder.
@@ -8,17 +9,42 @@ import java.util.ArrayList;
  */
 public final class Expression {
 
-    private class ExpressionNode {
-        String type = null;
-        ExpressionNode parent = null;
-        String expr = null;
-
-        Object param = null;
-
-        ArrayList<ExpressionNode> nodes = new ArrayList<>();
+    private enum ExpressionType {
+        AND,
+        OR
     }
 
-    private QueryBuilderOptions mOptions;
+    private class ExpressionNode {
+        final ExpressionType type;
+        final String expr;
+        final Object param;
+
+        final ExpressionNode parent;
+        final List<ExpressionNode> nodes = new ArrayList<>();
+
+        ExpressionNode() {
+            this.type = null;
+            this.expr = null;
+            this.param = null;
+            this.parent = null;
+        }
+
+        ExpressionNode(ExpressionType type, String expr, Object param) {
+            this.type = type;
+            this.expr = expr;
+            this.param = param;
+            this.parent = null;
+        }
+
+        ExpressionNode(ExpressionType type, ExpressionNode parent) {
+            this.type = type;
+            this.expr = null;
+            this.param = null;
+            this.parent = parent;
+        }
+    }
+
+    private final QueryBuilderOptions mOptions;
     private ExpressionNode mTree = null;
     private ExpressionNode mCurrent = null;
 
@@ -37,7 +63,7 @@ public final class Expression {
      * @return Expression
      */
     public Expression andBegin() {
-        return this.doBegin("AND");
+        return this.doBegin(ExpressionType.AND);
     }
 
     /**
@@ -45,7 +71,7 @@ public final class Expression {
      * @return Expression
      */
     public Expression orBegin() {
-        return this.doBegin("OR");
+        return this.doBegin(ExpressionType.OR);
     }
 
     /**
@@ -76,11 +102,7 @@ public final class Expression {
      * @return Expression
      */
     public <P> Expression and(String expr, P param) {
-        ExpressionNode newNode = new ExpressionNode();
-        newNode.type = "AND";
-        newNode.expr = expr;
-        newNode.param = param;
-
+        ExpressionNode newNode = new ExpressionNode(ExpressionType.AND, expr, param);
         mCurrent.nodes.add(newNode);
         return this;
     }
@@ -102,11 +124,7 @@ public final class Expression {
      * @return Expression
      */
     public <P> Expression or(String expr, P param) {
-        ExpressionNode newNode = new ExpressionNode();
-        newNode.type = "OR";
-        newNode.expr = expr;
-        newNode.param = param;
-
+        ExpressionNode newNode = new ExpressionNode(ExpressionType.OR, expr, param);
         mCurrent.nodes.add(newNode);
         return this;
     }
@@ -126,11 +144,8 @@ public final class Expression {
      * @param op Operator to combine with the current expression
      * @return Expression
      */
-    private Expression doBegin(String op) {
-        ExpressionNode newTree = new ExpressionNode();
-
-        newTree.type = op;
-        newTree.parent = mCurrent;
+    private Expression doBegin(ExpressionType op) {
+        ExpressionNode newTree = new ExpressionNode(op, mCurrent);
 
         mCurrent.nodes.add(newTree);
         mCurrent = newTree;

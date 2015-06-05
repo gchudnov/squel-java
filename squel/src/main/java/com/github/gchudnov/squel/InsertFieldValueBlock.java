@@ -14,7 +14,7 @@ class InsertFieldValueBlock extends SetFieldBlockBase {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if(mFields.isEmpty()) {
+        if(mFields == null || mFields.isEmpty()) {
             return "";
         }
 

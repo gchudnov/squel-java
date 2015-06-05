@@ -5,16 +5,16 @@ package com.github.gchudnov.squel;
  */
 class StringBlock extends Block {
 
-    private String mStr;
+    private final String mText;
 
     StringBlock(QueryBuilderOptions options, String str) {
         super(options);
-        mStr = str;
+        mText = str;
     }
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        assert mStr != null;
-        return mStr;
+        assert mText != null;
+        return mText;
     }
 }

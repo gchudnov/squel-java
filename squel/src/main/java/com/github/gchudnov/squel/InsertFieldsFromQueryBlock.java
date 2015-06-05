@@ -8,8 +8,8 @@ import java.util.List;
  */
 class InsertFieldsFromQueryBlock extends Block {
 
-    List<String> mFields;
-    QueryBuilder mQuery;
+    private List<String> mFields;
+    private QueryBuilder mQuery;
 
     InsertFieldsFromQueryBlock(QueryBuilderOptions options) {
         super(options);

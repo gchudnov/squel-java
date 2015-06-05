@@ -2,9 +2,9 @@ package com.github.gchudnov.squel;
 
 abstract class Block {
 
-    protected QueryBuilderOptions mOptions;
+    final QueryBuilderOptions mOptions;
 
-    protected Block(QueryBuilderOptions options) {
+    Block(QueryBuilderOptions options) {
         this.mOptions = (options != null ? options : new QueryBuilderOptions());
     }
 

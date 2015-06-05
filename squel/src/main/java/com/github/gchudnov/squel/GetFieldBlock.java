@@ -10,8 +10,8 @@ import java.util.List;
 class GetFieldBlock extends Block {
 
     private class FieldNode {
-        String name;
-        String alias;
+        final String name;
+        final String alias;
 
         public FieldNode(String name, String alias) {
             this.name = name;
@@ -19,8 +19,8 @@ class GetFieldBlock extends Block {
         }
     }
 
-    private List<FieldNode> mFields = new ArrayList<>();
-    private HashMap<String, String> mFieldAliases = new HashMap<>();
+    private List<FieldNode> mFields;
+    private HashMap<String, String> mFieldAliases;
 
     GetFieldBlock(QueryBuilderOptions options) {
         super(options);
@@ -45,19 +45,19 @@ class GetFieldBlock extends Block {
         String fieldValue = Validator.sanitizeField(field, mOptions);
         String aliasValue = alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null;
 
-        doField(fieldValue, aliasValue);
+        doSetField(fieldValue, aliasValue);
     }
 
     void setField(QueryBuilder field, String alias) {
         String fieldName = Validator.sanitizeField(field);
         String aliasValue = alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null;
 
-        doField(fieldName, aliasValue);
+        doSetField(fieldName, aliasValue);
     }
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if(mFields.isEmpty())
+        if(mFields == null || mFields.isEmpty())
             return "*";
 
         StringBuilder sb = new StringBuilder();
@@ -77,7 +77,15 @@ class GetFieldBlock extends Block {
         return sb.toString();
     }
 
-    private void doField(String field, String alias) {
+    private void doSetField(String field, String alias) {
+        if(mFields == null) {
+            mFields = new ArrayList<>();
+        }
+
+        if(mFieldAliases == null) {
+            mFieldAliases = new HashMap<>();
+        }
+
         if (mFieldAliases.containsKey(field) && mFieldAliases.get(field).equals(alias)) {
             return;
         }

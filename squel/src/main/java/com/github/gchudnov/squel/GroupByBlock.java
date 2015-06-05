@@ -8,7 +8,7 @@ import java.util.List;
  */
 class GroupByBlock extends Block {
 
-    List<String> mGroups;
+    private List<String> mGroups;
 
     GroupByBlock(QueryBuilderOptions options) {
         super(options);

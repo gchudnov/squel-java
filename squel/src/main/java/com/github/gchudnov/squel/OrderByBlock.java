@@ -9,8 +9,8 @@ import java.util.List;
 class OrderByBlock extends Block {
 
     private class OrderNode {
-        String field;
-        OrderDirection dir;
+        final String field;
+        final OrderDirection dir;
 
         public OrderNode(String field, OrderDirection dir) {
             this.field = field;
@@ -18,7 +18,7 @@ class OrderByBlock extends Block {
         }
     }
 
-    private List<OrderNode> mOrders = new ArrayList<>();
+    private List<OrderNode> mOrders;
 
     OrderByBlock(QueryBuilderOptions options) {
         super(options);
@@ -30,6 +30,9 @@ class OrderByBlock extends Block {
      * @param dir Order
      */
     void setOrder(String field, OrderDirection dir) {
+        if(mOrders == null) {
+            mOrders = new ArrayList<>();
+        }
         field = Validator.sanitizeField(field, mOptions);
         mOrders.add(new OrderNode(field, dir));
     }
