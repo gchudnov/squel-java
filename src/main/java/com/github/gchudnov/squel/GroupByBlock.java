@@ -22,7 +22,10 @@ class GroupByBlock extends Block {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        String str = Util.join(", ", mGroups.toArray(new String[mGroups.size()]));
-        return (!Util.isEmpty(str) ? "GROUP BY " + str : "");
+        if(mGroups.isEmpty()) {
+            return "";
+        }
+
+        return "GROUP BY " + Util.join(", ", mGroups);
     }
 }

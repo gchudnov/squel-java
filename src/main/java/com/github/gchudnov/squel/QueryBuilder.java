@@ -28,7 +28,7 @@ public abstract class QueryBuilder {
             results.add(block.buildStr(this));
         }
 
-        return Util.joinNonEmpty(mOptions.separator, results.toArray(new String[results.size()]));
+        return Util.joinNonEmpty(mOptions.separator, results);
     }
 
     //

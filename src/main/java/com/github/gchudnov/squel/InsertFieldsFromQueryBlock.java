@@ -29,6 +29,6 @@ class InsertFieldsFromQueryBlock extends Block {
         if(mFields == null || mFields.isEmpty())
             return "";
 
-        return "(" + Util.join(", ", mFields.toArray(new String[mFields.size()])) + ") " + "(" + mQuery.toString() + ")";
+        return "(" + Util.join(", ", mFields) + ") " + "(" + mQuery.toString() + ")";
     }
 }

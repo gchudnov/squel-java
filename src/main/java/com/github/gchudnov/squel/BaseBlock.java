@@ -40,7 +40,7 @@ class BaseBlock {
                         newParts.add(quoteChar + part + quoteChar);
                     }
                 }
-                value = Util.join(".", newParts.toArray(new String[newParts.size()]));
+                value = Util.join(".", newParts);
             }
         }
 
@@ -97,7 +97,7 @@ class BaseBlock {
         for(Object value: values) {
             results.add(_formatValue(value));
         }
-        return "(" + Util.join(", ", results.toArray(new String[results.size()])) + ")";
+        return "(" + Util.join(", ", results) + ")";
     }
 
     protected String _formatValue(Object value) {

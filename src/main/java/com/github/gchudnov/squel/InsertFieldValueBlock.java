@@ -18,15 +18,15 @@ class InsertFieldValueBlock extends AbstractSetFieldBlock {
             return "";
         }
 
-        String fields = Util.join(", ", buildFieldNames(mFields).toArray(new String[mFields.size()]));
-        String values = Util.join(", ", buildFieldValues(mFields).toArray(new String[mFields.size()]));
+        String fields = Util.join(", ", buildFieldNames(mFields));
+        String values = Util.join(", ", buildFieldValues(mFields));
 
         return "(" + fields + ") VALUES (" + values + ")";
     }
 
     private List<String> buildFieldNames(List<SetNode> nodes) {
         List<String> names = new ArrayList<>();
-        for(SetNode n : mFields) {
+        for(SetNode n : nodes) {
             names.add(n.field);
         }
         return names;
@@ -34,7 +34,7 @@ class InsertFieldValueBlock extends AbstractSetFieldBlock {
 
     private List<String> buildFieldValues(List<SetNode> nodes) {
         List<String> values = new ArrayList<>();
-        for(SetNode n : mFields) {
+        for(SetNode n : nodes) {
             values.add(_formatValue(n.value));
         }
         return values;
