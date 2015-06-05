@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Query builder base class
+ * Query builder base class.
  * NOTE: the query builder does not check the final query string for correctness.
  */
 public abstract class QueryBuilder {
 
-    protected QueryBuilderOptions mOptions;
-    protected List<Block> mBlocks;
+    QueryBuilderOptions mOptions;
+    List<Block> mBlocks;
 
     QueryBuilder(QueryBuilderOptions options, List<Block> blocks) {
         mOptions = (options != null ? options : new QueryBuilderOptions());

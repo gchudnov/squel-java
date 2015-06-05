@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * SQL expression builder.
+ * A new expression should be created using `Squel.expr()` call.
  */
 public final class Expression {
 
@@ -21,18 +22,18 @@ public final class Expression {
     private ExpressionNode mTree = null;
     private ExpressionNode mCurrent = null;
 
-    public Expression() {
+    Expression() {
         this(null);
     }
 
-    public Expression(QueryBuilderOptions options) {
+    Expression(QueryBuilderOptions options) {
         this.mOptions = (options != null ? options : new QueryBuilderOptions());
         this.mTree = new ExpressionNode();
         this.mCurrent = this.mTree;
     }
 
     /**
-     * Begin AND nested expression
+     * Begin AND nested expression.
      * @return Expression
      */
     public Expression andBegin() {
@@ -40,7 +41,7 @@ public final class Expression {
     }
 
     /**
-     * Begin OR nested expression
+     * Begin OR nested expression.
      * @return Expression
      */
     public Expression orBegin() {
@@ -60,13 +61,20 @@ public final class Expression {
 
     /**
      * Combine the current expression with the given expression using the intersection operator (AND).
-     * @param expr Expression to combine with
+     * @param expr Expression to combine with.
      * @return Expression
      */
     public Expression and(String expr) {
         return this.and(expr, null);
     }
 
+    /**
+     *  Combine the current expression with the given expression using the intersection operator (AND).
+     * @param expr Expression to combine with.
+     * @param param Value to substitute.
+     * @param <P> Number|String|Boolean|QueryBuilder|Expression|Array|Iterable
+     * @return Expression
+     */
     public <P> Expression and(String expr, P param) {
         ExpressionNode newNode = new ExpressionNode();
         newNode.type = "AND";
@@ -86,6 +94,13 @@ public final class Expression {
         return this.or(expr, null);
     }
 
+    /**
+     * Combine the current expression with the given expression using the union operator (OR).
+     * @param expr Expression to combine with.
+     * @param param Value to substitute.
+     * @param <P> Number|String|Boolean|QueryBuilder|Expression|Array|Iterable
+     * @return Expression
+     */
     public <P> Expression or(String expr, P param) {
         ExpressionNode newNode = new ExpressionNode();
         newNode.type = "OR";

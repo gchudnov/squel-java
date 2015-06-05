@@ -11,7 +11,7 @@ public enum JoinType {
     FULL,
     CROSS;
 
-    public static String toSql(JoinType type) {
+    static String toSql(JoinType type) {
         String result;
         switch (type) {
             case INNER:

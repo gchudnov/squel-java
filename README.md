@@ -13,7 +13,7 @@ A Java-port of [Squel.js](https://hiddentao.github.io/squel/) - a lightweight li
 If you are building with Gradle, simply add the following line to the `dependencies` section of your `build.gradle` file:
 
 ```groovy
-compile 'com.github.gchudnov:squel:1.0.0+'
+compile 'com.github.gchudnov:squel:0.9.0+'
 ```
 
 ## Oveview

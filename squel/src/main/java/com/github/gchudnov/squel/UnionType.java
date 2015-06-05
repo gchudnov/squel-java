@@ -7,7 +7,7 @@ public enum UnionType {
     UNION,
     UNION_ALL;
 
-    public static String toSql(UnionType type) {
+    static String toSql(UnionType type) {
         String result;
         switch (type) {
             case UNION:
