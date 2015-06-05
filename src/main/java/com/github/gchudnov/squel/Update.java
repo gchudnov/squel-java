@@ -1,13 +1,11 @@
 package com.github.gchudnov.squel;
 
-import com.github.gchudnov.squel.impl.*;
-
 import java.util.Arrays;
 
 /**
  * UPDATE query builder.
  */
-public class Update extends QueryBuilder {
+public final class Update extends QueryBuilder {
 
     Update(QueryBuilderOptions options) {
         super(options, Arrays.asList(

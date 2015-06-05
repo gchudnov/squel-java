@@ -1,9 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.Expression;
-import com.github.gchudnov.squel.JoinType;
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +6,7 @@ import java.util.List;
 /**
  * JOIN
  */
-public class JoinBlock extends Block {
+class JoinBlock extends Block {
 
     class JoinNode {
         JoinType type;
@@ -29,7 +24,7 @@ public class JoinBlock extends Block {
 
     private List<JoinNode> mJoins = new ArrayList<>();
 
-    public JoinBlock(QueryBuilderOptions options) {
+    JoinBlock(QueryBuilderOptions options) {
         super(options);
     }
 
@@ -44,32 +39,32 @@ public class JoinBlock extends Block {
     //
     // 'type' must be either one of INNER, OUTER, LEFT or RIGHT. Default is 'INNER'.
     //
-    public void join(String table, String alias, String condition, JoinType type) {
+    void join(String table, String alias, String condition, JoinType type) {
         table = _sanitizeTable(table);
         alias = _sanitizeTableAlias(alias);
         doJoin(table, alias, condition, type);
     }
 
-    public void join(String table, String alias, Expression condition, JoinType type) {
+    void join(String table, String alias, Expression condition, JoinType type) {
         table = _sanitizeTable(table);
         alias = _sanitizeTableAlias(alias);
         doJoin(table, alias, condition, type);
     }
 
-    public void join(QueryBuilder table, String alias, String condition, JoinType type) {
+    void join(QueryBuilder table, String alias, String condition, JoinType type) {
         String tableName = _sanitizeTable(table);
         alias = _sanitizeTableAlias(alias);
         doJoin(tableName, alias, condition, type);
     }
 
-    public void join(QueryBuilder table, String alias, Expression condition, JoinType type) {
+    void join(QueryBuilder table, String alias, Expression condition, JoinType type) {
         String tableName = _sanitizeTable(table);
         alias = _sanitizeTableAlias(alias);
         doJoin(tableName, alias, condition, type);
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         if(mJoins.isEmpty())
             return "";
 

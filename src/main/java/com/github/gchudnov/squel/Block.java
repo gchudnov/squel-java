@@ -1,8 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.BaseBuilder;
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 /**
  * A building block represents a single build-step within a query building process.
@@ -16,9 +12,9 @@ import com.github.gchudnov.squel.QueryBuilderOptions;
  * <p>
  * Original idea posted in https://github.com/hiddentao/export/issues/10//issuecomment-15016427
  */
-public class Block extends BaseBuilder {
+abstract class Block extends BaseBlock {
 
-    public Block(QueryBuilderOptions options) {
+    Block(QueryBuilderOptions options) {
         super(options);
     }
 
@@ -29,7 +25,7 @@ public class Block extends BaseBuilder {
     // @param queryBuilder cls.com.github.gchudnov.squel.QueryBuilder a reference to the query builder that owns this block.
     //
     // @return String the string representing this block
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         return "";
     }
 }

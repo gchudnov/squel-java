@@ -1,7 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +6,16 @@ import java.util.List;
 /**
  * (INSERT INTO) ... field ... (SELECT ... FROM ...)
  */
-public class InsertFieldsFromQueryBlock extends Block {
+class InsertFieldsFromQueryBlock extends Block {
 
     List<String> mFields;
     QueryBuilder mQuery;
 
-    public InsertFieldsFromQueryBlock(QueryBuilderOptions options) {
+    InsertFieldsFromQueryBlock(QueryBuilderOptions options) {
         super(options);
     }
 
-    public void fromQuery(Iterable<String> fields, QueryBuilder query) {
+    void fromQuery(Iterable<String> fields, QueryBuilder query) {
         mFields = new ArrayList<>();
         for(String field: fields) {
             mFields.add(_sanitizeField(field));
@@ -28,7 +25,7 @@ public class InsertFieldsFromQueryBlock extends Block {
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         if(mFields == null || mFields.isEmpty())
             return "";
 

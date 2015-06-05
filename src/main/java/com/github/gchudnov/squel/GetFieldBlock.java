@@ -1,7 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +7,7 @@ import java.util.List;
 /**
  * (SELECT) Get field
  */
-public class GetFieldBlock extends Block {
+class GetFieldBlock extends Block {
 
     class FieldNode {
         String name;
@@ -25,7 +22,7 @@ public class GetFieldBlock extends Block {
     private List<FieldNode> mFields = new ArrayList<>();
     private HashMap<String, String> mFieldAliases = new HashMap<>();
 
-    public GetFieldBlock(QueryBuilderOptions options) {
+    GetFieldBlock(QueryBuilderOptions options) {
         super(options);
     }
 
@@ -37,7 +34,7 @@ public class GetFieldBlock extends Block {
     // Internally this method simply calls the field() method of this block to add each individual field.
     //
     // options.ignorePeriodsForFieldNameQuotes - whether to ignore period (.) when automatically quoting the field name
-    public void fields(List<String> fields) {
+    void fields(List<String> fields) {
         for (String field : fields) {
             this.field(field, null);
         }
@@ -51,14 +48,14 @@ public class GetFieldBlock extends Block {
     // An alias may also be specified for this field.
     //
     // options.ignorePeriodsForFieldNameQuotes - whether to ignore period (.) when automatically quoting the field name
-    public void field(String field, String alias) {
+    void field(String field, String alias) {
         String fieldValue = _sanitizeField(field);
         String aliasValue = alias != null ? _sanitizeFieldAlias(alias) : null;
 
         doField(fieldValue, aliasValue);
     }
 
-    public void field(QueryBuilder field, String alias) {
+    void field(QueryBuilder field, String alias) {
         String fieldName = _sanitizeField(field);
         String aliasValue = alias != null ? _sanitizeFieldAlias(alias) : null;
 
@@ -66,7 +63,7 @@ public class GetFieldBlock extends Block {
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         if(mFields.isEmpty())
             return "*";
 

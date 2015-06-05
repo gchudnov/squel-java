@@ -1,15 +1,15 @@
-package com.github.gchudnov.squel.impl;
+package com.github.gchudnov.squel;
 
 /**
  * Helper utilities.
  */
-public class Util {
+class Util {
 
-    public static boolean isEmpty(String str) {
+    static boolean isEmpty(String str) {
         return ((str == null || str.length() == 0));
     }
 
-    public static String join(String separator, String... values) {
+    static String join(String separator, String... values) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0, len = values.length; i < len; i++) {
             if (i > 0) {
@@ -20,7 +20,7 @@ public class Util {
         return sb.toString();
     }
 
-    public static String joinNonEmpty(String separator, String... values) {
+    static String joinNonEmpty(String separator, String... values) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0, len = values.length; i < len; i++) {
             if (!isEmpty(values[i])) {

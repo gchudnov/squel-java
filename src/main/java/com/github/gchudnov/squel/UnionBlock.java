@@ -1,8 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
-import com.github.gchudnov.squel.UnionType;
+package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +6,7 @@ import java.util.List;
 /**
  * UNION
  */
-public class UnionBlock extends Block {
+class UnionBlock extends Block {
 
     class UnionNode {
         Object table; // String or QueryBuilder
@@ -29,7 +25,7 @@ public class UnionBlock extends Block {
 
     List<UnionNode> mUnions = new ArrayList<>();
 
-    public UnionBlock(QueryBuilderOptions options) {
+    UnionBlock(QueryBuilderOptions options) {
         super(options);
     }
 
@@ -40,17 +36,17 @@ public class UnionBlock extends Block {
     //
     // 'type' must be either one of UNION or UNION ALL.... Default is 'UNION'.
     //
-    public void setUnion(String table, UnionType unionType) {
+    void setUnion(String table, UnionType unionType) {
         table = _sanitizeTable(table);
         mUnions.add(new UnionNode(table, unionType));
     }
 
-    public void setUnion(QueryBuilder table, UnionType unionType) {
+    void setUnion(QueryBuilder table, UnionType unionType) {
         mUnions.add(new UnionNode(table, unionType));
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         if(mUnions.isEmpty())
             return "";
 

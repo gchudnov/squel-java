@@ -1,19 +1,16 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 /**
  * (UPDATE) SET field=value
  */
-public class SetFieldBlock extends AbstractSetFieldBlock {
+class SetFieldBlock extends AbstractSetFieldBlock {
 
-    public SetFieldBlock(QueryBuilderOptions options) {
+    SetFieldBlock(QueryBuilderOptions options) {
         super(options);
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         assert !mFields.isEmpty();
 
         StringBuilder sb = new StringBuilder();

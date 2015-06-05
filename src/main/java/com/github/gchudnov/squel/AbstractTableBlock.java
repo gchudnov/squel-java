@@ -1,7 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.List;
  * - singleTable - only allow one table to be specified  (default: false)
  * - allowNested - allow nested query to be specified as a table    (default: false)
  */
-public class AbstractTableBlock extends Block {
+abstract class AbstractTableBlock extends Block {
 
     class TableNode {
         String table;
@@ -27,7 +24,7 @@ public class AbstractTableBlock extends Block {
 
     protected List<TableNode> mTables = new ArrayList<>();
 
-    public AbstractTableBlock(QueryBuilderOptions options) {
+    AbstractTableBlock(QueryBuilderOptions options) {
         super(options);
     }
 
@@ -49,7 +46,7 @@ public class AbstractTableBlock extends Block {
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         assert !mTables.isEmpty();
 
         StringBuilder sb = new StringBuilder();

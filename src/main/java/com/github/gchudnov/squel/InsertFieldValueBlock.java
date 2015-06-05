@@ -1,7 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +6,14 @@ import java.util.List;
 /**
  * (INSERT INTO) ... field ... value
  */
-public class InsertFieldValueBlock extends AbstractSetFieldBlock {
+class InsertFieldValueBlock extends AbstractSetFieldBlock {
 
-    public InsertFieldValueBlock(QueryBuilderOptions options) {
+    InsertFieldValueBlock(QueryBuilderOptions options) {
         super(options);
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         if(mFields.isEmpty()) {
             return "";
         }

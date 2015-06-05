@@ -1,8 +1,4 @@
-package com.github.gchudnov.squel.impl;
-
-import com.github.gchudnov.squel.Expression;
-import com.github.gchudnov.squel.QueryBuilder;
-import com.github.gchudnov.squel.QueryBuilderOptions;
+package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +6,7 @@ import java.util.List;
 /**
  * WHERE
  */
-public class WhereBlock extends Block {
+class WhereBlock extends Block {
 
     class WhereNode {
         String text;
@@ -22,22 +18,22 @@ public class WhereBlock extends Block {
         }
     }
 
-    List<WhereNode> mWheres = new ArrayList<>();
+    private List<WhereNode> mWheres = new ArrayList<>();
 
-    public WhereBlock(QueryBuilderOptions options) {
+    WhereBlock(QueryBuilderOptions options) {
         super(options);
     }
 
     // Add a WHERE condition.
     //
     // When the final query is constructed all the WHERE conditions are combined using the intersection (AND) operator.
-    public <P> void where(String condition, P param) {
+    <P> void where(String condition, P param) {
         if (!Util.isEmpty(condition)) {
             mWheres.add(new WhereNode(condition, param));
         }
     }
 
-    public <P> void where(Expression condition, P param) {
+    <P> void where(Expression condition, P param) {
         String conditionStr = condition.toString();
 
         if (!Util.isEmpty(conditionStr)) {
@@ -46,7 +42,7 @@ public class WhereBlock extends Block {
     }
 
     @Override
-    public String buildStr(QueryBuilder queryBuilder) {
+    String buildStr(QueryBuilder queryBuilder) {
         if (mWheres.isEmpty())
             return "";
 

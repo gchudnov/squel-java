@@ -1,7 +1,5 @@
 package com.github.gchudnov.squel;
 
-import com.github.gchudnov.squel.impl.Util;
-
 import java.util.ArrayList;
 
 /**
@@ -17,10 +15,9 @@ import java.util.ArrayList;
  *
  * All the build methods in this object return the object instance for chained method calling purposes.
  */
-public class Expression extends BaseBuilder {
+public final class Expression extends BaseBlock {
 
     class ExpressionNode {
-
         String type = null;
         ExpressionNode parent = null;
         String expr = null;
@@ -38,7 +35,11 @@ public class Expression extends BaseBuilder {
 
     // Initialise the expression.
     public Expression() {
-        super(new QueryBuilderOptions());
+        this(null);
+    }
+
+    public Expression(QueryBuilderOptions options) {
+        super(options);
         this.mTree = new ExpressionNode();
         this.mCurrent = this.mTree;
     }

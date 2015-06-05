@@ -1,13 +1,11 @@
 package com.github.gchudnov.squel;
 
-import com.github.gchudnov.squel.impl.*;
-
 import java.util.Arrays;
 
 /**
  * SELECT query builder.
  */
-public class Select extends QueryBuilder {
+public final class Select extends QueryBuilder {
 
     public Select(QueryBuilderOptions options) {
         super(options, Arrays.asList(

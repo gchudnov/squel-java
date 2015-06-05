@@ -3,7 +3,7 @@ package com.github.gchudnov.squel;
 /**
  * Functions Exposed.
  */
-public class Squel {
+public final class Squel {
 
     public static Expression expr() {
         return new Expression();

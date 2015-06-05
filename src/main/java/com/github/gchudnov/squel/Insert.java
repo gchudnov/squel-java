@@ -1,16 +1,11 @@
 package com.github.gchudnov.squel;
 
-import com.github.gchudnov.squel.impl.InsertFieldValueBlock;
-import com.github.gchudnov.squel.impl.InsertFieldsFromQueryBlock;
-import com.github.gchudnov.squel.impl.IntoTableBlock;
-import com.github.gchudnov.squel.impl.StringBlock;
-
 import java.util.Arrays;
 
 /**
  * An INSERT query builder.
  */
-public class Insert extends QueryBuilder {
+public final class Insert extends QueryBuilder {
 
     Insert(QueryBuilderOptions options) {
         super(options, Arrays.asList(

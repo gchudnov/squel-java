@@ -1,8 +1,5 @@
 package com.github.gchudnov.squel;
 
-import com.github.gchudnov.squel.impl.Block;
-import com.github.gchudnov.squel.impl.Util;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +10,14 @@ import java.util.List;
  * <p>
  * All the build methods in this object return the object instance for chained method calling purposes.
  */
-public abstract class QueryBuilder extends BaseBuilder {
+public abstract class QueryBuilder {
 
+    protected QueryBuilderOptions mOptions;
     protected List<Block> mBlocks;
 
     QueryBuilder(QueryBuilderOptions options, List<Block> blocks) {
-        super(options);
+
+        mOptions = (options != null ? options : new QueryBuilderOptions());
         mBlocks = (blocks != null ? blocks : new ArrayList<Block>());
     }
 
