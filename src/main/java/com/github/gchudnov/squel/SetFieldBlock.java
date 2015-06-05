@@ -1,9 +1,9 @@
 package com.github.gchudnov.squel;
 
 /**
- * (UPDATE) SET field=value
+ * (UPDATE) SET setField=value
  */
-class SetFieldBlock extends AbstractSetFieldBlock {
+class SetFieldBlock extends SetFieldBlockBase {
 
     SetFieldBlock(QueryBuilderOptions options) {
         super(options);

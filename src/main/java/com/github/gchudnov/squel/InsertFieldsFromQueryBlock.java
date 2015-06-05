@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (INSERT INTO) ... field ... (SELECT ... FROM ...)
+ * (INSERT INTO) ... setField ... (SELECT ... FROM ...)
  */
 class InsertFieldsFromQueryBlock extends Block {
 
@@ -15,10 +15,10 @@ class InsertFieldsFromQueryBlock extends Block {
         super(options);
     }
 
-    void fromQuery(Iterable<String> fields, QueryBuilder query) {
+    void setFromQuery(Iterable<String> fields, QueryBuilder query) {
         mFields = new ArrayList<>();
         for(String field: fields) {
-            mFields.add(_sanitizeField(field));
+            mFields.add(sanitizeField(field));
         }
 
         mQuery = query;

@@ -24,15 +24,14 @@ class OrderByBlock extends Block {
         super(options);
     }
 
-    // Add an ORDER BY transformation for the given field in the given order.
-    // To specify descending order pass false for the 'asc' parameter.
+    /**
+     * Add an ORDER BY transformation for the given setField in the given order.
+     * @param field Field
+     * @param dir Order
+     */
     void setOrder(String field, OrderDirection dir) {
-        field = _sanitizeField(field);
+        field = sanitizeField(field);
         mOrders.add(new OrderNode(field, dir));
-    }
-
-    void setOrder(String field) {
-        setOrder(field, OrderDirection.ASC);
     }
 
     @Override

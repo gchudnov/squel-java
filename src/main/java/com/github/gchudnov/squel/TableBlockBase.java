@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Table specifier base class
- * <p>
- * Additional options
- * - singleTable - only allow one table to be specified  (default: false)
- * - allowNested - allow nested query to be specified as a table    (default: false)
+ * Table base class
  */
-abstract class AbstractTableBlock extends Block {
+abstract class TableBlockBase extends Block {
 
     class TableNode {
         String table;
@@ -24,24 +20,19 @@ abstract class AbstractTableBlock extends Block {
 
     protected List<TableNode> mTables = new ArrayList<>();
 
-    AbstractTableBlock(QueryBuilderOptions options) {
+    TableBlockBase(QueryBuilderOptions options) {
         super(options);
     }
 
-    // Update given table.
-    //
-    // An alias may also be specified for the table.
-    //
-    // Concrete subclasses should provide a method which calls this
-    protected void _table(String table, String alias) {
-        table = _sanitizeTable(table);
-        alias = _sanitizeTableAlias(alias);
+    protected void setTable(String table, String alias) {
+        table = sanitizeTable(table);
+        alias = sanitizeTableAlias(alias);
         doTable(table, alias);
     }
 
-    protected void _table(QueryBuilder table, String alias) {
-        String tableName = _sanitizeTable(table);
-        alias = _sanitizeTableAlias(alias);
+    protected void setTable(QueryBuilder table, String alias) {
+        String tableName = sanitizeTable(table);
+        alias = sanitizeTableAlias(alias);
         doTable(tableName, alias);
     }
 

@@ -3,18 +3,18 @@ package com.github.gchudnov.squel;
 /**
  * FROM table
  */
-class FromTableBlock extends AbstractTableBlock {
+class FromTableBlock extends TableBlockBase {
 
     FromTableBlock(QueryBuilderOptions options) {
         super(options);
     }
 
-    void from(String table, String alias) {
-        super._table(table, alias);
+    void setFrom(String table, String alias) {
+        super.setTable(table, alias);
     }
 
-    void from(QueryBuilder table, String alias) {
-        super._table(table, alias);
+    void setFrom(QueryBuilder table, String alias) {
+        super.setTable(table, alias);
     }
 
     @Override

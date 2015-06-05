@@ -5,19 +5,18 @@ package com.github.gchudnov.squel;
  */
 class DistinctBlock extends Block {
 
-    private boolean mUseDistinct;
+    private boolean mIsDistinct;
 
     DistinctBlock(QueryBuilderOptions options) {
         super(options);
     }
 
-    // Add the DISTINCT keyword to the query.
-    void distinct() {
-        mUseDistinct = true;
+    void setDistinct() {
+        mIsDistinct = true;
     }
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        return (mUseDistinct ? "DISTINCT" : "");
+        return (mIsDistinct ? "DISTINCT" : "");
     }
 }

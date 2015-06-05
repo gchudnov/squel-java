@@ -28,38 +28,34 @@ class JoinBlock extends Block {
         super(options);
     }
 
-    // Add a JOIN with the given table.
-    //
-    // 'table' is the name of the table to join with.
-    //
-    // 'alias' is an optional alias for the table name.
-    //
-    // 'condition' is an optional condition (containing an SQL expression) for the JOIN. If this is an instance of
-    // an expression builder then it gets evaluated straight away.
-    //
-    // 'type' must be either one of INNER, OUTER, LEFT or RIGHT. Default is 'INNER'.
-    //
-    void join(String table, String alias, String condition, JoinType type) {
-        table = _sanitizeTable(table);
-        alias = _sanitizeTableAlias(alias);
+    /**
+     * Add a JOIN with the given table.
+     * @param table Name of the table to setJoin with.
+     * @param alias Optional alias for the table name.
+     * @param condition Optional condition (containing an SQL expression) for the JOIN.
+     * @param type Join Type.
+     */
+    void setJoin(String table, String alias, String condition, JoinType type) {
+        table = sanitizeTable(table);
+        alias = sanitizeTableAlias(alias);
         doJoin(table, alias, condition, type);
     }
 
-    void join(String table, String alias, Expression condition, JoinType type) {
-        table = _sanitizeTable(table);
-        alias = _sanitizeTableAlias(alias);
+    void setJoin(String table, String alias, Expression condition, JoinType type) {
+        table = sanitizeTable(table);
+        alias = sanitizeTableAlias(alias);
         doJoin(table, alias, condition, type);
     }
 
-    void join(QueryBuilder table, String alias, String condition, JoinType type) {
-        String tableName = _sanitizeTable(table);
-        alias = _sanitizeTableAlias(alias);
+    void setJoin(QueryBuilder table, String alias, String condition, JoinType type) {
+        String tableName = sanitizeTable(table);
+        alias = sanitizeTableAlias(alias);
         doJoin(tableName, alias, condition, type);
     }
 
-    void join(QueryBuilder table, String alias, Expression condition, JoinType type) {
-        String tableName = _sanitizeTable(table);
-        alias = _sanitizeTableAlias(alias);
+    void setJoin(QueryBuilder table, String alias, Expression condition, JoinType type) {
+        String tableName = sanitizeTable(table);
+        alias = sanitizeTableAlias(alias);
         doJoin(tableName, alias, condition, type);
     }
 

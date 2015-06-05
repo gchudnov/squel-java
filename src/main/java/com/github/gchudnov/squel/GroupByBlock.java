@@ -14,9 +14,8 @@ class GroupByBlock extends Block {
         super(options);
     }
 
-    // Add a GROUP BY transformation for the given field.
-    void group(String field) {
-        field = _sanitizeField(field);
+    void setGroup(String field) {
+        field = sanitizeField(field);
         mGroups.add(field);
     }
 

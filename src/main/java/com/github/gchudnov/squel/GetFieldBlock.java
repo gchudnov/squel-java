@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * (SELECT) Get field
+ * (SELECT) Get setField
  */
 class GetFieldBlock extends Block {
 
@@ -26,38 +26,31 @@ class GetFieldBlock extends Block {
         super(options);
     }
 
-    // Add the given fields to the final result set.
-    //
-    // The parameter is an Object containing field names (or database functions) as the keys and aliases for the fields
-    // as the values. If the value for a key is null then no alias is set for that field.
-    //
-    // Internally this method simply calls the field() method of this block to add each individual field.
-    //
-    // options.ignorePeriodsForFieldNameQuotes - whether to ignore period (.) when automatically quoting the field name
-    void fields(List<String> fields) {
+    /**
+     * Add the given fields to the result set.
+     * @param fields A collection of fields to add
+     */
+    void setFields(Iterable<String> fields) {
         for (String field : fields) {
-            this.field(field, null);
+            this.setField(field, null);
         }
     }
 
-    // Add the given field to the final result set.
-    //
-    // The 'field' parameter does not necessarily have to be a fieldname. It can use database functions too,
-    // e.g. DATE_FORMAT(a.started, "%H")
-    //
-    // An alias may also be specified for this field.
-    //
-    // options.ignorePeriodsForFieldNameQuotes - whether to ignore period (.) when automatically quoting the field name
-    void field(String field, String alias) {
-        String fieldValue = _sanitizeField(field);
-        String aliasValue = alias != null ? _sanitizeFieldAlias(alias) : null;
+    /**
+     * Add the given setField to the final result set.
+     * @param field Field to add
+     * @param alias Field's alias
+     */
+    void setField(String field, String alias) {
+        String fieldValue = sanitizeField(field);
+        String aliasValue = alias != null ? sanitizeFieldAlias(alias) : null;
 
         doField(fieldValue, aliasValue);
     }
 
-    void field(QueryBuilder field, String alias) {
-        String fieldName = _sanitizeField(field);
-        String aliasValue = alias != null ? _sanitizeFieldAlias(alias) : null;
+    void setField(QueryBuilder field, String alias) {
+        String fieldName = sanitizeField(field);
+        String aliasValue = alias != null ? sanitizeFieldAlias(alias) : null;
 
         doField(fieldName, aliasValue);
     }
@@ -90,7 +83,6 @@ class GetFieldBlock extends Block {
         }
 
         mFieldAliases.put(field, alias);
-
         mFields.add(new FieldNode(field, alias));
     }
 }

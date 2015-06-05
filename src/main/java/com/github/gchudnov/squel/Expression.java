@@ -3,17 +3,7 @@ package com.github.gchudnov.squel;
 import java.util.ArrayList;
 
 /**
- * An SQL expression builder.
- *
- * SQL expressions are used in WHERE and ON clauses to filter data by various criteria.
- *
- * This builder works by building up the expression as a hierarchical tree of nodes. The toString() method then
- * traverses this tree in order to build the final expression string.
- *
- * cls.Expressions can be nested. Nested expression contains can themselves contain nested expressions.
- * When rendered a nested expression will be fully contained within brackets.
- *
- * All the build methods in this object return the object instance for chained method calling purposes.
+ * SQL expression builder.
  */
 public final class Expression extends BaseBlock {
 
@@ -27,13 +17,9 @@ public final class Expression extends BaseBlock {
         ArrayList<ExpressionNode> nodes = new ArrayList<>();
     }
 
-    // The expression tree.
     private ExpressionNode mTree = null;
-
-    // The part of the expression tree we're currently working on.
     private ExpressionNode mCurrent = null;
 
-    // Initialise the expression.
     public Expression() {
         this(null);
     }
@@ -44,30 +30,26 @@ public final class Expression extends BaseBlock {
         this.mCurrent = this.mTree;
     }
 
-
-    // Begin a nested expression and combine it with the current expression using the given operator.
-    private Expression _begin(String op) {
-        ExpressionNode newTree = new ExpressionNode();
-        newTree.type = op;
-        newTree.parent = mCurrent;
-        mCurrent.nodes.add(newTree);
-        mCurrent = mCurrent.nodes.get(mCurrent.nodes.size() - 1);
-        return this;
-    }
-
-    // Begin a nested expression and combine it with the current expression using the intersection operator (AND).
+    /**
+     * Begin AND nested expression
+     * @return Expression
+     */
     public Expression and_begin() {
-        return this._begin("AND");
+        return this.doBegin("AND");
     }
 
-    // Begin a nested expression and combine it with the current expression using the union operator (OR).
+    /**
+     * Begin OR nested expression
+     * @return Expression
+     */
     public Expression or_begin() {
-        return this._begin("OR");
+        return this.doBegin("OR");
     }
 
-    // End the current compound expression.
-    //
-    // This will throw an error if begin() hasn't been called yet.
+    /**
+     * End the current compound expression.
+     * @return Expression
+     */
     public Expression end() {
         assert mCurrent.parent != null; // "begin() needs to be called"
 
@@ -75,7 +57,11 @@ public final class Expression extends BaseBlock {
         return this;
     }
 
-    // Combine the current expression with the given expression using the intersection operator (AND).
+    /**
+     * Combine the current expression with the given expression using the intersection operator (AND).
+     * @param expr Expression to combine with
+     * @return Expression
+     */
     public Expression and(String expr) {
         return this.and(expr, null);
     }
@@ -90,7 +76,11 @@ public final class Expression extends BaseBlock {
         return this;
     }
 
-    // Combine the current expression with the given expression using the union operator (OR).
+    /**
+     * Combine the current expression with the given expression using the union operator (OR).
+     * @param expr Expression to combine with.
+     * @return Expression
+     */
     public Expression or(String expr) {
         return this.or(expr, null);
     }
@@ -105,21 +95,44 @@ public final class Expression extends BaseBlock {
         return this;
     }
 
-    // Get the final fully constructed expression string.
+    /**
+     * Get the Expression string.
+     * @return A String representation of the expression.
+     */
     @Override
     public String toString() {
         assert mCurrent.parent == null; // "end() needs to be called"
-
         return this.doString(mTree);
     }
 
-    // Get a string representation of the given expression tree node.
+    /**
+     * Begin a nested expression
+     * @param op Operator to combine with the current expression
+     * @return Expression
+     */
+    private Expression doBegin(String op) {
+        ExpressionNode newTree = new ExpressionNode();
+
+        newTree.type = op;
+        newTree.parent = mCurrent;
+
+        mCurrent.nodes.add(newTree);
+        mCurrent = newTree;
+
+        return this;
+    }
+
+    /**
+     * Get a string representation of the given expression tree node.
+     * @param node Node to
+     * @return String
+     */
     private String doString(ExpressionNode node) {
         StringBuilder sb = new StringBuilder();
         String nodeStr;
         for (ExpressionNode child : node.nodes) {
             if (child.expr != null) {
-                nodeStr = child.expr.replace("?", this._formatValue(child.param)); // child.paramType.cast(child.param)
+                nodeStr = child.expr.replace("?", this._formatValue(child.param));
             } else {
                 nodeStr = this.doString(child);
 
@@ -141,5 +154,4 @@ public final class Expression extends BaseBlock {
 
         return sb.toString();
     }
-
 }

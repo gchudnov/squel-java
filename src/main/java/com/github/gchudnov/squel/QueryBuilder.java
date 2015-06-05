@@ -5,10 +5,7 @@ import java.util.List;
 
 /**
  * Query builder base class
- * <p>
- * Note that the query builder does not check the final query string for correctness.
- * <p>
- * All the build methods in this object return the object instance for chained method calling purposes.
+ * NOTE: the query builder does not check the final query string for correctness.
  */
 public abstract class QueryBuilder {
 

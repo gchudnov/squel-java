@@ -24,16 +24,19 @@ class WhereBlock extends Block {
         super(options);
     }
 
-    // Add a WHERE condition.
-    //
-    // When the final query is constructed all the WHERE conditions are combined using the intersection (AND) operator.
-    <P> void where(String condition, P param) {
+    /**
+     * Add a WHERE condition.
+     * @param condition Condition to add
+     * @param param Parameter to add to condition.
+     * @param <P> Type of the parameter to add.
+     */
+    <P> void setWhere(String condition, P param) {
         if (!Util.isEmpty(condition)) {
             mWheres.add(new WhereNode(condition, param));
         }
     }
 
-    <P> void where(Expression condition, P param) {
+    <P> void setWhere(Expression condition, P param) {
         String conditionStr = condition.toString();
 
         if (!Util.isEmpty(conditionStr)) {

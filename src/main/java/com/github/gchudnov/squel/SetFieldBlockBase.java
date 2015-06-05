@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Base class for setting fields to values (used for INSERT and UPDATE queries)
  */
-abstract class AbstractSetFieldBlock extends Block {
+abstract class SetFieldBlockBase extends Block {
 
     class SetNode {
         String field;
@@ -20,13 +20,13 @@ abstract class AbstractSetFieldBlock extends Block {
 
     protected List<SetNode> mFields = new ArrayList<>();
 
-    AbstractSetFieldBlock(QueryBuilderOptions options) {
+    SetFieldBlockBase(QueryBuilderOptions options) {
         super(options);
     }
 
-    // Update the given field with the given value.
+    // Update the given setField with the given value.
     <T> void set(String field, T value) {
-        field = _sanitizeField(field);
+        field = sanitizeField(field);
         mFields.add(new SetNode(field, value));
     }
 }

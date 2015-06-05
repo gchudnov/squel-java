@@ -14,6 +14,7 @@ class StringBlock extends Block {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
+        assert mStr != null;
         return mStr;
     }
 }

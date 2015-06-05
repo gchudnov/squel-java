@@ -11,14 +11,14 @@ class IntoTableBlock extends Block {
         super(options);
     }
 
-    // Into given table.
-    void into(String table) {
-        table = _sanitizeTable(table);
+    void setInto(String table) {
+        table = sanitizeTable(table);
         mTable = table;
     }
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
+        assert mTable != null;
         return "INTO " + mTable;
     }
 }

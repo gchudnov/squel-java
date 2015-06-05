@@ -21,7 +21,7 @@ public final class Update extends QueryBuilder {
     @Override
     public QueryBuilder table(String table, String alias) {
         UpdateTableBlock block = (UpdateTableBlock) mBlocks.get(1);
-        block.table(table, alias);
+        block.setTable(table, alias);
         return this;
     }
 
@@ -35,14 +35,14 @@ public final class Update extends QueryBuilder {
     @Override
     public <P> QueryBuilder where(String condition, P param) {
         WhereBlock block = (WhereBlock) mBlocks.get(3);
-        block.where(condition, param);
+        block.setWhere(condition, param);
         return this;
     }
 
     @Override
     public <P> QueryBuilder where(Expression condition, P param) {
         WhereBlock block = (WhereBlock) mBlocks.get(3);
-        block.where(condition, param);
+        block.setWhere(condition, param);
         return this;
     }
 

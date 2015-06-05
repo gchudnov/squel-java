@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (INSERT INTO) ... field ... value
+ * (INSERT INTO) ... setField ... value
  */
-class InsertFieldValueBlock extends AbstractSetFieldBlock {
+class InsertFieldValueBlock extends SetFieldBlockBase {
 
     InsertFieldValueBlock(QueryBuilderOptions options) {
         super(options);

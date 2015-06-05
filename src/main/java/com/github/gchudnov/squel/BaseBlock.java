@@ -6,23 +6,23 @@ import java.util.List;
 /**
  * Base class for all builders
  */
-class BaseBlock {
+abstract class BaseBlock {
 
     protected QueryBuilderOptions mOptions;
 
-    BaseBlock(QueryBuilderOptions options) {
+    protected BaseBlock(QueryBuilderOptions options) {
         this.mOptions = (options != null ? options : new QueryBuilderOptions());
     }
 
-    protected String _sanitizeFieldAlias(String value) {
+    protected String sanitizeFieldAlias(String value) {
         return (mOptions.autoQuoteAliasNames ? mOptions.fieldAliasQuoteCharacter + value + mOptions.fieldAliasQuoteCharacter : value);
     }
 
-    protected String _sanitizeField(QueryBuilder value) {
+    protected String sanitizeField(QueryBuilder value) {
         return "(" + value.toString() + ")";
     }
 
-    protected String _sanitizeField(String value) {
+    protected String sanitizeField(String value) {
         if(mOptions.autoQuoteFieldNames) {
             String quoteChar = mOptions.nameQuoteCharacter;
             if(mOptions.ignorePeriodsForFieldNameQuotes) {
@@ -47,52 +47,51 @@ class BaseBlock {
         return value;
     }
 
-    protected String _sanitizeTable(QueryBuilder name) {
+    protected String sanitizeTable(QueryBuilder name) {
         return ("(" + name.toString() + ")");
     }
 
-    protected String _sanitizeTable(String name) {
+    protected String sanitizeTable(String name) {
         return (mOptions.autoQuoteTableNames ? mOptions.nameQuoteCharacter + name + mOptions.nameQuoteCharacter : name);
     }
 
-    protected String _sanitizeTableAlias(String value) {
+    protected String sanitizeTableAlias(String value) {
         return (value != null ? (mOptions.autoQuoteAliasNames ? mOptions.tableAliasQuoteCharacter + value + mOptions.tableAliasQuoteCharacter : value) : null);
     };
 
-    // Escape a string value, e.g. escape quotes and other characters within it.
-    private String _escapeValue(String value) {
+    private String escapeValue(String value) {
         return (mOptions.replaceSingleQuotes ? value.replaceAll("'", mOptions.singleQuoteReplacement) : value);
     }
 
-    private String _formatNull() {
+    private String formatNull() {
         return "NULL";
     }
 
-    private String _formatBoolean(boolean value) {
+    private String formatBoolean(boolean value) {
         return (value ? "TRUE" : "FALSE");
     }
 
-    private String _formatNumber(Number value) {
+    private String formatNumber(Number value) {
         return String.valueOf(value);
     }
 
-    private String _formatString(String value) {
+    private String formatString(String value) {
         if(!mOptions.dontQuote) {
-            return "'" + this._escapeValue(value) + "'";
+            return "'" + this.escapeValue(value) + "'";
         }
 
         return value;
     }
 
-    private String _formatQueryBuilder(QueryBuilder value) {
+    private String formatQueryBuilder(QueryBuilder value) {
         return "(" + value.toString() + ")";
     }
 
-    private String _formatExpression(Expression value) {
+    private String formatExpression(Expression value) {
         return "(" + value.toString() + ")";
     }
 
-    protected String _formatArray(Object[] values) {
+    protected String formatArray(Object[] values) {
         List<String> results = new ArrayList<>();
         for(Object value: values) {
             results.add(_formatValue(value));
@@ -102,20 +101,20 @@ class BaseBlock {
 
     protected String _formatValue(Object value) {
         if(value == null) {
-            return _formatNull();
+            return formatNull();
         } else {
             if(value instanceof Number) {
-                return _formatNumber((Number)value);
+                return formatNumber((Number) value);
             } else if(value instanceof String) {
-                return _formatString((String)value);
+                return formatString((String) value);
             } else if(value instanceof Boolean) {
-                return _formatBoolean((boolean)value);
+                return formatBoolean((boolean) value);
             } else if(value instanceof QueryBuilder) {
-                return _formatQueryBuilder((QueryBuilder)value);
+                return formatQueryBuilder((QueryBuilder) value);
             } else if(value instanceof Expression) {
-                return _formatExpression((Expression)value);
+                return formatExpression((Expression) value);
             } else if(value instanceof Object[]) {
-                return _formatArray((Object[])value);
+                return formatArray((Object[]) value);
             }
         }
 

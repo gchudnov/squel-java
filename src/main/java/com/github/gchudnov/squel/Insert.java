@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * An INSERT query builder.
  */
-public final class Insert extends QueryBuilder {
+class Insert extends QueryBuilder {
 
     Insert(QueryBuilderOptions options) {
         super(options, Arrays.asList(
@@ -19,7 +19,7 @@ public final class Insert extends QueryBuilder {
     @Override
     public QueryBuilder into(String table) {
         IntoTableBlock block = (IntoTableBlock) mBlocks.get(1);
-        block.into(table);
+        block.setInto(table);
         return this;
     }
 
@@ -33,7 +33,7 @@ public final class Insert extends QueryBuilder {
     @Override
     public QueryBuilder fromQuery(Iterable<String> fields, QueryBuilder query) {
         InsertFieldsFromQueryBlock block = (InsertFieldsFromQueryBlock) mBlocks.get(3);
-        block.fromQuery(fields, query);
+        block.setFromQuery(fields, query);
         return this;
     }
 }

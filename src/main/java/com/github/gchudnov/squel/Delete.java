@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * DELETE query builder.
  */
-public final class Delete extends QueryBuilder {
+final class Delete extends QueryBuilder {
 
     Delete(QueryBuilderOptions options) {
         super(options, Arrays.asList(
@@ -21,53 +21,56 @@ public final class Delete extends QueryBuilder {
     @Override
     public QueryBuilder from(String table, String alias) {
         FromTableBlock block = (FromTableBlock) mBlocks.get(1);
-        block.from(table, alias);
+        block.setFrom(table, alias);
         return this;
     }
 
     @Override
     public QueryBuilder from(QueryBuilder table, String alias) {
         FromTableBlock block = (FromTableBlock) mBlocks.get(1);
-        block.from(table, alias);
+        block.setFrom(table, alias);
         return this;
     }
 
     @Override
     public <P> QueryBuilder where(String condition, P param) {
         WhereBlock block = (WhereBlock) mBlocks.get(3);
-        block.where(condition, param);
+        block.setWhere(condition, param);
         return this;
     }
 
     @Override
     public <P> QueryBuilder where(Expression condition, P param) {
         WhereBlock block = (WhereBlock) mBlocks.get(3);
-        block.where(condition, param);
+        block.setWhere(condition, param);
         return this;
     }
 
     @Override
     public QueryBuilder join(String table, String alias, String condition, JoinType type) {
         JoinBlock block = (JoinBlock) mBlocks.get(2);
-        block.join(table, alias, condition, type);
+        block.setJoin(table, alias, condition, type);
         return this;
     }
 
+    @Override
     public QueryBuilder join(QueryBuilder table, String alias, String condition, JoinType type) {
         JoinBlock block = (JoinBlock) mBlocks.get(2);
-        block.join(table, alias, condition, type);
+        block.setJoin(table, alias, condition, type);
         return this;
     }
 
+    @Override
     public QueryBuilder join(String table, String alias, Expression condition, JoinType type) {
         JoinBlock block = (JoinBlock) mBlocks.get(2);
-        block.join(table, alias, condition, type);
+        block.setJoin(table, alias, condition, type);
         return this;
     }
 
+    @Override
     public QueryBuilder join(QueryBuilder table, String alias, Expression condition, JoinType type) {
         JoinBlock block = (JoinBlock) mBlocks.get(2);
-        block.join(table, alias, condition, type);
+        block.setJoin(table, alias, condition, type);
         return this;
     }
 

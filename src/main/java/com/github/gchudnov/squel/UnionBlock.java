@@ -29,15 +29,13 @@ class UnionBlock extends Block {
         super(options);
     }
 
-    // Add a UNION with the given table/query.
-    //
-    // 'table' is the name of the table or query to union with.
-    //
-    //
-    // 'type' must be either one of UNION or UNION ALL.... Default is 'UNION'.
-    //
+    /**
+     * Add a UNION with the given table/query.
+     * @param table Name of the table or query to union with.
+     * @param unionType Type of the union.
+     */
     void setUnion(String table, UnionType unionType) {
-        table = _sanitizeTable(table);
+        table = sanitizeTable(table);
         mUnions.add(new UnionNode(table, unionType));
     }
 
