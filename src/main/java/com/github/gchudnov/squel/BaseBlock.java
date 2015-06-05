@@ -1,6 +1,7 @@
 package com.github.gchudnov.squel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -91,15 +92,19 @@ abstract class BaseBlock {
         return "(" + value.toString() + ")";
     }
 
-    protected String formatArray(Object[] values) {
+    protected String formatIterable(Iterable<?> values) {
         List<String> results = new ArrayList<>();
         for(Object value: values) {
-            results.add(_formatValue(value));
+            results.add(formatValue(value));
         }
         return "(" + Util.join(", ", results) + ")";
     }
 
-    protected String _formatValue(Object value) {
+    protected String formatArray(Object[] values) {
+        return formatIterable(Arrays.asList(values));
+    }
+
+    protected String formatValue(Object value) {
         if(value == null) {
             return formatNull();
         } else {
@@ -115,6 +120,8 @@ abstract class BaseBlock {
                 return formatExpression((Expression) value);
             } else if(value instanceof Object[]) {
                 return formatArray((Object[]) value);
+            } else if(value instanceof Iterable<?>) {
+                return formatIterable((Iterable<?>)value);
             }
         }
 

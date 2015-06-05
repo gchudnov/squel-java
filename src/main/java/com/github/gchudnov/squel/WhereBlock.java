@@ -51,7 +51,7 @@ class WhereBlock extends Block {
                 sb.append(") AND (");
             }
 
-            sb.append(where.text.replace("?", this._formatValue(where.param)));
+            sb.append(where.text.replace("?", this.formatValue(where.param)));
         }
 
         return "WHERE (" + sb.toString() + ")";

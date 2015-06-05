@@ -2,6 +2,8 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -97,6 +99,16 @@ public class ExpressionTest {
     public void andArrayParameters() {
         String actual = Squel.expr()
                 .and("dummy IN ?", new Object[]{ false, 2, null, "str" })
+                .toString();
+
+        String expected = "dummy IN (FALSE, 2, NULL, 'str')";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void andIterableParameters() {
+        String actual = Squel.expr()
+                .and("dummy IN ?", Arrays.asList(false, 2, null, "str" ))
                 .toString();
 
         String expected = "dummy IN (FALSE, 2, NULL, 'str')";

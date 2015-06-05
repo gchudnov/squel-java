@@ -35,7 +35,7 @@ class InsertFieldValueBlock extends SetFieldBlockBase {
     private List<String> buildFieldValues(List<SetNode> nodes) {
         List<String> values = new ArrayList<>();
         for(SetNode n : nodes) {
-            values.add(_formatValue(n.value));
+            values.add(formatValue(n.value));
         }
         return values;
     }

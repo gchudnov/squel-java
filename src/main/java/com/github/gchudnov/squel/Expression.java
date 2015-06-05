@@ -132,7 +132,7 @@ public final class Expression extends BaseBlock {
         String nodeStr;
         for (ExpressionNode child : node.nodes) {
             if (child.expr != null) {
-                nodeStr = child.expr.replace("?", this._formatValue(child.param));
+                nodeStr = child.expr.replace("?", this.formatValue(child.param));
             } else {
                 nodeStr = this.doString(child);
 
