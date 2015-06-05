@@ -2,6 +2,7 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
+import javax.management.Query;
 import java.util.AbstractQueue;
 
 import static org.junit.Assert.assertEquals;
@@ -273,7 +274,17 @@ public class SelectTest {
         assertEquals(expected, actual);
     }
 
-    // TODO: 'nesting in JOINs with params'
+    @Test
+    public void nestingJoinWithParams() {
+        QueryBuilder inner1 = Squel.select().from("students").where("age = ?", 6);
+        QueryBuilder inner2 = Squel.select().from(inner1);
+
+        QueryBuilder sql = Squel.select().from("schools").where("school_type = ?", "junior").join(inner2, "meh", "meh.ID = ID");
+
+        String actual = sql.toString();
+        String expected = "SELECT * FROM schools INNER JOIN (SELECT * FROM (SELECT * FROM students WHERE (age = 6))) `meh` ON (meh.ID = ID) WHERE (school_type = 'junior')";
+        assertEquals(expected, actual);
+    }
 
     @Test
     public void unionTwoQueries() {
