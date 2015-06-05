@@ -2,9 +2,6 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
-import javax.management.Query;
-import java.util.AbstractQueue;
-
 import static org.junit.Assert.assertEquals;
 
 /**

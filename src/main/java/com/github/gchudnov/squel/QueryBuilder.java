@@ -228,4 +228,40 @@ public abstract class QueryBuilder extends BaseBuilder {
     public QueryBuilder union_all(String table) {
         return union(table, UnionType.UNION_ALL);
     }
+
+    //
+    // TABLE
+    //
+
+    public QueryBuilder table(String table) {
+        return table(table, null);
+    }
+
+    public QueryBuilder table(String table, String alias) {
+        throw new UnsupportedOperationException("`table` not implemented");
+    }
+
+    //
+    // SET
+    //
+
+    public <T> QueryBuilder set(String field, T value) {
+        throw new UnsupportedOperationException("`set` not implemented");
+    }
+
+    //
+    // INTO
+    //
+
+    public QueryBuilder into(String table) {
+        throw new UnsupportedOperationException("`into` not implemented");
+    }
+
+    //
+    // `FROM QUERY`
+    //
+
+    public QueryBuilder fromQuery(Iterable<String> fields, QueryBuilder query) {
+        throw new UnsupportedOperationException("`fromQuery` not implemented");
+    }
 }

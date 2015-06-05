@@ -16,14 +16,12 @@ public class IntoTableBlock extends Block {
 
     // Into given table.
     public void into(String table) {
-        // do not allow nested table to be the target
-        //@table = @_sanitizeTable(table, false)
+        table = _sanitizeTable(table);
         mTable = table;
     }
 
     @Override
     public String buildStr(QueryBuilder queryBuilder) {
-        // if not @table then throw new Error "into() needs to be called"
         return "INTO " + mTable;
     }
 }

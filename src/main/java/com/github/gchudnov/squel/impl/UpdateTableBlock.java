@@ -3,7 +3,7 @@ package com.github.gchudnov.squel.impl;
 import com.github.gchudnov.squel.QueryBuilderOptions;
 
 /**
- * com.github.gchudnov.squel.Update Table
+ * Update table.
  */
 public class UpdateTableBlock extends AbstractTableBlock {
 
