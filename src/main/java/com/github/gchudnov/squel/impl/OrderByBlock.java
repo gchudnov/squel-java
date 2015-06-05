@@ -1,4 +1,8 @@
-package com.github.gchudnov.squel;
+package com.github.gchudnov.squel.impl;
+
+import com.github.gchudnov.squel.OrderDirection;
+import com.github.gchudnov.squel.QueryBuilder;
+import com.github.gchudnov.squel.QueryBuilderOptions;
 
 import java.util.ArrayList;
 import java.util.List;

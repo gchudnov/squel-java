@@ -1,4 +1,4 @@
-package com.github.gchudnov.squel;
+package com.github.gchudnov.squel.impl;
 
 /**
  * Helper utilities.

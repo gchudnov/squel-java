@@ -1,5 +1,7 @@
 package com.github.gchudnov.squel;
 
+import com.github.gchudnov.squel.impl.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 

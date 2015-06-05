@@ -1,4 +1,8 @@
-package com.github.gchudnov.squel;
+package com.github.gchudnov.squel.impl;
+
+import com.github.gchudnov.squel.BaseBuilder;
+import com.github.gchudnov.squel.QueryBuilder;
+import com.github.gchudnov.squel.QueryBuilderOptions;
 
 /**
  * A building block represents a single build-step within a query building process.

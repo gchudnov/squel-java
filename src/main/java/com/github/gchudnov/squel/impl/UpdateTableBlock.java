@@ -1,4 +1,6 @@
-package com.github.gchudnov.squel;
+package com.github.gchudnov.squel.impl;
+
+import com.github.gchudnov.squel.QueryBuilderOptions;
 
 /**
  * com.github.gchudnov.squel.Update Table
