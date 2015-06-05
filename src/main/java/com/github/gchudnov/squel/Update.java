@@ -28,7 +28,7 @@ public final class Update extends QueryBuilder {
     @Override
     public <T> QueryBuilder set(String field, T value) {
         SetFieldBlock block = (SetFieldBlock) mBlocks.get(2);
-        block.set(field, value);
+        block.setFieldValue(field, value);
         return this;
     }
 

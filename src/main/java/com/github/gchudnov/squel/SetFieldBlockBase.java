@@ -25,7 +25,7 @@ abstract class SetFieldBlockBase extends Block {
     }
 
     // Update the given setField with the given value.
-    <T> void set(String field, T value) {
+    <T> void setFieldValue(String field, T value) {
         field = sanitizeField(field);
         mFields.add(new SetNode(field, value));
     }

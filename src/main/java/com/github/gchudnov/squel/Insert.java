@@ -26,7 +26,7 @@ class Insert extends QueryBuilder {
     @Override
     public <T> QueryBuilder set(String field, T value) {
         InsertFieldValueBlock block = (InsertFieldValueBlock) mBlocks.get(2);
-        block.set(field, value);
+        block.setFieldValue(field, value);
         return this;
     }
 

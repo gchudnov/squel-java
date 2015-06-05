@@ -27,7 +27,7 @@ class GetFieldBlock extends Block {
     }
 
     /**
-     * Add the given fields to the result set.
+     * Add the given fields to the result setFieldValue.
      * @param fields A collection of fields to add
      */
     void setFields(Iterable<String> fields) {
@@ -37,7 +37,7 @@ class GetFieldBlock extends Block {
     }
 
     /**
-     * Add the given setField to the final result set.
+     * Add the given setField to the final result setFieldValue.
      * @param field Field to add
      * @param alias Field's alias
      */
