@@ -1,7 +1,7 @@
 package com.github.gchudnov.squel;
 
 /**
- * A com.github.gchudnov.squel.Squel-library exception
+ * A Squel-library exception
  */
 public class SquelException extends Exception {
 

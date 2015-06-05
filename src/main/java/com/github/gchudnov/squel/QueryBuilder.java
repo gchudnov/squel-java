@@ -44,11 +44,11 @@ public abstract class QueryBuilder extends BaseBuilder {
     //
 
     public QueryBuilder from(String table) {
-        throw new UnsupportedOperationException("`from` not implemented");
+        return from(table, null);
     }
 
     public QueryBuilder from(QueryBuilder table) {
-        throw new UnsupportedOperationException("`from` not implemented");
+        return from(table, null);
     }
 
     public QueryBuilder from(String table, String alias) {

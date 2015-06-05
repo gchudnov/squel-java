@@ -19,7 +19,7 @@ public class GroupByBlock extends Block {
 
     // Add a GROUP BY transformation for the given field.
     public void group(String field) {
-        // field = @_sanitizeField(field)
+        field = _sanitizeField(field);
         mGroups.add(field);
     }
 

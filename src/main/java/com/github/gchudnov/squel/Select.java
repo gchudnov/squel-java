@@ -33,16 +33,6 @@ public class Select extends QueryBuilder {
     }
 
     @Override
-    public QueryBuilder from(String table) {
-        return from(table, null);
-    }
-
-    @Override
-    public QueryBuilder from(QueryBuilder table) {
-        return from(table, null);
-    }
-
-    @Override
     public QueryBuilder from(String table, String alias) {
         FromTableBlock block = (FromTableBlock) mBlocks.get(3);
         block.from(table, alias);

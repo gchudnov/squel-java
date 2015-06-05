@@ -25,9 +25,6 @@ public class QueryBuilderOptions {
     // The quote character used for when quoting table alias names
     public String fieldAliasQuoteCharacter = "\"";
 
-    // Custom value handlers where key is the value type and the value is the handler function
-    // valueHandlers: []
-
     // Number parameters returned from toParam() as $1, $2, etc. Default is to use '?', startAt 1 will give $1...
     public boolean numberedParameters = false;
     public int numberedParametersStartAt = 1;

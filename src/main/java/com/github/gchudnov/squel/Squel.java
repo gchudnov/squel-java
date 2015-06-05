@@ -21,6 +21,10 @@ public class Squel {
         return  insert(null);
     }
 
+    public static QueryBuilder delete() {
+        return delete(null);
+    }
+
     public static QueryBuilder select(QueryBuilderOptions options) {
         return new Select(options);
     }
@@ -33,4 +37,7 @@ public class Squel {
         return new Insert(options);
     }
 
+    public static QueryBuilder delete(QueryBuilderOptions options) {
+        return new Delete(options);
+    }
 }
