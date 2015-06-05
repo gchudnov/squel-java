@@ -14,15 +14,19 @@ public class SetFieldBlock extends AbstractSetFieldBlock {
 
     @Override
     public String buildStr(QueryBuilder queryBuilder) {
-        String result = "";
+        assert !mFields.isEmpty();
+
+        StringBuilder sb = new StringBuilder();
         for(SetNode n : mFields) {
-            if(!result.isEmpty()) {
-                result += ", ";
+            if(sb.length() > 0) {
+                sb.append(", ");
             }
 
-            result += n.field + " = " + _formatValue(n.value);
+            sb.append(n.field);
+            sb.append(" = ");
+            sb.append(_formatValue(n.value));
         }
 
-        return "SET " + result;
+        return "SET " + sb.toString();
     }
 }

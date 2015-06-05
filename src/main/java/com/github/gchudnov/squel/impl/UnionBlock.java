@@ -51,20 +51,27 @@ public class UnionBlock extends Block {
 
     @Override
     public String buildStr(QueryBuilder queryBuilder) {
-        String result = "";
+        if(mUnions.isEmpty())
+            return "";
+
+        StringBuilder sb = new StringBuilder();
         for(UnionNode j: mUnions) {
-            if(!result.isEmpty()) {
-                result += " ";
+            if(sb.length() > 0) {
+                sb.append(" ");
             }
 
-            result += (j.unionType == UnionType.UNION ? "UNION" : "UNION ALL") + " ";
+            sb.append(UnionType.toSql(j.unionType));
+            sb.append(" ");
 
             if(j.table instanceof String) {
-                result += j.table;
+                sb.append(j.table);
             } else {
-                result += "(" + j.table.toString() + ")";
+                sb.append("(");
+                sb.append(j.table.toString());
+                sb.append(")");
             }
         }
-        return result;
+
+        return sb.toString();
     }
 }

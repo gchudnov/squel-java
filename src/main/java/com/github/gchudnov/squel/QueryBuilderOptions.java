@@ -25,10 +25,6 @@ public class QueryBuilderOptions {
     // The quote character used for when quoting table alias names
     public String fieldAliasQuoteCharacter = "\"";
 
-    // Number parameters returned from toParam() as $1, $2, etc. Default is to use '?', startAt 1 will give $1...
-    public boolean numberedParameters = false;
-    public int numberedParametersStartAt = 1;
-
     // If true then replaces all single quotes within strings. The replacement string used is configurable via the `singleQuoteReplacement` option.
     public boolean replaceSingleQuotes = false;
 

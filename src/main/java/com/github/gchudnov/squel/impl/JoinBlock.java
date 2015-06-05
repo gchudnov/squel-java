@@ -70,22 +70,29 @@ public class JoinBlock extends Block {
 
     @Override
     public String buildStr(QueryBuilder queryBuilder) {
-        String joins = "";
+        if(mJoins.isEmpty())
+            return "";
+
+        StringBuilder sb = new StringBuilder();
         for (JoinNode j : mJoins) {
-            if (!Util.isEmpty(joins)) {
-                joins += " ";
+            if (sb.length() > 0) {
+                sb.append(" ");
             }
 
-            joins += j.type + " JOIN ";
+            sb.append(j.type);
+            sb.append(" JOIN ");
 
             if(j.table instanceof String) {
-                joins += (String)j.table;
+                sb.append((String)j.table);
             } else {
-                joins += "(" + j.table.toString() + ")";
+                sb.append("(");
+                sb.append(j.table.toString());
+                sb.append(")");
             }
 
             if (!Util.isEmpty(j.alias)) {
-                joins += " " + j.alias;
+                sb.append(" ");
+                sb.append(j.alias);
             }
 
             String conditionStr;
@@ -96,11 +103,13 @@ public class JoinBlock extends Block {
             }
 
             if (!Util.isEmpty(conditionStr)) {
-                joins += " ON (" + conditionStr + ")";
+                sb.append(" ON (");
+                sb.append(conditionStr);
+                sb.append(")");
             }
         }
 
-        return joins;
+        return sb.toString();
     }
 
     private void doJoin(Object table, String alias, Object condition, JoinType type) {

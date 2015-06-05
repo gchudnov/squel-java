@@ -44,15 +44,17 @@ public class OrderByBlock extends Block {
         if(mOrders.isEmpty())
             return "";
 
-        String orders = "";
+        StringBuilder sb = new StringBuilder();
         for(OrderNode o: mOrders) {
-            if(orders.length() > 0) {
-                orders += ", ";
+            if(sb.length() > 0) {
+                sb.append(", ");
             }
 
-            orders += o.field + " " + (o.dir == OrderDirection.ASC ? "ASC" : "DESC");
+            sb.append(o.field);
+            sb.append(" ");
+            sb.append(o.dir == OrderDirection.ASC ? "ASC" : "DESC");
         }
 
-        return "ORDER BY " + orders;
+        return "ORDER BY " + sb.toString();
     }
 }

@@ -67,20 +67,24 @@ public class GetFieldBlock extends Block {
 
     @Override
     public String buildStr(QueryBuilder queryBuilder) {
-        String fields = "";
+        if(mFields.isEmpty())
+            return "*";
+
+        StringBuilder sb = new StringBuilder();
         for (FieldNode field : mFields) {
-            if (!Util.isEmpty(fields)) {
-                fields += ", ";
+            if (sb.length() > 0) {
+                sb.append(", ");
             }
 
-            fields += field.name;
+            sb.append(field.name);
 
-            if (field.alias != null) {
-                fields += " AS " + field.alias;
+            if (!Util.isEmpty(field.alias)) {
+                sb.append(" AS ");
+                sb.append(field.alias);
             }
         }
 
-        return (Util.isEmpty(fields) ? "*" : fields);
+        return sb.toString();
     }
 
     private void doField(String field, String alias) {

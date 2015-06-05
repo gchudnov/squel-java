@@ -50,16 +50,15 @@ public class WhereBlock extends Block {
         if (mWheres.isEmpty())
             return "";
 
-        String whereStr = "";
+        StringBuilder sb = new StringBuilder();
         for (WhereNode where : mWheres) {
-            if (!Util.isEmpty(whereStr)) {
-                whereStr += ") AND (";
+            if (sb.length() > 0) {
+                sb.append(") AND (");
             }
 
-            String newText = where.text.replace("?", this._formatValue(where.param));
-            whereStr += newText;
+            sb.append(where.text.replace("?", this._formatValue(where.param)));
         }
 
-        return "WHERE (" + whereStr + ")";
+        return "WHERE (" + sb.toString() + ")";
     }
 }

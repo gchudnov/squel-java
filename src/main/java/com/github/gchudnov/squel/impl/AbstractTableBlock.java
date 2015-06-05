@@ -52,19 +52,20 @@ public class AbstractTableBlock extends Block {
     public String buildStr(QueryBuilder queryBuilder) {
         assert !mTables.isEmpty();
 
-        String tables = "";
+        StringBuilder sb = new StringBuilder();
         for (TableNode table : mTables) {
-            if (!Util.isEmpty(tables)) {
-                tables += ", ";
+            if (sb.length() > 0) {
+                sb.append(", ");
             }
-            tables += table.table;
+            sb.append(table.table);
 
             if (table.alias != null) {
-                tables += " " + table.alias;
+                sb.append(" ");
+                sb.append(table.alias);
             }
         }
 
-        return tables;
+        return sb.toString();
     }
 
     private void doTable(String table, String alias) {

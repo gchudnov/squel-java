@@ -109,19 +109,18 @@ public class Expression extends BaseBuilder {
     public String toString() {
         assert mCurrent.parent == null; // "end() needs to be called"
 
-        return this._toString(mTree);
+        return this.doString(mTree);
     }
 
     // Get a string representation of the given expression tree node.
-    private String _toString(ExpressionNode node) {
-        String str = "";
+    private String doString(ExpressionNode node) {
+        StringBuilder sb = new StringBuilder();
         String nodeStr;
         for (ExpressionNode child : node.nodes) {
             if (child.expr != null) {
-                nodeStr = child.expr;
-                nodeStr = nodeStr.replace("?", this._formatValue(child.param)); // child.paramType.cast(child.param)
+                nodeStr = child.expr.replace("?", this._formatValue(child.param)); // child.paramType.cast(child.param)
             } else {
-                nodeStr = this._toString(child);
+                nodeStr = this.doString(child);
 
                 // wrap nested expressions in brackets
                 if (!Util.isEmpty(nodeStr)) {
@@ -130,14 +129,16 @@ public class Expression extends BaseBuilder {
             }
 
             if (!Util.isEmpty(nodeStr)) {
-                if (!Util.isEmpty(str)) {
-                    str += " " + child.type + " ";
+                if (sb.length() > 0) {
+                    sb.append(" ");
+                    sb.append(child.type);
+                    sb.append(" ");
                 }
-                str += nodeStr;
+                sb.append(nodeStr);
             }
         }
 
-        return str;
+        return sb.toString();
     }
 
 }
