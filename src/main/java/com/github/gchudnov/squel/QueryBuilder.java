@@ -86,14 +86,22 @@ public abstract class QueryBuilder extends BaseBuilder {
     //
 
     public QueryBuilder join(String table) {
-        return join(table, null, null, null);
+        return join(table, null, (String)null, null);
     }
 
     public QueryBuilder join(String table, String alias) {
-        return join(table, alias, null, null);
+        return join(table, alias, (String)null, null);
     }
 
     public QueryBuilder join(String table, String alias, String condition) {
+        return join(table, alias, condition, null);
+    }
+
+    public QueryBuilder join(String table, Expression condition) {
+        return join(table, null, condition, null);
+    }
+
+    public QueryBuilder join(String table, String alias, Expression condition) {
         return join(table, alias, condition, null);
     }
 
@@ -101,13 +109,27 @@ public abstract class QueryBuilder extends BaseBuilder {
         return join(table, alias, condition, null);
     }
 
-    public QueryBuilder join(QueryBuilder table, String alias, String condition, String type) {
+    public QueryBuilder join(QueryBuilder table, String alias, Expression condition) {
+        return join(table, alias, condition, null);
+    }
+
+
+    public QueryBuilder join(String table, String alias, String condition, JoinType type) {
         throw new UnsupportedOperationException("`join` not implemented");
     }
 
-    public QueryBuilder join(String table, String alias, String condition, String type) {
+    public QueryBuilder join(QueryBuilder table, String alias, String condition, JoinType type) {
         throw new UnsupportedOperationException("`join` not implemented");
     }
+
+    public QueryBuilder join(String table, String alias, Expression condition, JoinType type) {
+        throw new UnsupportedOperationException("`join` not implemented");
+    }
+
+    public QueryBuilder join(QueryBuilder table, String alias, Expression condition, JoinType type) {
+        throw new UnsupportedOperationException("`join` not implemented");
+    }
+
 
     public QueryBuilder left_join(String table, String alias, String condition) {
         throw new UnsupportedOperationException("`left_join` not implemented");

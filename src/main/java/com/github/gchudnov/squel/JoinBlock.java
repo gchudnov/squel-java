@@ -9,16 +9,16 @@ import java.util.List;
 public class JoinBlock extends Block {
 
     class JoinNode {
-        String type;
-        String table;
+        JoinType type;
+        Object table; // String or QueryBuilder
         String alias;
-        String condition;
+        Object condition; // String or Expression
 
-        JoinNode(String type, String table, String alias, String condition) {
-            this.type = type;
+        JoinNode(Object table, String alias, Object condition, JoinType type) {
             this.table = table;
             this.alias = alias;
             this.condition = condition;
+            this.type = type;
         }
     }
 
@@ -39,50 +39,28 @@ public class JoinBlock extends Block {
     //
     // 'type' must be either one of INNER, OUTER, LEFT or RIGHT. Default is 'INNER'.
     //
-    public void join(String table, String alias, String condition, String type) {
+    public void join(String table, String alias, String condition, JoinType type) {
         table = _sanitizeTable(table);
         alias = _sanitizeTableAlias(alias);
-//        condition = @_sanitizeCondition(condition) if condition
-
         doJoin(table, alias, condition, type);
     }
 
-    public void join(QueryBuilder table, String alias, String condition, String type) {
+    public void join(String table, String alias, Expression condition, JoinType type) {
+        table = _sanitizeTable(table);
+        alias = _sanitizeTableAlias(alias);
+        doJoin(table, alias, condition, type);
+    }
+
+    public void join(QueryBuilder table, String alias, String condition, JoinType type) {
         String tableName = _sanitizeTable(table);
         alias = _sanitizeTableAlias(alias);
-//        condition = @_sanitizeCondition(condition) if condition
-
         doJoin(tableName, alias, condition, type);
     }
 
-    // Add a LEFT JOIN with the given table.
-    public void left_join(String table, String alias, String condition) {
-        this.join(table, alias, condition, "LEFT");
-    }
-
-    // Add a RIGHT JOIN with the given table.
-    public void right_join(String table, String alias, String condition) {
-        this.join(table, alias, condition, "RIGHT");
-    }
-
-    // Add a OUTER JOIN with the given table.
-    public void outer_join(String table, String alias, String condition) {
-        this.join(table, alias, condition, "OUTER");
-    }
-
-    // Add a LEFT JOIN with the given table.
-    public void left_outer_join(String table, String alias, String condition) {
-        this.join(table, alias, condition, "LEFT OUTER");
-    }
-
-    // Add an FULL JOIN with the given table.
-    public void full_join(String table, String alias, String condition) {
-        this.join(table, alias, condition, "FULL");
-    }
-
-    // Add an CROSS JOIN with the given table.
-    public void cross_join(String table, String alias, String condition) {
-        this.join(table, alias, condition, "CROSS");
+    public void join(QueryBuilder table, String alias, Expression condition, JoinType type) {
+        String tableName = _sanitizeTable(table);
+        alias = _sanitizeTableAlias(alias);
+        doJoin(tableName, alias, condition, type);
     }
 
     @Override
@@ -93,28 +71,38 @@ public class JoinBlock extends Block {
                 joins += " ";
             }
 
-            // TODO:  if "string" is typeof j.table
-
             joins += j.type + " JOIN ";
-            joins += j.table;
+
+            if(j.table instanceof String) {
+                joins += (String)j.table;
+            } else {
+                joins += "(" + j.table.toString() + ")";
+            }
 
             if (!Util.isEmpty(j.alias)) {
                 joins += " " + j.alias;
             }
 
-            if (!Util.isEmpty(j.condition)) {
-                joins += " ON (" + j.condition + ")";
+            String conditionStr;
+            if(j.condition instanceof String) {
+                conditionStr = (String)j.condition;
+            } else {
+                conditionStr = ((Expression)j.condition).toString();
+            }
+
+            if (!Util.isEmpty(conditionStr)) {
+                joins += " ON (" + conditionStr + ")";
             }
         }
 
         return joins;
     }
 
-    private void doJoin(String table, String alias, String condition, String type) {
-        if (Util.isEmpty(type)) {
-            type = "INNER";
+    private void doJoin(Object table, String alias, Object condition, JoinType type) {
+        if (type == null) {
+            type = JoinType.INNER;
         }
 
-        mJoins.add(new JoinNode(type, table, alias, condition));
+        mJoins.add(new JoinNode(table, alias, condition, type));
     }
 }

@@ -81,13 +81,25 @@ public class Select extends QueryBuilder {
     }
 
     @Override
-    public QueryBuilder join(String table, String alias, String condition, String type) {
+    public QueryBuilder join(String table, String alias, String condition, JoinType type) {
         JoinBlock block = (JoinBlock) mBlocks.get(4);
         block.join(table, alias, condition, type);
         return this;
     }
 
-    public QueryBuilder join(QueryBuilder table, String alias, String condition, String type) {
+    public QueryBuilder join(QueryBuilder table, String alias, String condition, JoinType type) {
+        JoinBlock block = (JoinBlock) mBlocks.get(4);
+        block.join(table, alias, condition, type);
+        return this;
+    }
+
+    public QueryBuilder join(String table, String alias, Expression condition, JoinType type) {
+        JoinBlock block = (JoinBlock) mBlocks.get(4);
+        block.join(table, alias, condition, type);
+        return this;
+    }
+
+    public QueryBuilder join(QueryBuilder table, String alias, Expression condition, JoinType type) {
         JoinBlock block = (JoinBlock) mBlocks.get(4);
         block.join(table, alias, condition, type);
         return this;
