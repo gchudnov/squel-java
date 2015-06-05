@@ -12,7 +12,7 @@ class IntoTableBlock extends Block {
     }
 
     void setInto(String table) {
-        table = sanitizeTable(table);
+        table = Validator.sanitizeTable(table, mOptions);
         mTable = table;
     }
 

@@ -42,15 +42,15 @@ class GetFieldBlock extends Block {
      * @param alias Field's alias
      */
     void setField(String field, String alias) {
-        String fieldValue = sanitizeField(field);
-        String aliasValue = alias != null ? sanitizeFieldAlias(alias) : null;
+        String fieldValue = Validator.sanitizeField(field, mOptions);
+        String aliasValue = alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null;
 
         doField(fieldValue, aliasValue);
     }
 
     void setField(QueryBuilder field, String alias) {
-        String fieldName = sanitizeField(field);
-        String aliasValue = alias != null ? sanitizeFieldAlias(alias) : null;
+        String fieldName = Validator.sanitizeField(field);
+        String aliasValue = alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null;
 
         doField(fieldName, aliasValue);
     }

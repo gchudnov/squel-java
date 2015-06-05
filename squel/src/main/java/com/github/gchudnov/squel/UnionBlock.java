@@ -35,7 +35,7 @@ class UnionBlock extends Block {
      * @param unionType Type of the union.
      */
     void setUnion(String table, UnionType unionType) {
-        table = sanitizeTable(table);
+        table = Validator.sanitizeTable(table, mOptions);
         mUnions.add(new UnionNode(table, unionType));
     }
 

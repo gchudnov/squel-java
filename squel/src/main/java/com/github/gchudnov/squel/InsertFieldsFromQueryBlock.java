@@ -18,7 +18,7 @@ class InsertFieldsFromQueryBlock extends Block {
     void setFromQuery(Iterable<String> fields, QueryBuilder query) {
         mFields = new ArrayList<>();
         for(String field: fields) {
-            mFields.add(sanitizeField(field));
+            mFields.add(Validator.sanitizeField(field, mOptions));
         }
 
         mQuery = query;

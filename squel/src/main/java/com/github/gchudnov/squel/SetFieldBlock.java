@@ -21,7 +21,7 @@ class SetFieldBlock extends SetFieldBlockBase {
 
             sb.append(n.field);
             sb.append(" = ");
-            sb.append(formatValue(n.value));
+            sb.append(Validator.formatValue(n.value));
         }
 
         return "SET " + sb.toString();

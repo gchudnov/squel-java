@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * SQL expression builder.
  */
-public final class Expression extends BaseBlock {
+public final class Expression {
 
     private class ExpressionNode {
         String type = null;
@@ -17,6 +17,7 @@ public final class Expression extends BaseBlock {
         ArrayList<ExpressionNode> nodes = new ArrayList<>();
     }
 
+    private QueryBuilderOptions mOptions;
     private ExpressionNode mTree = null;
     private ExpressionNode mCurrent = null;
 
@@ -25,7 +26,7 @@ public final class Expression extends BaseBlock {
     }
 
     public Expression(QueryBuilderOptions options) {
-        super(options);
+        this.mOptions = (options != null ? options : new QueryBuilderOptions());
         this.mTree = new ExpressionNode();
         this.mCurrent = this.mTree;
     }
@@ -132,7 +133,7 @@ public final class Expression extends BaseBlock {
         String nodeStr;
         for (ExpressionNode child : node.nodes) {
             if (child.expr != null) {
-                nodeStr = child.expr.replace("?", this.formatValue(child.param));
+                nodeStr = child.expr.replace("?", Validator.formatValue(child.param));
             } else {
                 nodeStr = this.doString(child);
 

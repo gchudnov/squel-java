@@ -30,7 +30,7 @@ class OrderByBlock extends Block {
      * @param dir Order
      */
     void setOrder(String field, OrderDirection dir) {
-        field = sanitizeField(field);
+        field = Validator.sanitizeField(field, mOptions);
         mOrders.add(new OrderNode(field, dir));
     }
 

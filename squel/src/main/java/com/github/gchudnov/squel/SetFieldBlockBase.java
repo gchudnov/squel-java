@@ -26,7 +26,7 @@ abstract class SetFieldBlockBase extends Block {
 
     // Update the given setField with the given value.
     <T> void setFieldValue(String field, T value) {
-        field = sanitizeField(field);
+        field = Validator.sanitizeField(field, mOptions);
         mFields.add(new SetNode(field, value));
     }
 }

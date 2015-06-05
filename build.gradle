@@ -19,12 +19,6 @@ subprojects {
         mavenCentral()
     }
 
-    task allclean {
-    }
-
-    afterEvaluate { project ->
-        allclean.dependsOn(project.tasks.matching {it.name == 'clean'})
-    }
 }
 
 repositories {

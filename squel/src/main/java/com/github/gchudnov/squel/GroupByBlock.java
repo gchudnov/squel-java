@@ -19,7 +19,7 @@ class GroupByBlock extends Block {
             mGroups = new ArrayList<>();
         }
 
-        field = sanitizeField(field);
+        field = Validator.sanitizeField(field, mOptions);
         mGroups.add(field);
     }
 

@@ -1,9 +1,11 @@
 package com.github.gchudnov.squel;
 
-abstract class Block extends BaseBlock {
+abstract class Block {
+
+    protected QueryBuilderOptions mOptions;
 
     protected Block(QueryBuilderOptions options) {
-        super(options);
+        this.mOptions = (options != null ? options : new QueryBuilderOptions());
     }
 
     String buildStr(QueryBuilder queryBuilder) {

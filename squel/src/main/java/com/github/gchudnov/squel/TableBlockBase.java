@@ -25,14 +25,14 @@ abstract class TableBlockBase extends Block {
     }
 
     protected void setTable(String table, String alias) {
-        table = sanitizeTable(table);
-        alias = sanitizeTableAlias(alias);
+        table = Validator.sanitizeTable(table, mOptions);
+        alias = Validator.sanitizeTableAlias(alias, mOptions);
         doTable(table, alias);
     }
 
     protected void setTable(QueryBuilder table, String alias) {
-        String tableName = sanitizeTable(table);
-        alias = sanitizeTableAlias(alias);
+        String tableName = Validator.sanitizeTable(table);
+        alias = Validator.sanitizeTableAlias(alias, mOptions);
         doTable(tableName, alias);
     }
 

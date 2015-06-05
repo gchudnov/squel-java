@@ -36,26 +36,26 @@ class JoinBlock extends Block {
      * @param type Join Type.
      */
     void setJoin(String table, String alias, String condition, JoinType type) {
-        table = sanitizeTable(table);
-        alias = sanitizeTableAlias(alias);
+        table = Validator.sanitizeTable(table, mOptions);
+        alias = Validator.sanitizeTableAlias(alias, mOptions);
         doJoin(table, alias, condition, type);
     }
 
     void setJoin(String table, String alias, Expression condition, JoinType type) {
-        table = sanitizeTable(table);
-        alias = sanitizeTableAlias(alias);
+        table = Validator.sanitizeTable(table, mOptions);
+        alias = Validator.sanitizeTableAlias(alias, mOptions);
         doJoin(table, alias, condition, type);
     }
 
     void setJoin(QueryBuilder table, String alias, String condition, JoinType type) {
-        String tableName = sanitizeTable(table);
-        alias = sanitizeTableAlias(alias);
+        String tableName = Validator.sanitizeTable(table);
+        alias = Validator.sanitizeTableAlias(alias, mOptions);
         doJoin(tableName, alias, condition, type);
     }
 
     void setJoin(QueryBuilder table, String alias, Expression condition, JoinType type) {
-        String tableName = sanitizeTable(table);
-        alias = sanitizeTableAlias(alias);
+        String tableName = Validator.sanitizeTable(table);
+        alias = Validator.sanitizeTableAlias(alias, mOptions);
         doJoin(tableName, alias, condition, type);
     }
 
