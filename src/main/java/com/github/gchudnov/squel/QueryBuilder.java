@@ -13,7 +13,6 @@ public abstract class QueryBuilder {
     protected List<Block> mBlocks;
 
     QueryBuilder(QueryBuilderOptions options, List<Block> blocks) {
-
         mOptions = (options != null ? options : new QueryBuilderOptions());
         mBlocks = (blocks != null ? blocks : new ArrayList<Block>());
     }
