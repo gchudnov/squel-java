@@ -5,7 +5,7 @@ package com.github.gchudnov.squel;
  */
 class IntoTableBlock extends Block {
 
-    private String mTable = null;
+    private String mTable;
 
     IntoTableBlock(QueryBuilderOptions options) {
         super(options);

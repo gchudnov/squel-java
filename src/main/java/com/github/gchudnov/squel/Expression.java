@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public final class Expression extends BaseBlock {
 
-    class ExpressionNode {
+    private class ExpressionNode {
         String type = null;
         ExpressionNode parent = null;
         String expr = null;

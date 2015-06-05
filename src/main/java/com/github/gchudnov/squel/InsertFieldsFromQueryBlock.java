@@ -26,7 +26,7 @@ class InsertFieldsFromQueryBlock extends Block {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if(mFields == null || mFields.isEmpty())
+        if(mFields == null || mFields.isEmpty() || mQuery == null)
             return "";
 
         return "(" + Util.join(", ", mFields) + ") " + "(" + mQuery.toString() + ")";

@@ -8,7 +8,7 @@ import java.util.List;
  */
 class OrderByBlock extends Block {
 
-    class OrderNode {
+    private class OrderNode {
         String field;
         OrderDirection dir;
 
@@ -36,7 +36,7 @@ class OrderByBlock extends Block {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if(mOrders.isEmpty())
+        if(mOrders == null || mOrders.isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();

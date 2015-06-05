@@ -8,7 +8,7 @@ import java.util.List;
  */
 class WhereBlock extends Block {
 
-    class WhereNode {
+    private class WhereNode {
         String text;
         Object param;
 
@@ -31,22 +31,18 @@ class WhereBlock extends Block {
      * @param <P> Type of the parameter to add.
      */
     <P> void setWhere(String condition, P param) {
-        if (!Util.isEmpty(condition)) {
-            mWheres.add(new WhereNode(condition, param));
-        }
+        assert condition != null;
+        mWheres.add(new WhereNode(condition, param));
     }
 
     <P> void setWhere(Expression condition, P param) {
-        String conditionStr = condition.toString();
-
-        if (!Util.isEmpty(conditionStr)) {
-            mWheres.add(new WhereNode(conditionStr, param));
-        }
+        assert condition != null;
+        mWheres.add(new WhereNode(condition.toString(), param));
     }
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if (mWheres.isEmpty())
+        if (mWheres == null || mWheres.isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();

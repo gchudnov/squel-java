@@ -8,7 +8,7 @@ import java.util.List;
  */
 abstract class TableBlockBase extends Block {
 
-    class TableNode {
+    private class TableNode {
         String table;
         String alias;
 

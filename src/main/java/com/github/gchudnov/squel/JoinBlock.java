@@ -8,7 +8,7 @@ import java.util.List;
  */
 class JoinBlock extends Block {
 
-    class JoinNode {
+    private class JoinNode {
         JoinType type;
         Object table; // String or QueryBuilder
         String alias;
@@ -61,7 +61,7 @@ class JoinBlock extends Block {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if(mJoins.isEmpty())
+        if(mJoins == null || mJoins.isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();

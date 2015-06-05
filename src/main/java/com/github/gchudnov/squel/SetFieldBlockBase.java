@@ -8,7 +8,7 @@ import java.util.List;
  */
 abstract class SetFieldBlockBase extends Block {
 
-    class SetNode {
+    protected class SetNode {
         String field;
         Object value;
 

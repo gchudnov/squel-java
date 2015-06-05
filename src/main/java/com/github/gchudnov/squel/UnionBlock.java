@@ -8,7 +8,7 @@ import java.util.List;
  */
 class UnionBlock extends Block {
 
-    class UnionNode {
+    private class UnionNode {
         Object table; // String or QueryBuilder
         UnionType unionType;
 
@@ -45,7 +45,7 @@ class UnionBlock extends Block {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if(mUnions.isEmpty())
+        if(mUnions == null || mUnions.isEmpty())
             return "";
 
         StringBuilder sb = new StringBuilder();

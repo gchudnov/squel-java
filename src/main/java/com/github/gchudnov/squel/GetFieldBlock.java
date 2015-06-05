@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * (SELECT) Get setField
+ * (SELECT) field
  */
 class GetFieldBlock extends Block {
 
-    class FieldNode {
+    private class FieldNode {
         String name;
         String alias;
 
@@ -27,7 +27,7 @@ class GetFieldBlock extends Block {
     }
 
     /**
-     * Add the given fields to the result setFieldValue.
+     * Add the given fields to the result.
      * @param fields A collection of fields to add
      */
     void setFields(Iterable<String> fields) {
@@ -37,7 +37,7 @@ class GetFieldBlock extends Block {
     }
 
     /**
-     * Add the given setField to the final result setFieldValue.
+     * Add the given field to the final result.
      * @param field Field to add
      * @param alias Field's alias
      */

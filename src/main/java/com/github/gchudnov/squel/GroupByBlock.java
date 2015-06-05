@@ -8,20 +8,24 @@ import java.util.List;
  */
 class GroupByBlock extends Block {
 
-    List<String> mGroups = new ArrayList<>();
+    List<String> mGroups;
 
     GroupByBlock(QueryBuilderOptions options) {
         super(options);
     }
 
     void setGroup(String field) {
+        if(mGroups == null) {
+            mGroups = new ArrayList<>();
+        }
+
         field = sanitizeField(field);
         mGroups.add(field);
     }
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        if(mGroups.isEmpty()) {
+        if(mGroups == null || mGroups.isEmpty()) {
             return "";
         }
 
