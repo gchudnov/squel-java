@@ -133,7 +133,7 @@ public final class Expression {
         String nodeStr;
         for (ExpressionNode child : node.nodes) {
             if (child.expr != null) {
-                nodeStr = child.expr.replace("?", Validator.formatValue(child.param));
+                nodeStr = child.expr.replace("?", Validator.formatValue(child.param, mOptions));
             } else {
                 nodeStr = this.doString(child);
 

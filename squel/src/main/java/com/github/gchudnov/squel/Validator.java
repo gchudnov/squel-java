@@ -58,26 +58,26 @@ class Validator {
         return (options.replaceSingleQuotes ? value.replaceAll("'", options.singleQuoteReplacement) : value);
     }
 
-    static String formatIterable(Iterable<?> values) {
+    static String formatIterable(Iterable<?> values, QueryBuilderOptions options) {
         List<String> results = new ArrayList<>();
         for(Object value: values) {
-            results.add(formatValue(value));
+            results.add(formatValue(value, options));
         }
         return "(" + Util.join(", ", results) + ")";
     }
 
-    static String formatArray(Object[] values) {
-        return formatIterable(Arrays.asList(values));
+    static String formatArray(Object[] values, QueryBuilderOptions options) {
+        return formatIterable(Arrays.asList(values), options);
     }
 
-    static String formatValue(Object value) {
+    static String formatValue(Object value, QueryBuilderOptions options) {
         if(value == null) {
             return formatNull();
         } else {
             if(value instanceof Number) {
                 return formatNumber((Number) value);
             } else if(value instanceof String) {
-                return formatString((String) value);
+                return formatString((String) value, options);
             } else if(value instanceof Boolean) {
                 return formatBoolean((boolean) value);
             } else if(value instanceof QueryBuilder) {
@@ -85,9 +85,9 @@ class Validator {
             } else if(value instanceof Expression) {
                 return formatExpression((Expression) value);
             } else if(value instanceof Object[]) {
-                return formatArray((Object[]) value);
+                return formatArray((Object[]) value, options);
             } else if(value instanceof Iterable<?>) {
-                return formatIterable((Iterable<?>)value);
+                return formatIterable((Iterable<?>)value, options);
             }
         }
 
@@ -106,7 +106,11 @@ class Validator {
         return String.valueOf(value);
     }
 
-    private static String formatString(String value) {
+    private static String formatString(String value, QueryBuilderOptions options) {
+        if(!options.dontQuote) {
+            return "'" + escapeValue(value, options) + "'";
+        }
+
         return value;
     }
 
