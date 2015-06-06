@@ -454,6 +454,21 @@ public class SelectTest {
     }
 
     @Test
+    public void joinQueryBuilderWithExpression() {
+        QueryBuilder inner1 = Squel.select().from("students");
+        QueryBuilder inner2 = Squel.select().from(inner1);
+        Expression exp = Squel.expr().and("meh.ID = ID");
+
+        String actual = Squel.select()
+                .from("schools")
+                .join(inner2, "meh", exp)
+                .toString();
+
+        String expected = "SELECT * FROM schools INNER JOIN (SELECT * FROM (SELECT * FROM students)) `meh` ON (meh.ID = ID)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void unionTables() {
         QueryBuilder sql = Squel.select()
                 .from("schools")
