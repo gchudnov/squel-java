@@ -38,7 +38,7 @@ abstract class TableBlockBase extends Block {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        assert !mTables.isEmpty();
+        assert mTables != null && !mTables.isEmpty();
 
         StringBuilder sb = new StringBuilder();
         for (TableNode table : mTables) {

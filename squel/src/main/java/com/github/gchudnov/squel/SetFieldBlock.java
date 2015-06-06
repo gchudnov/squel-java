@@ -11,7 +11,7 @@ class SetFieldBlock extends SetFieldBlockBase {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        assert !mFields.isEmpty();
+        assert mFields != null && !mFields.isEmpty();
 
         StringBuilder sb = new StringBuilder();
         for(SetNode n : mFields) {

@@ -19,7 +19,7 @@ class FromTableBlock extends TableBlockBase {
 
     @Override
     String buildStr(QueryBuilder queryBuilder) {
-        assert !mTables.isEmpty();
+        assert mTables != null && !mTables.isEmpty();
         String tables = super.buildStr(queryBuilder);
         return "FROM " + tables;
     }

@@ -75,7 +75,7 @@ public final class Expression {
      * @return Expression
      */
     public Expression end() {
-        assert mCurrent.parent != null; // "begin() needs to be called"
+        assert mCurrent != null && mCurrent.parent != null; // "begin() needs to be called"
         mCurrent = mCurrent.parent;
         return this;
     }
@@ -130,7 +130,7 @@ public final class Expression {
      */
     @Override
     public String toString() {
-        assert mCurrent.parent == null; // "end() needs to be called"
+        assert mCurrent != null && mCurrent.parent == null; // "end() needs to be called"
         return this.doString(mTree);
     }
 

@@ -2,6 +2,8 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -29,13 +31,48 @@ public class SelectTest {
     }
 
     @Test
-    public void complexQuery() {
+    public void setFieldTwice() {
+        String actual = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1")
+                .field("field1", "fa1")
+                .toString();
+        String expected = "SELECT field1 AS \"fa1\" FROM table, table2 `alias2`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void setFieldTwiceDifferentAlias() {
+        String actual = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field("field1", "fa1")
+                .field("field1", "fa2")
+                .toString();
+        String expected = "SELECT field1 AS \"fa1\", field1 AS \"fa2\" FROM table, table2 `alias2`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fieldAsQueryWithAlias() {
         String actual = Squel.select()
                 .from("table")
                 .from("table2", "alias2")
                 .field(Squel.select().field("MAX(score)").from("scores"), "fa1")
                 .toString();
         String expected = "SELECT (SELECT MAX(score) FROM scores) AS \"fa1\" FROM table, table2 `alias2`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fieldAsQueryWithoutAlias() {
+        String actual = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .field(Squel.select().field("MAX(score)").from("scores"))
+                .toString();
+        String expected = "SELECT (SELECT MAX(score) FROM scores) FROM table, table2 `alias2`";
         assertEquals(expected, actual);
     }
 
@@ -47,6 +84,17 @@ public class SelectTest {
                 .field("field1", "fa1").field("field2")
                 .toString();
         String expected = "SELECT field1 AS \"fa1\", field2 FROM table, table2 `alias2`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fieldsSelectQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .from("table2", "alias2")
+                .fields(Arrays.asList("field1", "field2"))
+                .toString();
+        String expected = "SELECT field1, field2 FROM table, table2 `alias2`";
         assertEquals(expected, actual);
     }
 
