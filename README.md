@@ -1,5 +1,5 @@
 # squel-java
-A Java-port of [Squel.js](https://hiddentao.github.io/squel/) - a lightweight library for building SQL query strings
+A Java-port of [Squel.js](https://hiddentao.github.io/squel/) - a lightweight library for building SQL query strings. It helps you build SQL query strings through a fluent API.
 
 ## Requirements
 
@@ -8,17 +8,14 @@ A Java-port of [Squel.js](https://hiddentao.github.io/squel/) - a lightweight li
 
 ## Installation
 
-If you are building with Gradle, simply add the following line to the `dependencies` section of your `build.gradle` file:
+Add the following line to the `dependencies` section of your `build.gradle` file:
 
 ```groovy
 compile 'com.github.gchudnov.squel:squel:0.9.0+'
 ```
 
-## Oveview
-TBD
-
 ## API
-To use the library, call one of the static method for the Squel class: `.select()`, `.update()`, `.insert()` or `.delete()`. It starts a new `QueryBuilder` chain you can attach next method invocations to.
+To use the library, call one of the static method from the `Squel` class: `.select()`, `.update()`, `.insert()` or `.delete()`. It starts a new `QueryBuilder` chain you can attach next method invocations to.
 
 To get a resulting SQL, call `toString` on `QueryBuilder`.
 
@@ -225,6 +222,7 @@ QueryBuilder q = Squel.select()
     .where(Squel.expr().and("role = ?", "admin").and("id > 12"));
 /* SELECT * FROM users WHERE (role = 'admin' AND id > 12) */
 ```
+
 
 ## Contact
 
