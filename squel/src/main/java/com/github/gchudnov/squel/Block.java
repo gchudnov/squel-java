@@ -8,7 +8,5 @@ abstract class Block {
         this.mOptions = (options != null ? options : new QueryBuilderOptions());
     }
 
-    String buildStr(QueryBuilder queryBuilder) {
-        return "";
-    }
+    abstract String buildStr(QueryBuilder queryBuilder);
 }
