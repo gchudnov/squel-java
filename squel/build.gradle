@@ -3,9 +3,6 @@ apply plugin: 'java'
 project.group = GROUP
 version = VERSION_NAME
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
-
 dependencies {
     testCompile "junit:junit:${JUNIT_VERSION}"
 }
