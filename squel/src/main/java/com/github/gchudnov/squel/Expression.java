@@ -48,10 +48,6 @@ public final class Expression {
     private ExpressionNode mTree = null;
     private ExpressionNode mCurrent = null;
 
-    Expression() {
-        this(null);
-    }
-
     Expression(QueryBuilderOptions options) {
         this.mOptions = (options != null ? options : new QueryBuilderOptions());
         this.mTree = new ExpressionNode();
