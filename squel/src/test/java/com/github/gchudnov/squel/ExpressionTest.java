@@ -12,6 +12,18 @@ import static org.junit.Assert.assertEquals;
 public class ExpressionTest {
 
     @Test
+    public void options() {
+        QueryBuilderOptions options = new QueryBuilderOptions();
+
+        String actual = Squel.expr(options)
+                .and("bla")
+                .toString();
+
+        String expected = "bla";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void and() {
         String actual = Squel.expr()
                 .and("bla")
@@ -164,6 +176,18 @@ public class ExpressionTest {
                 .toString();
 
         String expected = "test = 4 AND (inner = 1 OR inner = 2) OR (inner = 3 AND inner = 4 OR (inner = 5))";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void nestedEmpty() {
+        String actual = Squel.expr()
+                .and("")
+                .andBegin()
+                .end()
+                .toString();
+
+        String expected = "";
         assertEquals(expected, actual);
     }
 }
