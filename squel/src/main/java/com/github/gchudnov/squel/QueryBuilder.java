@@ -59,15 +59,23 @@ public abstract class QueryBuilder {
     //
 
     public QueryBuilder field(String field) {
-        throw new UnsupportedOperationException("`field` not implemented");
+        return field(field, null);
     }
 
     public QueryBuilder field(String field, String alias) {
         throw new UnsupportedOperationException("`field` not implemented");
     }
 
+    public QueryBuilder field(QueryBuilder field) {
+        return field(field, null);
+    }
+
     public QueryBuilder field(QueryBuilder field, String alias) {
         throw new UnsupportedOperationException("`field` not implemented");
+    }
+
+    public QueryBuilder fields(Iterable<String> fields) {
+        throw new UnsupportedOperationException("`fields` not implemented");
     }
 
     //

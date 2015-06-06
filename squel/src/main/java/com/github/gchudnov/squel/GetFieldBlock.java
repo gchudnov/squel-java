@@ -43,14 +43,14 @@ class GetFieldBlock extends Block {
      */
     void setField(String field, String alias) {
         String fieldValue = Validator.sanitizeField(field, mOptions);
-        String aliasValue = alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null;
+        String aliasValue = (alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null);
 
         doSetField(fieldValue, aliasValue);
     }
 
     void setField(QueryBuilder field, String alias) {
         String fieldName = Validator.sanitizeField(field);
-        String aliasValue = alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null;
+        String aliasValue = (alias != null ? Validator.sanitizeFieldAlias(alias, mOptions) : null);
 
         doSetField(fieldName, aliasValue);
     }

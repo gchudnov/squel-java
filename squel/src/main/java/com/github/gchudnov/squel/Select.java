@@ -45,11 +45,6 @@ final class Select extends QueryBuilder {
     }
 
     @Override
-    public QueryBuilder field(String field) {
-        return field(field, null);
-    }
-
-    @Override
     public QueryBuilder field(String field, String alias) {
         GetFieldBlock block = (GetFieldBlock) mBlocks.get(2);
         block.setField(field, alias);
@@ -60,6 +55,13 @@ final class Select extends QueryBuilder {
     public QueryBuilder field(QueryBuilder field, String alias) {
         GetFieldBlock block = (GetFieldBlock) mBlocks.get(2);
         block.setField(field, alias);
+        return this;
+    }
+
+    @Override
+    public QueryBuilder fields(Iterable<String> fields) {
+        GetFieldBlock block = (GetFieldBlock) mBlocks.get(2);
+        block.setFields(fields);
         return this;
     }
 
