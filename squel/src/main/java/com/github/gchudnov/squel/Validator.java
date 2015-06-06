@@ -9,6 +9,9 @@ import java.util.List;
  */
 class Validator {
 
+    private Validator() {
+    }
+
     static String sanitizeFieldAlias(String value, QueryBuilderOptions options) {
         return (options.autoQuoteAliasNames ? options.fieldAliasQuoteCharacter + value + options.fieldAliasQuoteCharacter : value);
     }
@@ -25,7 +28,7 @@ class Validator {
                 value = quoteChar + value + quoteChar;
             } else {
                 // a.b.c -> `a`.`b`.`c`
-                String[] parts = value.split(".");
+                String[] parts = value.split("\\.");
                 List<String> newParts = new ArrayList<>();
                 for(String part : parts) {
                     // treat '*' as special case
@@ -91,10 +94,7 @@ class Validator {
     }
 
     private static String formatString(String value, QueryBuilderOptions options) {
-        if(!options.dontQuote) {
-            return "'" + escapeValue(value, options) + "'";
-        }
-        return value;
+        return (options.dontQuote ? value : "'" + escapeValue(value, options) + "'");
     }
 
     private static String formatQueryBuilder(QueryBuilder value) {

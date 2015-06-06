@@ -190,4 +190,27 @@ public class ExpressionTest {
         String expected = "";
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void nestedExpression() {
+        Expression e1 = Squel.expr()
+                .and("test = ?", 4);
+
+        Expression e2 = Squel.expr()
+                .and("data = ?", e1);
+
+        String actual = e2.toString();
+        String expected = "data = (test = 4)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void expressionCustomParam() {
+        Expression e1 = Squel.expr()
+                .and("test = ?", JoinType.FULL);
+
+        String actual = e1.toString();
+        String expected = "test = FULL";
+        assertEquals(expected, actual);
+    }
 }
