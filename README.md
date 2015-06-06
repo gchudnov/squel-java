@@ -18,7 +18,7 @@ compile 'com.github.gchudnov.squel:squel:0.9.0+'
 TBD
 
 ## API
-To use the library, call one of the static method of the Squel class: `.select()`, `.update()`, `.insert()` or `.delete()`. Calling one of this starts a new `QueryBuilder` chain.
+To use the library, call one of the static method of the Squel class: `.select()`, `.update()`, `.insert()` or `.delete()`. Calling one of these, starts a new `QueryBuilder` chain.
 
 To create an `Expression`, invoke: `.expr()`.
 
@@ -29,7 +29,6 @@ To create a SELECT-query, get a SELECT Query builder by invoking `Squel.select()
 ```java
 QueryBuilder q = Squel.select()
     .from("users");
-    
 /* SELECT * FROM users */    
 ```
 
@@ -41,6 +40,23 @@ QueryBuilder q = Squel.select()
     .from("groups", "g")
     .from("admins", "a");
 /* SELECT * FROM users, groups `g`, admins `a` */    
+```
+
+#### Sub-queries as tables
+```Java
+QueryBuilder q = Squel.select()
+    .from(Squel.select().from("users"), "u")
+    .field("u.id");
+/* SELECT u.id FROM (SELECT * FROM users) `u` */
+```
+
+#### Fields
+```java
+QueryBuilder q = Squel.select()
+    .from("users")
+    .field("first_name")
+    .field("last_name", "Last Name");
+/* SELECT first_name, last_name AS "Last Name" FROM users */
 ```
 
 ## UPDATE
