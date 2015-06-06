@@ -76,7 +76,6 @@ public final class Expression {
      */
     public Expression end() {
         assert mCurrent.parent != null; // "begin() needs to be called"
-
         mCurrent = mCurrent.parent;
         return this;
     }
