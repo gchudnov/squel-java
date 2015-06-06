@@ -40,22 +40,22 @@ abstract class TableBlockBase extends Block {
         assert mTables != null && !mTables.isEmpty();
 
         StringBuilder sb = new StringBuilder();
-        for (TableNode table : mTables) {
+        for (TableNode tab : mTables) {
             if (sb.length() > 0) {
                 sb.append(", ");
             }
 
-            if(table.table instanceof String) {
-                sb.append((String)table.table);
+            if(tab.table instanceof String) {
+                sb.append((String)tab.table);
             } else {
                 sb.append("(");
-                sb.append(table.table.toString());
+                sb.append(tab.table.toString());
                 sb.append(")");
             }
 
-            if (table.alias != null) {
+            if (tab.alias != null) {
                 sb.append(" ");
-                sb.append(table.alias);
+                sb.append(tab.alias);
             }
         }
 
