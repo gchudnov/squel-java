@@ -9,10 +9,10 @@ import java.util.List;
 abstract class TableBlockBase extends Block {
 
     private class TableNode {
-        final String table;
+        final Object table; // String | QueryBuilder
         final String alias;
 
-        public TableNode(String table, String alias) {
+        public TableNode(Object table, String alias) {
             this.table = table;
             this.alias = alias;
         }
@@ -31,9 +31,8 @@ abstract class TableBlockBase extends Block {
     }
 
     void setTable(QueryBuilder table, String alias) {
-        String tableName = Validator.sanitizeTable(table);
         alias = Validator.sanitizeTableAlias(alias, mOptions);
-        doSetTable(tableName, alias);
+        doSetTable(table, alias);
     }
 
     @Override
@@ -45,7 +44,14 @@ abstract class TableBlockBase extends Block {
             if (sb.length() > 0) {
                 sb.append(", ");
             }
-            sb.append(table.table);
+
+            if(table.table instanceof String) {
+                sb.append((String)table.table);
+            } else {
+                sb.append("(");
+                sb.append(table.table.toString());
+                sb.append(")");
+            }
 
             if (table.alias != null) {
                 sb.append(" ");
@@ -56,7 +62,7 @@ abstract class TableBlockBase extends Block {
         return sb.toString();
     }
 
-    private void doSetTable(String table, String alias) {
+    private void doSetTable(Object table, String alias) {
         if(mTables == null) {
             mTables = new ArrayList<>();
         }

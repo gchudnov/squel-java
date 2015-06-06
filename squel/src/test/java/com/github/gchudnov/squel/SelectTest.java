@@ -332,6 +332,30 @@ public class SelectTest {
     }
 
     @Test
+    public void severalJoins() {
+        String actual = Squel.select()
+                .from("schools")
+                .join("students", "st", "st.ID = ID")
+                .join("equipment", "eq", "eq.ID = ID")
+                .toString();
+
+        String expected = "SELECT * FROM schools INNER JOIN students `st` ON (st.ID = ID) INNER JOIN equipment `eq` ON (eq.ID = ID)";
+        assertEquals(expected, actual);
+    }
+
+//    @Test
+//    public void joinQueryBuilder() {
+//        String actual = Squel.select()
+//                .from("schools")
+//                .join("students", "st", "st.ID = ID")
+//                .join("equipment", "eq", "eq.ID = ID")
+//                .toString();
+//
+//        String expected = "SELECT * FROM schools INNER JOIN students `st` ON (st.ID = ID) INNER JOIN equipment `eq` ON (eq.ID = ID)";
+//        assertEquals(expected, actual);
+//    }
+
+    @Test
     public void unionTwoQueries() {
         QueryBuilder q1 = Squel.select().field("name").from("students").where("age > 15");
         QueryBuilder q2 = Squel.select().field("name").from("students").where("age < 6");

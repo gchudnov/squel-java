@@ -42,10 +42,6 @@ class Validator {
         return value;
     }
 
-    static String sanitizeTable(QueryBuilder name) {
-        return ("(" + name.toString() + ")");
-    }
-
     static String sanitizeTable(String name, QueryBuilderOptions options) {
         return (options.autoQuoteTableNames ? options.nameQuoteCharacter + name + options.nameQuoteCharacter : name);
     }

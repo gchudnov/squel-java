@@ -10,9 +10,9 @@ class JoinBlock extends Block {
 
     private class JoinNode {
         final JoinType type;
-        final Object table; // String or QueryBuilder
+        final Object table; // String | QueryBuilder
         final String alias;
-        final Object condition; // String or Expression
+        final Object condition; // String | Expression
 
         JoinNode(Object table, String alias, Object condition, JoinType type) {
             this.table = table;
@@ -48,15 +48,13 @@ class JoinBlock extends Block {
     }
 
     void setJoin(QueryBuilder table, String alias, String condition, JoinType type) {
-        String tableName = Validator.sanitizeTable(table);
         alias = Validator.sanitizeTableAlias(alias, mOptions);
-        doJoin(tableName, alias, condition, type);
+        doJoin(table, alias, condition, type);
     }
 
     void setJoin(QueryBuilder table, String alias, Expression condition, JoinType type) {
-        String tableName = Validator.sanitizeTable(table);
         alias = Validator.sanitizeTableAlias(alias, mOptions);
-        doJoin(tableName, alias, condition, type);
+        doJoin(table, alias, condition, type);
     }
 
     @Override
