@@ -26,13 +26,6 @@ final class Delete extends QueryBuilder {
     }
 
     @Override
-    public QueryBuilder from(QueryBuilder table, String alias) {
-        FromTableBlock block = (FromTableBlock) mBlocks.get(1);
-        block.setFrom(table, alias);
-        return this;
-    }
-
-    @Override
     public <P> QueryBuilder where(String condition, P param) {
         WhereBlock block = (WhereBlock) mBlocks.get(3);
         block.setWhere(condition, param);
