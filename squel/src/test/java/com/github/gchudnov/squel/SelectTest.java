@@ -366,6 +366,17 @@ public class SelectTest {
     }
 
     @Test
+    public void innerJoin() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .innerJoin("students", "s", "sc.id = s.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` INNER JOIN students `s` ON (sc.id = s.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void leftJoin() {
         String actual = Squel.select()
                 .from("schools", "sc")
