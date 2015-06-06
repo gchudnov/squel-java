@@ -457,9 +457,19 @@ public class SelectTest {
     public void unionTables() {
         QueryBuilder sql = Squel.select()
                 .from("schools")
-                .union("universities");
+                .union("universities", UnionType.UNION);
         String actual = sql.toString();
         String expected = "SELECT * FROM schools UNION universities";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unionAllTables() {
+        QueryBuilder sql = Squel.select()
+                .from("schools")
+                .union("universities", UnionType.UNION_ALL);
+        String actual = sql.toString();
+        String expected = "SELECT * FROM schools UNION ALL universities";
         assertEquals(expected, actual);
     }
 
