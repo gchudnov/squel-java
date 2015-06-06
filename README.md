@@ -11,7 +11,7 @@ A Java-port of [Squel.js](https://hiddentao.github.io/squel/) - a lightweight li
 Add the following line to the `dependencies` section of your `build.gradle` file:
 
 ```groovy
-compile 'com.github.gchudnov.squel:squel:0.9.0+'
+compile 'com.github.gchudnov.squel:squel:0.9.0'
 ```
 
 ## API
