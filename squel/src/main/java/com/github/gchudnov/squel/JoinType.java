@@ -6,9 +6,7 @@ package com.github.gchudnov.squel;
 public enum JoinType {
     INNER,
     LEFT,
-    LEFT_OUTER,
     RIGHT,
-    RIGHT_OUTER,
     FULL,
     CROSS;
 
@@ -19,16 +17,8 @@ public enum JoinType {
                 result = "LEFT";
                 break;
 
-            case LEFT_OUTER:
-                result = "LEFT OUTER";
-                break;
-
             case RIGHT:
                 result = "RIGHT";
-                break;
-
-            case RIGHT_OUTER:
-                result = "RIGHT OUTER";
                 break;
 
             case FULL:

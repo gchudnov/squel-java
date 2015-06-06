@@ -118,6 +118,7 @@ public abstract class QueryBuilder {
         return join(table, alias, condition, null);
     }
 
+    //
 
     public QueryBuilder join(String table, String alias, String condition, JoinType type) {
         throw new UnsupportedOperationException("`join` not implemented");
@@ -135,32 +136,153 @@ public abstract class QueryBuilder {
         throw new UnsupportedOperationException("`join` not implemented");
     }
 
+    // INNER
+
+    public QueryBuilder innerJoin(String table) {
+        return innerJoin(table, null, (String) null);
+    }
+
+    public QueryBuilder innerJoin(String table, String alias) {
+        return innerJoin(table, alias, (String) null);
+    }
 
     public QueryBuilder innerJoin(String table, String alias, String condition) {
         return join(table, alias, condition, JoinType.INNER);
+    }
+
+    public QueryBuilder innerJoin(String table, Expression condition) {
+        return join(table, null, condition, JoinType.INNER);
+    }
+
+    public QueryBuilder innerJoin(String table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.INNER);
+    }
+
+    public QueryBuilder innerJoin(QueryBuilder table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.INNER);
+    }
+
+    public QueryBuilder innerJoin(QueryBuilder table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.INNER);
+    }
+
+    // LEFT
+
+    public QueryBuilder leftJoin(String table) {
+        return leftJoin(table, null, (String) null);
+    }
+
+    public QueryBuilder leftJoin(String table, String alias) {
+        return leftJoin(table, alias, (String) null);
     }
 
     public QueryBuilder leftJoin(String table, String alias, String condition) {
         return join(table, alias, condition, JoinType.LEFT);
     }
 
-    public QueryBuilder leftOuterJoin(String table, String alias, String condition) {
-        return join(table, alias, condition, JoinType.LEFT_OUTER);
+    public QueryBuilder leftJoin(String table, Expression condition) {
+        return join(table, null, condition, JoinType.LEFT);
+    }
+
+    public QueryBuilder leftJoin(String table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.LEFT);
+    }
+
+    public QueryBuilder leftJoin(QueryBuilder table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.LEFT);
+    }
+
+    public QueryBuilder leftJoin(QueryBuilder table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.LEFT);
+    }
+
+    // RIGHT
+
+    public QueryBuilder rightJoin(String table) {
+        return rightJoin(table, null, (String) null);
+    }
+
+    public QueryBuilder rightJoin(String table, String alias) {
+        return rightJoin(table, alias, (String) null);
     }
 
     public QueryBuilder rightJoin(String table, String alias, String condition) {
         return join(table, alias, condition, JoinType.RIGHT);
     }
 
-    public QueryBuilder rightOuterJoin(String table, String alias, String condition) {
-        return join(table, alias, condition, JoinType.RIGHT_OUTER);
+    public QueryBuilder rightJoin(String table, Expression condition) {
+        return join(table, null, condition, JoinType.RIGHT);
+    }
+
+    public QueryBuilder rightJoin(String table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.RIGHT);
+    }
+
+    public QueryBuilder rightJoin(QueryBuilder table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.RIGHT);
+    }
+
+    public QueryBuilder rightJoin(QueryBuilder table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.RIGHT);
+    }
+
+    // FULL
+
+    public QueryBuilder fullJoin(String table) {
+        return fullJoin(table, null, (String) null);
+    }
+
+    public QueryBuilder fullJoin(String table, String alias) {
+        return fullJoin(table, alias, (String) null);
     }
 
     public QueryBuilder fullJoin(String table, String alias, String condition) {
         return join(table, alias, condition, JoinType.FULL);
     }
 
+    public QueryBuilder fullJoin(String table, Expression condition) {
+        return join(table, null, condition, JoinType.FULL);
+    }
+
+    public QueryBuilder fullJoin(String table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.FULL);
+    }
+
+    public QueryBuilder fullJoin(QueryBuilder table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.FULL);
+    }
+
+    public QueryBuilder fullJoin(QueryBuilder table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.FULL);
+    }
+
+    // CROSS
+
+    public QueryBuilder crossJoin(String table) {
+        return crossJoin(table, null, (String) null);
+    }
+
+    public QueryBuilder crossJoin(String table, String alias) {
+        return crossJoin(table, alias, (String) null);
+    }
+
     public QueryBuilder crossJoin(String table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.CROSS);
+    }
+
+    public QueryBuilder crossJoin(String table, Expression condition) {
+        return join(table, null, condition, JoinType.CROSS);
+    }
+
+    public QueryBuilder crossJoin(String table, String alias, Expression condition) {
+        return join(table, alias, condition, JoinType.CROSS);
+    }
+
+    public QueryBuilder crossJoin(QueryBuilder table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.CROSS);
+    }
+
+    public QueryBuilder crossJoin(QueryBuilder table, String alias, Expression condition) {
         return join(table, alias, condition, JoinType.CROSS);
     }
 

@@ -2,6 +2,7 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
+import java.sql.SQLClientInfoException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -388,6 +389,336 @@ public class SelectTest {
     }
 
     @Test
+    public void innerJoinTable() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .innerJoin("students")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` INNER JOIN students";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void innerJoinTableExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .innerJoin("students", Squel.expr().and("sc.id = students.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` INNER JOIN students ON (sc.id = students.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void innerJoinTableAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .innerJoin("students", "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` INNER JOIN students `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void innerJoinQueryBuilderAliasCondition() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .innerJoin(Squel.select().from("students"), "st", "sc.id = st.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` INNER JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void innerJoinQueryBuilderAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .innerJoin(Squel.select().from("students"), "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` INNER JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void innerJoinTableAlias() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .innerJoin("students", "s")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` INNER JOIN students `s`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void leftJoinTable() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftJoin("students")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT JOIN students";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void leftJoinTableAlias() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftJoin("students", "s")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT JOIN students `s`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void leftJoinTableExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftJoin("students", Squel.expr().and("sc.id = students.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT JOIN students ON (sc.id = students.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void leftJoinTableAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftJoin("students", "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT JOIN students `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void leftJoinQueryBuilderAliasCondition() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftJoin(Squel.select().from("students"), "st", "sc.id = st.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void leftJoinQueryBuilderAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftJoin(Squel.select().from("students"), "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightJoinTable() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightJoin("students")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT JOIN students";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightJoinTableAlias() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightJoin("students", "s")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT JOIN students `s`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightJoinTableExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightJoin("students", Squel.expr().and("sc.id = students.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT JOIN students ON (sc.id = students.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightJoinTableAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightJoin("students", "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT JOIN students `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightJoinQueryBuilderAliasCondition() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightJoin(Squel.select().from("students"), "st", "sc.id = st.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightJoinQueryBuilderAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightJoin(Squel.select().from("students"), "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fullJoinTable() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .fullJoin("students")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` FULL JOIN students";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fullJoinTableAlias() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .fullJoin("students", "s")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` FULL JOIN students `s`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fullJoinTableExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .fullJoin("students", Squel.expr().and("sc.id = students.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` FULL JOIN students ON (sc.id = students.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fullJoinTableAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .fullJoin("students", "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` FULL JOIN students `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fullJoinQueryBuilderAliasCondition() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .fullJoin(Squel.select().from("students"), "st", "sc.id = st.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` FULL JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fullJoinQueryBuilderAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .fullJoin(Squel.select().from("students"), "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` FULL JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void crossJoinTable() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .crossJoin("students")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` CROSS JOIN students";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void crossJoinTableAlias() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .crossJoin("students", "s")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` CROSS JOIN students `s`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void crossJoinTableExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .crossJoin("students", Squel.expr().and("sc.id = students.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` CROSS JOIN students ON (sc.id = students.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void crossJoinTableAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .crossJoin("students", "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` CROSS JOIN students `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void crossJoinQueryBuilderAliasCondition() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .crossJoin(Squel.select().from("students"), "st", "sc.id = st.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` CROSS JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void crossJoinQueryBuilderAliasExpression() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .crossJoin(Squel.select().from("students"), "st", Squel.expr().and("sc.id = st.school"))
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` CROSS JOIN (SELECT * FROM students) `st` ON (sc.id = st.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void innerJoin() {
         String actual = Squel.select()
                 .from("schools", "sc")
@@ -410,17 +741,6 @@ public class SelectTest {
     }
 
     @Test
-    public void leftOuterJoin() {
-        String actual = Squel.select()
-                .from("schools", "sc")
-                .leftOuterJoin("students", "s", "sc.id = s.school")
-                .toString();
-
-        String expected = "SELECT * FROM schools `sc` LEFT OUTER JOIN students `s` ON (sc.id = s.school)";
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void rightJoin() {
         String actual = Squel.select()
                 .from("schools", "sc")
@@ -428,17 +748,6 @@ public class SelectTest {
                 .toString();
 
         String expected = "SELECT * FROM schools `sc` RIGHT JOIN students `s` ON (sc.id = s.school)";
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void rightOuterJoin() {
-        String actual = Squel.select()
-                .from("schools", "sc")
-                .rightOuterJoin("students", "s", "sc.id = s.school")
-                .toString();
-
-        String expected = "SELECT * FROM schools `sc` RIGHT OUTER JOIN students `s` ON (sc.id = s.school)";
         assertEquals(expected, actual);
     }
 
