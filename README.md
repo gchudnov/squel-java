@@ -18,11 +18,9 @@ compile 'com.github.gchudnov.squel:squel:0.9.0+'
 TBD
 
 ## API
-To use the library, call one of the static method of the Squel class: `.select()`, `.update()`, `.insert()` or `.delete()`. Calling one of these, starts a new `QueryBuilder` chain.
+To use the library, call one of the static method for the Squel class: `.select()`, `.update()`, `.insert()` or `.delete()`. It starts a new `QueryBuilder` chain you can attach next method invokation to.
 
-To create an `Expression`, invoke: `.expr()`.
-
-To get a resulting SQL, call `toString` on `QueryBuilder` or `Expression`.
+To get a resulting SQL, call `toString` on `QueryBuilder`.
 
 ### SELECT
 To create a SELECT-query, get a SELECT Query builder by invoking `Squel.select()` and provide the name of a table to `from` method:
@@ -51,12 +49,29 @@ QueryBuilder q = Squel.select()
 ```
 
 #### Fields
+Specify field names and optionally aliases:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
     .field("first_name")
     .field("last_name", "Last Name");
 /* SELECT first_name, last_name AS "Last Name" FROM users */
+```
+To create more complex queries, use a `QueryBuilder` instead of the field name:
+```java
+QueryBuilder q = Squel.select()
+    .from("users")
+    .field("login")
+    .field(Squel.select().from("audit").field("COUNT(*)"), "records");
+/* SELECT login, (SELECT COUNT(*) FROM audit) AS "records" FROM users */
+```
+
+Obtaining distinct results:
+```java
+QueryBuilder q = Squel.select()
+    .from("users")
+    .distinct();
+/* SELECT DISTINCT * FROM users */
 ```
 
 ## UPDATE
