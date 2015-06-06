@@ -343,17 +343,27 @@ public class SelectTest {
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void joinQueryBuilder() {
-//        String actual = Squel.select()
-//                .from("schools")
-//                .join("students", "st", "st.ID = ID")
-//                .join("equipment", "eq", "eq.ID = ID")
-//                .toString();
-//
-//        String expected = "SELECT * FROM schools INNER JOIN students `st` ON (st.ID = ID) INNER JOIN equipment `eq` ON (eq.ID = ID)";
-//        assertEquals(expected, actual);
-//    }
+    @Test
+    public void joinWithoutCondition() {
+        String actual = Squel.select()
+                .from("schools")
+                .join("students")
+                .toString();
+
+        String expected = "SELECT * FROM schools INNER JOIN students";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void joinEmptyCondition() {
+        String actual = Squel.select()
+                .from("schools")
+                .join("students", "s", "")
+                .toString();
+
+        String expected = "SELECT * FROM schools INNER JOIN students `s`";
+        assertEquals(expected, actual);
+    }
 
     @Test
     public void unionTwoQueries() {

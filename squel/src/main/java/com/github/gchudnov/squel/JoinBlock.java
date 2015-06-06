@@ -84,17 +84,19 @@ class JoinBlock extends Block {
                 sb.append(j.alias);
             }
 
-            String conditionStr;
-            if(j.condition instanceof String) {
-                conditionStr = (String)j.condition;
-            } else {
-                conditionStr = j.condition.toString();
-            }
+            if(j.condition != null) {
+                String conditionStr;
+                if(j.condition instanceof String) {
+                    conditionStr = (String)j.condition;
+                } else {
+                    conditionStr = j.condition.toString();
+                }
 
-            if (!Util.isEmpty(conditionStr)) {
-                sb.append(" ON (");
-                sb.append(conditionStr);
-                sb.append(")");
+                if (!Util.isEmpty(conditionStr)) {
+                    sb.append(" ON (");
+                    sb.append(conditionStr);
+                    sb.append(")");
+                }
             }
         }
 
