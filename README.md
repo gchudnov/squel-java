@@ -18,7 +18,7 @@ compile 'com.github.gchudnov.squel:squel:0.9.0+'
 TBD
 
 ## API
-To use the library, call one of the static method for the Squel class: `.select()`, `.update()`, `.insert()` or `.delete()`. It starts a new `QueryBuilder` chain you can attach next method invokation to.
+To use the library, call one of the static method for the Squel class: `.select()`, `.update()`, `.insert()` or `.delete()`. It starts a new `QueryBuilder` chain you can attach next method invocations to.
 
 To get a resulting SQL, call `toString` on `QueryBuilder`.
 
@@ -66,6 +66,7 @@ QueryBuilder q = Squel.select()
 /* SELECT login, (SELECT COUNT(*) FROM audit) AS "records" FROM users */
 ```
 
+#### Distinct
 Obtaining distinct results:
 ```java
 QueryBuilder q = Squel.select()
@@ -74,15 +75,28 @@ QueryBuilder q = Squel.select()
 /* SELECT DISTINCT * FROM users */
 ```
 
-## UPDATE
+#### Joins
+Five types of JOIN operations are available: `INNER`, `LEFT`, `RIGHT`, `FULL` and `CROSS`. Use `.join()`, `.innerJoin()`, `.leftJoin()`, `.rightJoin()`, `.fullJoin()` and `.crossJoin()` to define a join operation.
+```java
+QueryBuilder q = Squel.select()
+        .from("users", "u")
+        .join("groups", "g")
+        .join("extras", "sg", "ex.id = u.id", JoinType.LEFT)
+        .rightJoin("rights")
+        .leftJoin("bonuses")
+        .distinct();
+/* SELECT DISTINCT * FROM users `u` INNER JOIN groups `g` LEFT JOIN extras `sg` ON (ex.id = u.id) RIGHT JOIN rights LEFT JOIN bonuses */
+```
 
-## DELETE
+### UPDATE
 
-## INSERT
+### DELETE
 
-## PARAMETERS
+### INSERT
 
-## EPRESSIONS
+### PARAMETERS
+
+### EPRESSIONS
 
 
 ## Contact
