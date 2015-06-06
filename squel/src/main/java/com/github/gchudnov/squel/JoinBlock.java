@@ -68,7 +68,7 @@ class JoinBlock extends Block {
                 sb.append(" ");
             }
 
-            sb.append(j.type);
+            sb.append(JoinType.toSql(j.type));
             sb.append(" JOIN ");
 
             if(j.table instanceof String) {

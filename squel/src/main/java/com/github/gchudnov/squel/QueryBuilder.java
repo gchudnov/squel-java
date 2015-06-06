@@ -136,28 +136,32 @@ public abstract class QueryBuilder {
     }
 
 
+    public QueryBuilder innerJoin(String table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.INNER);
+    }
+
     public QueryBuilder leftJoin(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`leftJoin` not implemented");
-    }
-
-    public QueryBuilder rightJoin(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`rightJoin` not implemented");
-    }
-
-    public QueryBuilder outerJoin(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`outerJoin` not implemented");
+        return join(table, alias, condition, JoinType.LEFT);
     }
 
     public QueryBuilder leftOuterJoin(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`leftOuterJoin` not implemented");
+        return join(table, alias, condition, JoinType.LEFT_OUTER);
+    }
+
+    public QueryBuilder rightJoin(String table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.RIGHT);
+    }
+
+    public QueryBuilder rightOuterJoin(String table, String alias, String condition) {
+        return join(table, alias, condition, JoinType.RIGHT_OUTER);
     }
 
     public QueryBuilder fullJoin(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`fullJoin` not implemented");
+        return join(table, alias, condition, JoinType.FULL);
     }
 
     public QueryBuilder crossJoin(String table, String alias, String condition) {
-        throw new UnsupportedOperationException("`crossJoin` not implemented");
+        return join(table, alias, condition, JoinType.CROSS);
     }
 
     //

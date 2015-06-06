@@ -6,28 +6,29 @@ package com.github.gchudnov.squel;
 public enum JoinType {
     INNER,
     LEFT,
-    RIGHT,
     LEFT_OUTER,
+    RIGHT,
+    RIGHT_OUTER,
     FULL,
     CROSS;
 
     static String toSql(JoinType type) {
         String result;
         switch (type) {
-            case INNER:
-                result = "INNER";
-                break;
-
             case LEFT:
                 result = "LEFT";
+                break;
+
+            case LEFT_OUTER:
+                result = "LEFT OUTER";
                 break;
 
             case RIGHT:
                 result = "RIGHT";
                 break;
 
-            case LEFT_OUTER:
-                result = "LEFT OUTER";
+            case RIGHT_OUTER:
+                result = "RIGHT OUTER";
                 break;
 
             case FULL:
@@ -38,6 +39,7 @@ public enum JoinType {
                 result = "CROSS";
                 break;
 
+            case INNER:
             default:
                 result = "INNER";
                 break;

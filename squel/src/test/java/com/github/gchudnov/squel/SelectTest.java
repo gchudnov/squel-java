@@ -366,6 +366,72 @@ public class SelectTest {
     }
 
     @Test
+    public void leftJoin() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftJoin("students", "s", "sc.id = s.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT JOIN students `s` ON (sc.id = s.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void leftOuterJoin() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .leftOuterJoin("students", "s", "sc.id = s.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` LEFT OUTER JOIN students `s` ON (sc.id = s.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightJoin() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightJoin("students", "s", "sc.id = s.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT JOIN students `s` ON (sc.id = s.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void rightOuterJoin() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .rightOuterJoin("students", "s", "sc.id = s.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` RIGHT OUTER JOIN students `s` ON (sc.id = s.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fullJoin() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .fullJoin("students", "s", "sc.id = s.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` FULL JOIN students `s` ON (sc.id = s.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void crossJoin() {
+        String actual = Squel.select()
+                .from("schools", "sc")
+                .crossJoin("students", "s", "sc.id = s.school")
+                .toString();
+
+        String expected = "SELECT * FROM schools `sc` CROSS JOIN students `s` ON (sc.id = s.school)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void unionTwoQueries() {
         QueryBuilder q1 = Squel.select().field("name").from("students").where("age > 15");
         QueryBuilder q2 = Squel.select().field("name").from("students").where("age < 6");
