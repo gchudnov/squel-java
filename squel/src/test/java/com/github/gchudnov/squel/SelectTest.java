@@ -454,6 +454,16 @@ public class SelectTest {
     }
 
     @Test
+    public void unionTables() {
+        QueryBuilder sql = Squel.select()
+                .from("schools")
+                .union("universities");
+        String actual = sql.toString();
+        String expected = "SELECT * FROM schools UNION universities";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void unionTwoQueries() {
         QueryBuilder q1 = Squel.select().field("name").from("students").where("age > 15");
         QueryBuilder q2 = Squel.select().field("name").from("students").where("age < 6");
