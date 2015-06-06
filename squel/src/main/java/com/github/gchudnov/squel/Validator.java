@@ -94,7 +94,6 @@ class Validator {
         if(!options.dontQuote) {
             return "'" + escapeValue(value, options) + "'";
         }
-
         return value;
     }
 

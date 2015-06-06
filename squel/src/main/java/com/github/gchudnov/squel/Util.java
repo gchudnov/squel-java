@@ -5,6 +5,9 @@ package com.github.gchudnov.squel;
  */
 class Util {
 
+    private Util() {
+    }
+
     static boolean isEmpty(String str) {
         return ((str == null || str.length() == 0));
     }
