@@ -231,4 +231,4 @@ QueryBuilder q = Squel.select()
 
 ## License
 
-Distributed under the [The MIT License (MIT)](https://github.com/gchudnov/bspec/blob/master/LICENSE).
+Distributed under the [The MIT License (MIT)](https://github.com/gchudnov/squel-java/blob/master/LICENSE).
