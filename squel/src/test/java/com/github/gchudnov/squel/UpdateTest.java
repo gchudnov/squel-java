@@ -95,6 +95,22 @@ public class UpdateTest {
     }
 
     @Test
+    public void whereExpressionQuery() {
+        Expression exp = Squel.expr()
+                .and("a = 1");
+
+        QueryBuilder sql = Squel.update()
+                .table("table", "t1")
+                .set("field", 1)
+                .set("field2", null)
+                .where(exp);
+
+        String actual = sql.toString();
+        String expected = "UPDATE table `t1` SET field = 1, field2 = NULL WHERE (a = 1)";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void orderQuery() {
         QueryBuilder sql = Squel.update()
                 .table("table", "t1")
