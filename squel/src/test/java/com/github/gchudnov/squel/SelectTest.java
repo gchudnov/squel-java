@@ -355,6 +355,17 @@ public class SelectTest {
     }
 
     @Test
+    public void joinWithAlias() {
+        String actual = Squel.select()
+                .from("schools")
+                .join("students", "st")
+                .toString();
+
+        String expected = "SELECT * FROM schools INNER JOIN students `st`";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void joinWithoutCondition() {
         String actual = Squel.select()
                 .from("schools")

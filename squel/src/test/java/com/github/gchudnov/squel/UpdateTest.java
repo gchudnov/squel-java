@@ -2,6 +2,8 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -138,4 +140,58 @@ public class UpdateTest {
         String expected = "UPDATE table `t1` SET field = 1, field2 = NULL WHERE (a = 1) ORDER BY a ASC LIMIT 2";
         assertEquals(expected, actual);
     }
+
+    //
+    // TEST INVALID USAGE
+    //
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void fromTableShouldThrow() {
+        Squel.update()
+            .from("TABLE");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void fromQueryBuilderShouldThrow() {
+        QueryBuilder q = Squel.select();
+        Squel.update()
+            .from(q);
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void distinctShouldThrow() {
+        Squel.update()
+            .distinct();
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void fieldShouldThrow() {
+        Squel.update()
+                .field("NAME");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void fieldsShouldThrow() {
+        Squel.update()
+                .fields(Arrays.asList("NAME", "NAME2"));
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void fieldQueryBuilderShouldThrow() {
+        QueryBuilder q = Squel.select();
+        Squel.update()
+                .field(q);
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void groupShouldThrow() {
+        Squel.update()
+                .group("NAME");
+    }
+
+//    @Test(expected=UnsupportedOperationException.class)
+//    public void groupShouldThrow() {
+//        Squel.update()
+//                .group("NAME");
+//    }
 }
