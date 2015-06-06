@@ -157,9 +157,20 @@ public class SelectTest {
     public void orderByDescQuery() {
         String actual = Squel.select()
                 .from("table")
-                .order("id", OrderDirection.DESC)
+                .order("id", SortOrder.DESC)
                 .toString();
         String expected = "SELECT * FROM table ORDER BY id DESC";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void ordersQuery() {
+        String actual = Squel.select()
+                .from("table")
+                .order("id", SortOrder.ASC)
+                .order("sid", SortOrder.DESC)
+                .toString();
+        String expected = "SELECT * FROM table ORDER BY id ASC, sid DESC";
         assertEquals(expected, actual);
     }
 

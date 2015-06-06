@@ -10,9 +10,9 @@ class OrderByBlock extends Block {
 
     private class OrderNode {
         final String field;
-        final OrderDirection dir;
+        final SortOrder dir;
 
-        public OrderNode(String field, OrderDirection dir) {
+        public OrderNode(String field, SortOrder dir) {
             this.field = field;
             this.dir = dir;
         }
@@ -29,7 +29,7 @@ class OrderByBlock extends Block {
      * @param field Field
      * @param dir Order
      */
-    void setOrder(String field, OrderDirection dir) {
+    void setOrder(String field, SortOrder dir) {
         if(mOrders == null) {
             mOrders = new ArrayList<>();
         }
@@ -50,7 +50,7 @@ class OrderByBlock extends Block {
 
             sb.append(o.field);
             sb.append(" ");
-            sb.append(o.dir == OrderDirection.ASC ? "ASC" : "DESC");
+            sb.append(o.dir == SortOrder.ASC ? "ASC" : "DESC");
         }
 
         return "ORDER BY " + sb.toString();

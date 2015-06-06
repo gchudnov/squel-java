@@ -119,7 +119,7 @@ final class Select extends QueryBuilder {
     }
 
     @Override
-    public QueryBuilder order(String field, OrderDirection dir) {
+    public QueryBuilder order(String field, SortOrder dir) {
         OrderByBlock block = (OrderByBlock)mBlocks.get(7);
         block.setOrder(field, dir);
         return this;

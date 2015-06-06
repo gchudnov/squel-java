@@ -68,7 +68,7 @@ final class Delete extends QueryBuilder {
     }
 
     @Override
-    public QueryBuilder order(String field, OrderDirection dir) {
+    public QueryBuilder order(String field, SortOrder dir) {
         OrderByBlock block = (OrderByBlock)mBlocks.get(4);
         block.setOrder(field, dir);
         return this;

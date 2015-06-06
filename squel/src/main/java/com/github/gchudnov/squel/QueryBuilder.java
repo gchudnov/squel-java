@@ -196,12 +196,12 @@ public abstract class QueryBuilder {
     // ORDER BY
     //
 
-    public QueryBuilder order(String field, OrderDirection dir) {
+    public QueryBuilder order(String field, SortOrder dir) {
         throw new UnsupportedOperationException("`order` not implemented");
     }
 
     public QueryBuilder order(String field) {
-        return order(field, OrderDirection.ASC);
+        return order(field, SortOrder.ASC);
     }
 
     //
