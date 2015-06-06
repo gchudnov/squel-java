@@ -490,10 +490,20 @@ public class SelectTest {
     }
 
     @Test
-    public void unionAllTables() {
+    public void unionAllExplicit() {
         QueryBuilder sql = Squel.select()
                 .from("schools")
                 .union("universities", UnionType.UNION_ALL);
+        String actual = sql.toString();
+        String expected = "SELECT * FROM schools UNION ALL universities";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unionAll() {
+        QueryBuilder sql = Squel.select()
+                .from("schools")
+                .unionAll("universities");
         String actual = sql.toString();
         String expected = "SELECT * FROM schools UNION ALL universities";
         assertEquals(expected, actual);
@@ -518,5 +528,15 @@ public class SelectTest {
         String actual = q1.union(q2).union(q3).toString();
         String expected = "SELECT name FROM students WHERE (age > 15) UNION (SELECT name FROM students WHERE (age < 6)) UNION (SELECT name FROM students WHERE (age = 8))";
         assertEquals(expected, actual);
+    }
+
+    //
+    // INVALID USAGE
+    //
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void setShouldThrow() {
+        Squel.select()
+                .set("NAME", "VALUE");
     }
 }

@@ -104,4 +104,56 @@ public class InsertTest {
         String expected = "INSERT INTO table (field1, field2) (SELECT * FROM students WHERE (a = 2))";
         assertEquals(expected, actual);
     }
+
+    //
+    // INVALID USAGE
+    //
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void whereShouldThrow() {
+        Squel.insert()
+                .where("TABLE");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void whereExpressionShouldThrow() {
+        Squel.insert()
+                .where(Squel.expr());
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void limitShouldThrow() {
+        Squel.insert()
+                .limit(10);
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void offsetShouldThrow() {
+        Squel.insert()
+                .offset(10);
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void ofderShouldThrow() {
+        Squel.insert()
+                .order("A");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void unionShouldThrow() {
+        Squel.insert()
+                .union("A");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void unionQueryBuilderShouldThrow() {
+        Squel.insert()
+                .union(Squel.select());
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void tableShouldThrow() {
+        Squel.insert()
+                .table("TABLE");
+    }
 }

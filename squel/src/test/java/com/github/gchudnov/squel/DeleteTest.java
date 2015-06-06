@@ -2,6 +2,8 @@ package com.github.gchudnov.squel;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -164,5 +166,21 @@ public class DeleteTest {
         String actual = sql.toString();
         String expected = "DELETE FROM table2 `t2` INNER JOIN other_table `o` ON (o.id = t2.id) WHERE (a = 1) ORDER BY a ASC LIMIT 2";
         assertEquals(expected, actual);
+    }
+
+    //
+    // INVALID USAGE
+    //
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void intoShouldThrow() {
+        Squel.delete()
+                .into("TABLE");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void fromQueryShouldThrow() {
+        Squel.delete()
+                .fromQuery(Arrays.asList("F1", "F2"), Squel.select());
     }
 }

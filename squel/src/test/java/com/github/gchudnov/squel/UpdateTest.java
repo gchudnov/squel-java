@@ -12,6 +12,17 @@ import static org.junit.Assert.assertEquals;
 public class UpdateTest {
 
     @Test
+    public void noAlias() {
+        QueryBuilder sql = Squel.update()
+                .table("table")
+                .set("field", 1);
+
+        String actual = sql.toString();
+        String expected = "UPDATE table SET field = 1";
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void setParamQurey() {
         QueryBuilder sql = Squel.update()
                 .table("table", "t1")
@@ -142,7 +153,7 @@ public class UpdateTest {
     }
 
     //
-    // TEST INVALID USAGE
+    // INVALID USAGE
     //
 
     @Test(expected=UnsupportedOperationException.class)
@@ -189,9 +200,30 @@ public class UpdateTest {
                 .group("NAME");
     }
 
-//    @Test(expected=UnsupportedOperationException.class)
-//    public void groupShouldThrow() {
-//        Squel.update()
-//                .group("NAME");
-//    }
+    @Test(expected=UnsupportedOperationException.class)
+    public void joinTableShouldThrow() {
+        Squel.update()
+                .join("NAME");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void joinTableExpressionShouldThrow() {
+        Squel.update()
+                .join("NAME", "A", Squel.expr());
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void joinQueryBuilderShouldThrow() {
+        QueryBuilder q = Squel.select();
+        Squel.update()
+                .join(q, "A", "B");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void joinQueryBuilderExpressionShouldThrow() {
+        QueryBuilder q = Squel.select();
+        Squel.update()
+                .join(q, "A", Squel.expr());
+    }
+
 }
