@@ -50,7 +50,7 @@ class OrderByBlock extends Block {
 
             sb.append(o.field);
             sb.append(" ");
-            sb.append(o.dir == SortOrder.ASC ? "ASC" : "DESC");
+            sb.append(o.dir.toString());
         }
 
         return "ORDER BY " + sb.toString();
