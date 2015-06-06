@@ -199,8 +199,8 @@ QueryBuilder q = Squel.insert()
 /* INSERT INTO users (name, surname) (SELECT n, s FROM people) */
 ```
 
-### EPRESSIONS
-To create comples expressions, call `Squel.expr()` method to initiate the expression builder, `Expression`.
+### Expressions
+To create a complex expression, call `Squel.expr()` method to initiate the expression builder, `Expression`.
 ```java
 Expression e = Squel.expr()
     .and("s.guid = ?", "77627a69")
