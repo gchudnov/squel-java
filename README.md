@@ -25,7 +25,7 @@ compile 'com.github.gchudnov.squel:squel:0.9.0'
 ```
 
 ## API
-To use the library, call one of the static method from the `Squel` class: `.select()`, `.update()`, `.insert()` or `.delete()`. It starts a new `QueryBuilder` chain you can attach next method invocations to.
+To use the library, call one of the static method from `Squel` class: `.select()`, `.update()`, `.insert()` or `.delete()`. It starts a new `QueryBuilder` chain you can attach next method calls to.
 
 To get a resulting SQL, call `toString` on `QueryBuilder`.
 
@@ -41,7 +41,7 @@ To get a resulting SQL, call `toString` on `QueryBuilder`.
 `.field()`
 `.fields()`
 `.group()`
-`.join()`
+`.join()` `.innerJoin()` `.leftJoin()` `.rightJoin()` `.fullJoin()` `.crossJoin()`
 `.limit()`
 `.order()`
 `.offset()`
@@ -56,7 +56,7 @@ QueryBuilder q = Squel.select()
 ```
 
 #### Multiple tables
-You can select data from multiple tables and provide aliases where needed:
+You can select data from multiple tables and provide aliases if needed:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -82,7 +82,7 @@ QueryBuilder q = Squel.select()
     .field("last_name", "Last Name");
 /* SELECT first_name, last_name AS "Last Name" FROM users */
 ```
-To create more complex queries, use a `QueryBuilder` instead of the field name:
+To create a more complex query, use a `QueryBuilder` instead of a field name:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -101,7 +101,7 @@ QueryBuilder q = Squel.select()
 ```
 
 #### Joins
-Five types of JOIN operations are available: `INNER`, `LEFT`, `RIGHT`, `FULL` and `CROSS`. Use `.join()`, `.innerJoin()`, `.leftJoin()`, `.rightJoin()`, `.fullJoin()` and `.crossJoin()` to define a join operation.
+Five types of JOIN operations are available: `INNER`, `LEFT`, `RIGHT`, `FULL` and `CROSS` joins. Use `.join()`, `.innerJoin()`, `.leftJoin()`, `.rightJoin()`, `.fullJoin()` and `.crossJoin()` to define a join operation.
 ```java
 QueryBuilder q = Squel.select()
     .from("users", "u")
@@ -114,7 +114,7 @@ QueryBuilder q = Squel.select()
 ```
 
 #### Filering
-Use `.where()` to add WHERE-clause to the query:
+Use `.where()` to add the WHERE-clause to the query:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -122,7 +122,7 @@ QueryBuilder q = Squel.select()
 /* SELECT * FROM users WHERE (id = 10) */
 ```
 
-Using parameter substitution:
+Parameter substitution in `.where()`:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -139,7 +139,7 @@ QueryBuilder q = Squel.select()
 /* SELECT * FROM users WHERE (name = 'Bob') AND (age > 45) */
 ```
 
-Comples filtering can be implemented using expressions:
+Use expressions to implemenet complex filtering:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -148,7 +148,7 @@ QueryBuilder q = Squel.select()
 ```
 
 #### Sorting
-Call `.order()` to specify the sorting order:
+Call `.order()` to specify a sorting order:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -158,7 +158,7 @@ QueryBuilder q = Squel.select()
 ```
 
 #### Grouping
-To group the records in the resultset, call `.group()`:
+To group a set of rows into a set of summary rows, call `.group()`:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -167,6 +167,7 @@ QueryBuilder q = Squel.select()
 ```
 
 #### Limit and Offset
+To specify the number of records to return and offet, use `.limit()` and `.offset()`:
 ```java
 QueryBuilder q = Squel.select()
     .from("users")
@@ -182,7 +183,7 @@ QueryBuilder q = Squel.select()
 `.table()`
 `.where()`
 
-To create an UPDATE-query, get a QueryBuilder instance by invoking `Squel.update()`, provide the name of a table and a field to update:
+To create an UPDATE-query, get a QueryBuilder instance by invoking `Squel.update()`, provide the name of a table and a field or fields to update:
 ```java
 QueryBuilder q = Squel.update()
     .table("users")
@@ -226,7 +227,7 @@ QueryBuilder q = Squel.delete()
 `.into()`
 `.set()`
 
-To create an INSERT-statement, get a QueryBuilder instance by invoking `Squel.insert()` and provide the name of a table and at least one field:
+To create an INSERT-statement, get a QueryBuilder instance by invoking `Squel.insert()` and provide the name of a table and field or fields to insert:
 ```java
 QueryBuilder q = Squel.insert()
     .into("users")
