@@ -246,7 +246,7 @@ QueryBuilder q = Squel.insert()
 ### Expressions
 `.andBegin()`
 `.and()`
-`.or_begin()`
+`.orBegin()`
 `.or()`
 `.end()`
 
