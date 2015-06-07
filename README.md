@@ -1,6 +1,6 @@
 # squel-java
 A lightweight library for building SQL query string through a fluent API.
-A Java-port of [Squel.js](https://hiddentao.github.io/squel/).
+It is a Java-port of [Squel.js](https://hiddentao.github.io/squel/).
 
 ## Requirements
 
@@ -10,6 +10,15 @@ A Java-port of [Squel.js](https://hiddentao.github.io/squel/).
 ## Installation
 
 Add the following line to the `dependencies` section of your `build.gradle` file:
+
+```groovy
+repositories {
+    maven {
+        url  "http://dl.bintray.com/gchudnov/maven" 
+    }
+}
+   
+```
 
 ```groovy
 compile 'com.github.gchudnov.squel:squel:0.9.0'
