@@ -1,5 +1,5 @@
 # squel-java
-A lightweight library for building SQL query string through a fluent API.
+A lightweight library for building SQL query strings through a fluent API.
 It is a Java-port of [Squel.js](https://hiddentao.github.io/squel/).
 
 ## Requirements
