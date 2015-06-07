@@ -9,7 +9,6 @@ ext."signing.keyId" = localProperties.getProperty("SIGNING_KEY_ID")
 ext."signing.password" = localProperties.getProperty("SIGNING_PASSWORD")
 ext."signing.secretKeyRingFile" = localProperties.getProperty("SIGNING_SECRET_KEY_RING_FILE")
 
-
 task sourceJar(type: Jar, dependsOn:classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
@@ -57,7 +56,16 @@ install {
                 }
             }
         }
+
+        signing.sign new java.io.File(getMavenPomDir(), "/pom-default.xml")
     }
+
+//    repositories.mavenDeployer {
+//        repository(url: "file://localhost/tmp/squel/")
+//        beforeDeployment { MavenDeployment deployment ->
+//            signing.signPom(deployment)
+//        }
+//    }
 }
 
 
@@ -73,7 +81,7 @@ bintray {
     user = localProperties.getProperty("BINTRAY_USER")
     key = localProperties.getProperty("BINTRAY_APIKEY")
 
-    dryRun = true
+    dryRun = false
 
     configurations = ['archives']
     pkg {
