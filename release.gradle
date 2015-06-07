@@ -1,3 +1,59 @@
 apply plugin: "maven"
 apply plugin: "signing"
 apply plugin: "com.jfrog.bintray"
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+ext."signing.keyId" = localProperties.getProperty("SIGNING_KEY_ID")
+ext."signing.password" = localProperties.getProperty("SIGNING_PASSWORD")
+ext."signing.secretKeyRingFile" = localProperties.getProperty("SIGNING_SECRET_KEY_RING_FILE")
+
+
+task sourceJar(type: Jar, dependsOn:classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourceJar
+    archives javadocJar
+}
+
+
+version = VERSION_NAME
+group = GROUP
+
+
+signing {
+    sign configurations.archives
+}
+
+bintray {
+    user = localProperties.getProperty("BINTRAY_USER")
+    key = localProperties.getProperty("BINTRAY_APIKEY")
+
+    dryRun = true
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = PKG_NAME
+        desc = PKG_DESC
+        websiteUrl = PKG_WEBSITE_URL
+        issueTrackerUrl = PKG_ISSUE_TRACKER_URL
+        vcsUrl = PKG_VCS_URL
+        licenses = ["MIT"]
+        labels = ['SQL', 'builder']
+        publicDownloadNumbers = true
+        version {
+            name = VERSION_NAME
+            vcsTag = 'v' + VERSION_NAME
+        }
+    }
+}
