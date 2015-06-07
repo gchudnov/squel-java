@@ -26,6 +26,41 @@ artifacts {
 }
 
 
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name POM_NAME
+            artifactId POM_ARTIFACT_ID
+            packaging POM_PACKAGING
+            description POM_DESCRIPTION
+            url PKG_WEBSITE_URL
+
+            scm {
+                url PKG_VCS_URL
+                connection 'scm:git:' + PKG_VCS_URL
+                developerConnection 'scm:git:' + PKG_VCS_URL
+            }
+
+            licenses {
+                license {
+                    name 'MIT'
+                    url 'https://github.com/gchudnov/bspec/blob/master/LICENSE'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'gchudnov'
+                    name 'Grigoriy Chudnov'
+                    email 'g.chudnov@gmail.com'
+                }
+            }
+        }
+    }
+}
+
+
 version = VERSION_NAME
 group = GROUP
 
