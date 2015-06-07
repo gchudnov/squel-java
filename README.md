@@ -1,4 +1,6 @@
 # squel-java
+[![Build Status](https://travis-ci.org/gchudnov/squel-java.svg)](https://travis-ci.org/gchudnov/squel-java)
+
 A lightweight library for building SQL query strings through a fluent API.
 It is a Java-port of [Squel.js](https://hiddentao.github.io/squel/).
 
