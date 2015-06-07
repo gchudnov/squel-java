@@ -29,7 +29,25 @@ To use the library, call one of the static method from the `Squel` class: `.sele
 
 To get a resulting SQL, call `toString` on `QueryBuilder`.
 
+* [SELECT](#select)
+* [UPDATE](#update)
+* [INSERT](#insert)
+* [DELETE](#delete)
+* [Expressions](#expressions)
+
 ### SELECT
+`.distinct()`
+`.from()`
+`.field()`
+`.fields()`
+`.group()`
+`.join()`
+`.limit()`
+`.order()`
+`.offset()`
+`.union()`
+`.where()`
+
 To create a SELECT-query, get a QueryBuilder instance by invoking `Squel.select()` and provide the name of a table:
 ```java
 QueryBuilder q = Squel.select()
@@ -158,6 +176,12 @@ QueryBuilder q = Squel.select()
 ```
 
 ### UPDATE
+`.limit()`
+`.set()`
+`.order()`
+`.table()`
+`.where()`
+
 To create an UPDATE-query, get a QueryBuilder instance by invoking `Squel.update()`, provide the name of a table and a field to update:
 ```java
 QueryBuilder q = Squel.update()
@@ -177,6 +201,12 @@ QueryBuilder q = Squel.update()
 ```
 
 ### DELETE
+`.from()`
+`.join()`
+`.limit()`
+`.order()`
+`.where()`
+
 To create a DELETE-statement, get a QueryBuilder instance by invoking `Squel.delete()` and provide the name of a table:
 ```java
 QueryBuilder q = Squel.delete()
@@ -192,6 +222,10 @@ QueryBuilder q = Squel.delete()
 /* DELETE FROM users WHERE (id > 10) */
 ```
 ### INSERT
+`.fromQuery()`
+`.into()`
+`.set()`
+
 To create an INSERT-statement, get a QueryBuilder instance by invoking `Squel.insert()` and provide the name of a table and at least one field:
 ```java
 QueryBuilder q = Squel.insert()
@@ -210,6 +244,12 @@ QueryBuilder q = Squel.insert()
 ```
 
 ### Expressions
+`.andBegin()`
+`.and()`
+`.or_begin()`
+`.or()`
+`.end()`
+
 To create a complex expression, call `Squel.expr()` method to initiate the expression builder, `Expression`.
 ```java
 Expression e = Squel.expr()
