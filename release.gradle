@@ -82,6 +82,7 @@ bintray {
     key = localProperties.getProperty("BINTRAY_APIKEY")
 
     dryRun = false
+    publish = true
 
     configurations = ['archives']
     pkg {
