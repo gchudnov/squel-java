@@ -14,15 +14,6 @@ It is a Java-port of [Squel.js](https://hiddentao.github.io/squel/).
 Add the following line to the `dependencies` section of your `build.gradle` file:
 
 ```groovy
-repositories {
-    maven {
-        url  "http://dl.bintray.com/gchudnov/maven" 
-    }
-}
-   
-```
-
-```groovy
 compile 'com.github.gchudnov.squel:squel:0.9.0'
 ```
 
