@@ -11,7 +11,7 @@ dependencies {
     testCompile "junit:junit:${JUNIT_VERSION}"
 }
 
-def hasReleaseTasks = false
+def hasReleaseTasks = true
 if(hasReleaseTasks) {
     apply from: rootProject.file('release.gradle')
 }

@@ -36,14 +36,14 @@ install {
 
             scm {
                 url PKG_VCS_URL
-                connection 'scm:git:' + PKG_VCS_URL
-                developerConnection 'scm:git:' + PKG_VCS_URL
+                connection 'scm:git:' + PKG_SSH_URL
+                developerConnection 'scm:git:' + PKG_SSH_URL
             }
 
             licenses {
                 license {
                     name 'MIT'
-                    url 'https://github.com/gchudnov/bspec/blob/master/LICENSE'
+                    url PKG_LICENSE_URL
                     distribution 'repo'
                 }
             }
@@ -97,6 +97,12 @@ bintray {
         version {
             name = VERSION_NAME
             vcsTag = 'v' + VERSION_NAME
+            mavenCentralSync {
+                sync = true
+                user = localProperties.getProperty("SONATYPE_USER")
+                password = localProperties.getProperty("SONATYPE_PASSWORD")
+                close = '1'
+            }
         }
     }
 }
